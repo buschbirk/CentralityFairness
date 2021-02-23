@@ -1,0 +1,22 @@
+Running on desktop3:
+21/02/23 13:25:03 WARN Utils: Your hostname, desktop3 resolves to a loopback address: 127.0.0.1; using 172.16.16.103 instead (on interface eno1)
+21/02/23 13:25:03 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+21/02/23 13:25:04 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Traceback (most recent call last):
+  File "/home/agbe/MAG/CentralityFairness/MAG_attributes.py", line 178, in <module>
+    paper_field_df = assign_field_of_study(mag)
+  File "/home/agbe/MAG/CentralityFairness/MAG_attributes.py", line 53, in assign_field_of_study
+    paper_fos = mag.getDataframe('PaperFieldsOfStudy')
+  File "/home/agbe/MAG/CentralityFairness/MAG.py", line 51, in getDataframe
+    df = self.spark.read.format('csv').options(header='false', delimiter='\t').schema(self.getSchema(streamName))\
+  File "/home/agbe/.conda/envs/magenv/lib/python3.8/site-packages/pyspark/sql/readwriter.py", line 178, in load
+    return self._df(self._jreader.load(path))
+  File "/home/agbe/.conda/envs/magenv/lib/python3.8/site-packages/py4j/java_gateway.py", line 1304, in __call__
+    return_value = get_return_value(
+  File "/home/agbe/.conda/envs/magenv/lib/python3.8/site-packages/pyspark/sql/utils.py", line 134, in deco
+    raise_from(converted)
+  File "<string>", line 3, in raise_from
+pyspark.sql.utils.AnalysisException: Path does not exist: file:/home/agbe/MAG/DATA/PaperFieldsOfStudy.txt;

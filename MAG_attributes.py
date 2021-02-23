@@ -168,22 +168,25 @@ if __name__ == '__main__':
       .appName("MAG app") \
       .getOrCreate()
 
-  mag = MicrosoftAcademicGraph(spark=spark, data_folderpath="/home/laal/MAG/DATA/")
+  mag = MicrosoftAcademicGraph(spark=spark, data_folderpath="/home/agbe/MAG/DATA/")
 
   # country_df = assign_country(mag)
   # print(country_df.show(50))
   # country_df.coalesce(1).write.option("sep", "\t").option("encoding", "UTF-8")\
-  # .csv("/home/laal/MAG/DATA/AuthorCountry.csv")
+  # .csv("/home/agbe/MAG/DATA/AuthorCountry.txt")
 
   # paper_field_df = assign_field_of_study(mag)
   # print(paper_field_df.show(50))
 
   # paper_field_df.write.option("sep", "\t").option("encoding", "UTF-8")\
-  # .csv("/home/laal/MAG/DATA/PaperRootField.csv")
+  # .csv("/home/agbe/MAG/DATA/PaperRootField.txt")
 
-  # author_to_field = author_to_field_of_study(mag)
-  # author_to_field.write.option("sep", "\t").option("encoding", "UTF-8")\
-  # .csv("/home/laal/MAG/DATA/AuthorRootField.csv")
+  author_to_field = author_to_field_of_study(mag)
+
+  print(author_to_field.show(25))
+
+  author_to_field.write.option("sep", "\t").option("encoding", "UTF-8")\
+  .csv("/home/agbe/MAG/DATA/AuthorRootField.csv")
 
   # AUTHOR METADATA
   # author_metadata = author_metadata(mag)
@@ -192,13 +195,13 @@ if __name__ == '__main__':
   # .csv("/home/laal/MAG/DATA/AuthorMetadata.csv")
 
   # CITATIONS
-  citations = citation_edges(mag)
+  # citations = citation_edges(mag)
 
-  print(citations.show(50))
-  print(citations.describe().show())
+  # print(citations.show(50))
+  # print(citations.describe().show())
 
-  citations.write.option("sep", "\t").option("encoding", "UTF-8")\
-  .csv("/home/laal/MAG/DATA/Citations.csv")
+  # citations.write.option("sep", "\t").option("encoding", "UTF-8")\
+  # .csv("/home/laal/MAG/DATA/Citations.csv")
 
   spark.stop()
 

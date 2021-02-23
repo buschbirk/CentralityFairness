@@ -90,8 +90,8 @@ class MicrosoftAcademicGraph(object):
     'WosToMag': ('WosToMag.txt', ['WOS:long', 'MAG:long', 'Gender:int']),
     'FieldOfStudyRoot': ('FieldOfStudyRoot.txt', ['ChildId:long', 'AncestorId:long']),
     'AuthorCountry': ('AuthorCountry.txt', ['AuthorId:long', 'CountryCode:string', 'NumAffiliations:int', 'CountryRank:int']),
-    'PaperRootField': ('PaperRootField.csv', ['PaperId:long', 'AncestorId:long', 'NumSubfieldsInField:int', 'fieldRank:int']),
-    'AuthorRootField': ('AuthorRootField.csv', ['AuthorId:long', 'AncestorId:long', 'NumPapersInField:int', 'fieldRank:int']),
+    'PaperRootField': ('PaperRootField.txt', ['PaperId:long', 'AncestorId:long', 'NumSubfieldsInField:int', 'fieldRank:int']),
+    'AuthorRootField': ('AuthorRootField.txt', ['AuthorId:long', 'AncestorId:long', 'NumPapersInField:int', 'fieldRank:int']),
   }
 
 

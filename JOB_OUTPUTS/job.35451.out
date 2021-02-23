@@ -1,0 +1,3 @@
+Running on desktop3:
+21/02/23 15:44:26 WARN Utils: Your hostname, desktop3 resolves to a loopback address: 127.0.0.1; using 172.16.16.103 instead (on interface eno1)
+21/02/23 15:44:26 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
