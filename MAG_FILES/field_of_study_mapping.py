@@ -39,15 +39,15 @@ streams = {
 
 
 
-def map_fos_children(fos_df, level=0):
+def map_fos_children():
     
-    child_fos_df = pd.read_csv('MAG_FILES/FieldOfStudyChildren.txt', sep=r"\t", header=None, names=['fos_id', 'child_id'])
+    child_fos_df = pd.read_csv('FieldOfStudyChildren.txt', sep=r"\t", header=None, names=['fos_id', 'child_id'])
     
     mapping = {}
     
     for idx, row in child_fos_df.iterrows():
         mapping[row['child_id']] = row['fos_id']
-    
+    print("Finished mapping child id to direct parent")
     
     # mapping = {child_fos_df.iloc[i]['child_id']: child_fos_df.iloc[i]['fos_id'] for i in range(child_fos_df.shape[0])}
     
@@ -59,24 +59,31 @@ def map_fos_children(fos_df, level=0):
             
         mapping[child] = ancestor
         
+    print("Finished mapping children to ancestor. Writing file")
+        
+    unique_parents = set()
+        
     with open('FieldOfStudyRoot.txt', 'w') as file:
         for child, parent in mapping.items():
-            file.write("{},{}\n".format(child, parent))
+            file.write("{}\t{}\n".format(child, parent))
+            unique_parents.add(parent)
+        
+        # map parents to themselves
+        for parent in unique_parents:
+            file.write("{}\t{}\n".format(parent, parent))
         
     return mapping
 
 
 if __name__ == '__main__':
 
-    field_of_study_cols = [col.split(":")[0] for col in streams['FieldsOfStudy'][1]]
+#    field_of_study_cols = [col.split(":")[0] for col in streams['FieldsOfStudy'][1]]
+#    
+#    fos_df = pd.read_csv('MAG_FILES/FieldsOfStudy.txt', sep=r"\t", header=None, names=field_of_study_cols)
+#    fos_df.sort_values(by='Level', inplace=True)
+#    fos_df.to_csv('field_of_study.csv', index=False)
     
-    fos_df = pd.read_csv('MAG_FILES/FieldsOfStudy.txt', sep=r"\t", header=None, names=field_of_study_cols)
-    fos_df.sort_values(by='Level', inplace=True)
-    fos_df.to_csv('field_of_study.csv', index=False)
-    
-    mapping = map_fos_children(fos_df, level=0)
-        
-    
+    mapping = map_fos_children()
     
     
     
