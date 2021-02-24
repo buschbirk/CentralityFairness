@@ -1,0 +1,4 @@
+  File "/var/spool/slurm/d/job35618/slurm_script", line 13
+    echo "Running on $(hostname):"
+                                 ^
+SyntaxError: invalid syntax

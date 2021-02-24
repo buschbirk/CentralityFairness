@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/var/spool/slurm/d/job35616/slurm_script", line 18, in <module>
+    from sparkhpc import sparkjob
+ImportError: No module named sparkhpc

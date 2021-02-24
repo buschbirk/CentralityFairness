@@ -1,0 +1,33 @@
+#!/bin/env
+#SBATCH -J MAG_graph
+#SBATCH -t 30 # runtime to request !!! in minutes !!!
+#SBATCH -o MAG_graph-%J.log # output extra o means overwrite
+#SBATCH -n 2 # requesting n tasks
+#SBATCH -c 1
+#SBATCH --mem-per-cpu=2000 
+#SBATCH -N 2
+#SBATCH --ntasks-per-core=1
+
+# setup the spark paths
+
+echo "Running on $(hostname):"
+
+module load Anaconda3
+. $(conda info --base)/etc/profile.d/conda.sh
+conda activate magenv
+
+
+python
+
+
+import os
+os.environ['SPARK_HOME']='/home/agbe/.conda/envs/magenv/lib/python3.8/site-packages/pyspark'
+os.environ['SPARK_LOCAL_DIRS']='/tmp'
+os.environ['LOCAL_DIRS']=os.environ['SPARK_LOCAL_DIRS']
+os.environ['SPARK_WORKER_DIR']=os.path.join(os.environ['SPARK_LOCAL_DIRS'], 'work')
+
+from sparkhpc import sparkjob
+
+sparkjob.start_cluster('2000M', 
+                       cores_per_executor=1, 
+                       spark_home='/home/agbe/.conda/envs/magenv/lib/python3.8/site-packages/pyspark')

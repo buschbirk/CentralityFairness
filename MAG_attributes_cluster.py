@@ -16,6 +16,8 @@ from pyspark.sql import SparkSession
 from pyspark.sql.types import *
 from MAG import MicrosoftAcademicGraph
 import os
+from sparkhpc import sparkjob
+import findspark
 
 def assign_country(mag):
   """
@@ -182,19 +184,29 @@ def citation_edges(mag):
 if __name__ == '__main__':
 
   os.environ["SPARK_LOCAL_DIRS"] = "/home/agbe/MAG/TMP"
+  os.environ["JAVA_HOME"] = "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64"
 
-  spark = SparkSession \
-      .builder \
-      .config("spark.executor.memory", "4g")\
-      .config("spark.driver.memory", "2g")\
-      .config("spark.executor.cores", 7)\
-      .config("spark.memory.offHeap.enabled", True)\
-      .config("spark.memory.offHeap.size","1g")\
-      .config("spark.sql.adaptive.enabled", True)\
-      .config("spark.sql.adaptive.coalescePartitions.enabled", True)\
-      .config("spark.sql.optimizer.dynamicPartitionPruning.reuseBroadcastOnly", False)\
-      .appName("MAG app") \
-      .getOrCreate()
+  sj = sparkjob.sparkjob(ncores=2, 
+                         spark_home="/home/agbe/.conda/envs/magenv/lib/python3.8/site-packages/pyspark",
+                         jobname='MAG_graph',
+                         scheduler='slurm')
+
+  sj.wait_to_start()
+
+  spark = sj.start_spark()
+
+  # spark = SparkSession \
+  #     .builder \
+  #     .config("spark.executor.memory", "4g")\
+  #     .config("spark.driver.memory", "2g")\
+  #     .config("spark.executor.cores", 7)\
+  #     .config("spark.memory.offHeap.enabled", True)\
+  #     .config("spark.memory.offHeap.size","1g")\
+  #     .config("spark.sql.adaptive.enabled", True)\
+  #     .config("spark.sql.adaptive.coalescePartitions.enabled", True)\
+  #     .config("spark.sql.optimizer.dynamicPartitionPruning.reuseBroadcastOnly", False)\
+  #     .appName("MAG app") \
+  #     .getOrCreate()
 
   mag = MicrosoftAcademicGraph(spark=spark, data_folderpath="/home/agbe/MAG/DATA/")
 
