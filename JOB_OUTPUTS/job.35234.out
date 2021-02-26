@@ -1,0 +1,111 @@
+Running on desktop3:
+21/02/20 17:01:00 WARN Utils: Your hostname, desktop3 resolves to a loopback address: 127.0.0.1; using 172.16.16.103 instead (on interface eno1)
+21/02/20 17:01:00 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+21/02/20 17:01:00 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[Stage 0:>                                                          (0 + 1) / 1]                                                                                root
+ |-- PaperId: long (nullable = true)
+ |-- Rank: integer (nullable = true)
+ |-- Doi: string (nullable = true)
+ |-- DocType: string (nullable = true)
+ |-- PaperTitle: string (nullable = true)
+ |-- OriginalTitle: string (nullable = true)
+ |-- BookTitle: string (nullable = true)
+ |-- Year: integer (nullable = true)
+ |-- Date: date (nullable = true)
+ |-- OnlineDate: date (nullable = true)
+ |-- Publisher: string (nullable = true)
+ |-- JournalId: long (nullable = true)
+ |-- ConferenceSeriesId: long (nullable = true)
+ |-- ConferenceInstanceId: long (nullable = true)
+ |-- Volume: string (nullable = true)
+ |-- Issue: string (nullable = true)
+ |-- FirstPage: string (nullable = true)
+ |-- LastPage: string (nullable = true)
+ |-- ReferenceCount: long (nullable = true)
+ |-- CitationCount: long (nullable = true)
+ |-- EstimatedCitation: long (nullable = true)
+ |-- OriginalVenue: string (nullable = true)
+ |-- FamilyId: long (nullable = true)
+ |-- FamilyRank: integer (nullable = true)
+ |-- CreatedDate: date (nullable = true)
+
+None
++----------+-----+--------------------+----------+--------------------+--------------------+---------+----+----------+----------+--------------------+----------+------------------+--------------------+------+-----+---------+--------+--------------+-------------+-----------------+--------------------+--------+----------+-----------+
+|   PaperId| Rank|                 Doi|   DocType|          PaperTitle|       OriginalTitle|BookTitle|Year|      Date|OnlineDate|           Publisher| JournalId|ConferenceSeriesId|ConferenceInstanceId|Volume|Issue|FirstPage|LastPage|ReferenceCount|CitationCount|EstimatedCitation|       OriginalVenue|FamilyId|FamilyRank|CreatedDate|
++----------+-----+--------------------+----------+--------------------+--------------------+---------+----+----------+----------+--------------------+----------+------------------+--------------------+------+-----+---------+--------+--------------+-------------+-----------------+--------------------+--------+----------+-----------+
+|2906390199|25638|                null|      null|the impact of dif...|The impact of dif...|     null|2004|2004-01-01|      null|               WCTRS|      null|              null|                null|  null| null|     null|    null|             0|            0|                0|10th World Confer...|  760496|     22817| 2019-01-01|
+|    760496|22879|                null|      null|the impact of dif...|The Impact of Dif...|     null|2004|2004-01-01|      null|               WCTRS|      null|              null|                null|  null| null|     null|    null|             0|            2|                2|10th World Confer...|  760496|     22817| 2016-06-24|
+|   2789336|23854|                null|   Journal|inheritance and p...|Inheritance and P...|      EJC|2008|2008-01-01|      null|                null| 204851967|              null|                null|  null| null|      354|     358|             0|            0|                0|European Journal ...| 2789336|     22648| 2016-06-24|
+|2257060365|23004|10.3233/978-1-586...|      null|inheritance and p...|Inheritance and P...|     null|2009|2009-07-10|      null|           IOS Press|      null|              null|                null|  null| null|      354|     358|            12|            2|                2|Proceedings of th...| 2789336|     22648| 2016-06-24|
+|   9552966|24088|                null|   Journal|the effect of mil...|The effect of mil...|     null|2005|2005-01-01|      null|                null|2737568815|              null|                null|    26|    2|      113|     118|            37|            1|                1|Revista de Ciênci...| 9552966|     23506| 2016-06-24|
+|2769674369|24325|                null|   Journal|the effect of mil...|The effect of mil...|     null|2005|2005-01-01|      null|         UNESP/FCFAR| 176643777|              null|                null|  null| null|     null|    null|             0|            0|                0|              Scopus| 9552966|     23506| 2017-12-04|
+|  14320823|20890|                null|      null|small secure sket...|Small Secure Sket...|     null|2005|2005-01-01|      null|                null|      null|              null|                null|  2005| null|      145|    null|             7|           11|               11|IACR Cryptol. ePr...|14320823|     20745| 2016-06-24|
+|3030122000|22752|                null|Repository|small secure sket...|Small Secure Sket...|     null|2005|2005-01-01|      null|                null|2764847869|              null|                null|  2005| null|      145|    null|             0|            0|                0|IACR Cryptology e...|14320823|     20745| 2020-06-05|
+|2953327271|21292|                null|Repository|the adaptive prio...|The Adaptive Prio...|     null|2014|2014-08-05|2014-08-05|                null|2595101014|              null|                null|  null| null|     null|    null|             6|            0|                0|arXiv: Distribute...|14558443|     20021| 2019-06-27|
+|  14558443|20351|10.1007/978-3-662...|Conference|the adaptive prio...|The Adaptive Prio...|     DISC|2014|2014-10-12|      null|Springer, Berlin,...|      null|        1131603458|             4038532|  null| null|      406|     420|            11|           11|               11|international sym...|14558443|     20021| 2016-06-24|
++----------+-----+--------------------+----------+--------------------+--------------------+---------+----+----------+----------+--------------------+----------+------------------+--------------------+------+-----+---------+--------+--------------+-------------+-----------------+--------------------+--------+----------+-----------+
+only showing top 10 rows
+
+None
++-------------+
+|CitationCount|
++-------------+
+|            0|
+|            2|
+|            0|
+|            2|
+|            1|
+|            0|
+|           11|
+|            0|
+|            0|
+|           11|
+|           10|
+|            1|
+|            0|
+|            0|
+|            0|
+|            0|
+|           26|
+|            0|
+|            0|
+|           19|
++-------------+
+only showing top 20 rows
+
+None
++----------+-----+--------------------+----------+--------------------+--------------------+---------+----+----------+----------+--------------------+----------+------------------+--------------------+------+-----+---------+--------+--------------+-------------+-----------------+--------------------+----------+----------+-----------+
+|   PaperId| Rank|                 Doi|   DocType|          PaperTitle|       OriginalTitle|BookTitle|Year|      Date|OnlineDate|           Publisher| JournalId|ConferenceSeriesId|ConferenceInstanceId|Volume|Issue|FirstPage|LastPage|ReferenceCount|CitationCount|EstimatedCitation|       OriginalVenue|  FamilyId|FamilyRank|CreatedDate|
++----------+-----+--------------------+----------+--------------------+--------------------+---------+----+----------+----------+--------------------+----------+------------------+--------------------+------+-----+---------+--------+--------------+-------------+-----------------+--------------------+----------+----------+-----------+
+|2412782625|14778|10.1109/TPAMI.201...|   Journal|deeplab semantic ...|DeepLab: Semantic...|     null|2018|2018-04-01|2017-04-27|                IEEE| 199944782|              null|                null|    40|    4|      834|     848|            99|         4931|             5912|IEEE Transactions...|2412782625|     14619| 2016-06-24|
+|1968388660|16181|10.1088/1126-6708...|   Journal|string theory and...|String theory and...|     null|1999|1999-09-01|1999-08-23|      IOP Publishing| 187585107|              null|                null|  1999|   09|      032|     032|            68|         4258|             5430|Journal of High E...|1968388660|     16151| 2016-06-24|
+|1993750641|17303|                null|      Book|the language inst...|The Language Inst...|     null|1994|1994-01-01|      null|                null|      null|              null|                null|  null| null|     null|    null|             0|         2906|             4704|                null|1993750641|     17292| 2016-06-24|
+|1981754097|17088|   10.1021/CR9903048|   Journal|the heck reaction...|The heck reaction...|     null|2000|2000-07-21|      null|American Chemical...|  41143188|              null|                null|   100|    8|     3009|    3066|             4|         2604|             4367|    Chemical Reviews|1981754097|     17082| 2016-06-24|
+|2077996001|19880|10.1111/J.1469-18...|   Journal|chemiosmotic coup...|CHEMIOSMOTIC COUP...|     null|1966|1966-08-01|2008-01-21|Blackwell Publish...|  86137544|              null|                null|    41|    3|      445|     501|           137|         2536|             4575|  Biological Reviews|2123884956|     19789| 2016-06-24|
+|1821858011|17218|      10.1038/NRM909|   Journal|stats transcripti...|STATs: transcript...|     null|2002|2002-09-01|      null|Nature Publishing...| 196724125|              null|                null|     3|    9|      651|     662|           163|         2358|             3279|Nature Reviews Mo...|1821858011|     17194| 2016-06-24|
+|2067404458|16913|                null|      Book|sources of power ...|Sources of Power:...|     null|1999|1999-02-18|      null|                null|      null|              null|                null|  null| null|     null|    null|             0|         2063|             5315|                null|1606313724|     16912| 2016-06-24|
+|2036198235|16816|10.1126/SCIENCE.1...|   Journal|a common variant ...|A Common Variant ...|     null|2007|2007-06-08|2007-05-03|American Associat...|   3880285|              null|                null|   316| 5830|     1491|    1493|            10|         1406|             1758|             Science|1997552925|     16799| 2016-06-24|
+|2098685442|16820|10.1109/HICSS.200...|Conference|supporting trust ...|Supporting trust ...|    HICSS|2000|2000-01-04|      null|IEEE Computer Soc...|      null|        1164519180|                null|     7| null|     6007|    6007|            19|         1258|             2031|hawaii internatio...|2098685442|     16816| 2016-06-24|
+|2134804387|17006|10.1016/S0735-109...|   Journal|acc aha naspe 200...|ACC/AHA/NASPE 200...|     null|2002|2002-10-15|2015-06-19|        Elsevier USA|  60865174|              null|                null|    40|   16|     1703|    1719|           173|         1199|             1963|Journal of the Am...|2134804387|     16926| 2016-06-24|
+|1969565648|17752|   10.1021/LA950418O|   Journal|super water repel...|Super-Water-Repel...|     null|1996|1996-05-01|      null|American Chemical...|  75741262|              null|                null|    12|    9|     2125|    2127|             0|         1117|             1841|            Langmuir|1969565648|     17751| 2016-06-24|
+|2000259070|17452|10.1073/PNAS.0611...|   Journal|global patterns i...|Global patterns i...|     null|2007|2007-07-03|2007-06-25|National Academy ...| 125754415|              null|                null|   104|   27|    11436|   11440|            27|         1066|             1357|Proceedings of th...|2000259070|     17424| 2016-06-24|
+|2155850371|18446|10.1016/S0370-157...|   Journal|kaluza klein gravity|Kaluza-Klein gravity|     null|1997|1997-04-01|1998-05-08|       North-Holland|  48633963|              null|                null|   283|    5|      303|     378|           359|          749|             1066|     Physics Reports|2155850371|     18377| 2016-06-24|
+|1997008272|17676|10.1051/0004-6361...|   Journal|x shooter the new...|X-shooter, the ne...|     null|2011|2011-12-01|2011-12-19|        EDP Sciences| 205231332|              null|                null|   536| null|     null|    null|            15|          725|              785|Astronomy and Ast...|1997008272|     17654| 2016-06-24|
+|2103308780|18324|10.1002/(SICI)152...|   Journal|polysaccharide de...|Polysaccharide De...|     null|1998|1998-05-04|1998-12-17|Angew Chem Int Ed...|  67393510|              null|                null|    37|    8|     1020|    1043|             0|          720|             1037|   Angewandte Chemie|2103308780|     18309| 2016-06-24|
+|2033959536|18993|       10.3386/W3357|   Journal|volatiltiy and li...|Volatiltiy and Li...|     null|1994|1994-07-01|1990-05-01| Econometric Society|  95464858|              null|                null|    62|    4|      901|     933|            48|          703|             1122|        Econometrica|2033959536|     18984| 2016-06-24|
+|2092077761|20941|                null|      Book|atmosphere weathe...|Atmosphere, Weath...|     null|1970|1970-01-01|      null|                null|      null|              null|                null|  null| null|     null|    null|             0|          668|             2270|                null|2092077761|     20840| 2016-06-24|
+|1984921853|17408|10.1016/J.FOODPOL...|   Journal|smallholder marke...|Smallholder marke...|     null|2008|2008-08-01|2008-02-21|            Elsevier|  63571384|              null|                null|    33|    4|      299|     317|            91|          614|             1213|         Food Policy|1984921853|     17386| 2016-06-24|
+|2056830486|18338|  10.1007/BF01940883|   Journal|proportionate pro...|Proportionate pro...|     null|1996|1996-06-01|      null|   Springer New York|  89324355|              null|                null|    15|    6|      600|     625|            14|          610|             1027|        Algorithmica|2056830486|     18280| 2016-06-24|
+|2062112600|19543|10.1016/0002-9343...|   Journal|asymptomatic hype...|Asymptomatic hype...|     null|1987|1987-03-01|2004-06-01|            Elsevier| 186920367|              null|                null|    82|    3|      421|     426|            23|          600|              944|The American Jour...|2062112600|     19494| 2016-06-24|
+|2170302354|19017|10.1109/TSMC.1983...|Conference|neocognitron a ne...|Neocognitron: A n...|     null|1983|1983-09-01|      null|                IEEE|      null|        1170695740|                null|    13|    5|      826|     834|             0|          556|              862|systems man and c...|2256679588|     19008| 2016-06-24|
+|2323997881|17786|10.1021/ACS.ACCOU...|   Journal|substrate activat...|Substrate activat...|     null|2015|2015-04-06|2015-04-06|American Chemical...| 145378405|              null|                null|    48|    4|     1007|    1020|            59|          552|              865|Accounts of Chemi...|2323997881|     17748| 2016-06-24|
+|2080681068|18643|10.1016/S0550-321...|   Journal|aspects of n 2 su...|Aspects of N = 2 ...|     null|1997|1997-08-18|1997-03-17|       North-Holland|  62159105|              null|                null|   499|    1|       67|      99|            47|          546|              546|     Nuclear Physics|2080681068|     18566| 2016-06-24|
+|2952865063|16539|                null|Repository|deeplab semantic ...|DeepLab: Semantic...|     null|2016|2016-06-02|2017-05-12|                null|2597175965|              null|                null|  null| null|     null|    null|            85|          544|              652|arXiv: Computer V...|2412782625|     14619| 2019-06-27|
+|2000850426|18007|10.1001/JAMA.293....|   Journal|health related qu...|Health-related qu...|     null|2005|2005-01-05|2008-07-31|American Medical ...| 172573765|              null|                null|   293|    1|       70|      76|            19|          535|              850|                JAMA|2000850426|     17998| 2016-06-24|
++----------+-----+--------------------+----------+--------------------+--------------------+---------+----+----------+----------+--------------------+----------+------------------+--------------------+------+-----+---------+--------+--------------+-------------+-----------------+--------------------+----------+----------+-----------+
+only showing top 25 rows
+
+None

@@ -1,0 +1,8 @@
+Running on desktop1:
+Could not find conda environment: magenv
+You can list all discoverable environments with `conda info --envs`.
+
+Traceback (most recent call last):
+  File "/home/laal/MAG/CentralityFairness/MAG_attributes_cluster.py", line 15, in <module>
+    from pyspark.sql import SparkSession
+ModuleNotFoundError: No module named 'pyspark'

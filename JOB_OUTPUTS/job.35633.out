@@ -1,0 +1,12 @@
+Running on desktop1:
+INFO:sparkhpc.sparkjob:Submitted batch job 35634
+
+INFO:sparkhpc.sparkjob:Submitted cluster 0
+Traceback (most recent call last):
+  File "/home/laal/MAG/CentralityFairness/MAG_attributes_cluster.py", line 196, in <module>
+    spark = sj.start_spark()
+  File "/home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/sparkhpc/sparkjob.py", line 492, in start_spark
+    spark_conf = os.path.join(os.environ['SPARK_HOME'], 'conf')
+  File "/home/laal/.conda/envs/torchenv/lib/python3.7/os.py", line 681, in __getitem__
+    raise KeyError(key) from None
+KeyError: 'SPARK_HOME'

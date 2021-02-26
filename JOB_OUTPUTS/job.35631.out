@@ -1,0 +1,9 @@
+Running on desktop1:
+Traceback (most recent call last):
+  File "/home/laal/MAG/CentralityFairness/MAG_attributes_cluster.py", line 194, in <module>
+    sj.wait_to_start()
+  File "/home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/sparkhpc/sparkjob.py", line 274, in wait_to_start
+    self.submit()
+  File "/home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/sparkhpc/sparkjob.py", line 349, in submit
+    extra_scheduler_options=self.extra_scheduler_options)
+KeyError: 'int(number_of_executors)'

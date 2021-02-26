@@ -1,0 +1,4 @@
+Running on desktop1:
+FINISHED SETTIN UP CLUSTER
+INFO:sparkhpc.sparkjob:Submitted cluster -1
+slurmstepd: error: *** JOB 35733 ON desktop1 CANCELLED AT 2021-02-25T11:28:48 ***

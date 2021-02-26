@@ -183,17 +183,22 @@ def citation_edges(mag):
 
 if __name__ == '__main__':
 
-  os.environ["SPARK_LOCAL_DIRS"] = "/home/agbe/MAG/TMP"
+  os.environ["SPARK_LOCAL_DIRS"] = "/home/laal/MAG/TMP"
   os.environ["JAVA_HOME"] = "/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64"
+  os.environ['SPARK_HOME'] = "/home/laal/MAG/spark-3.0.2-bin-hadoop2.7"
 
-  sj = sparkjob.sparkjob(ncores=2, 
-                         spark_home="/home/agbe/.conda/envs/magenv/lib/python3.8/site-packages/pyspark",
-                         jobname='MAG_graph',
-                         scheduler='slurm')
+  # sj = sparkjob.sparkjob(ncores=2, 
+  #                        spark_home="/home/laal/MAG/spark-3.0.2-bin-hadoop2.7",
+  #                        jobname='sparkcluster',
+  #                        scheduler='slurm')
 
-  sj.wait_to_start()
 
-  spark = sj.start_spark()
+  sj = sparkjob.sparkjob(jobid=35731)
+  # sj.wait_to_start()
+
+  job = sj.start_spark()
+
+  spark = SparkSession.builder.config(conf=job.getConf()).getOrCreate()
 
   # spark = SparkSession \
   #     .builder \
@@ -208,7 +213,7 @@ if __name__ == '__main__':
   #     .appName("MAG app") \
   #     .getOrCreate()
 
-  mag = MicrosoftAcademicGraph(spark=spark, data_folderpath="/home/agbe/MAG/DATA/")
+  mag = MicrosoftAcademicGraph(spark=spark, data_folderpath="/home/laal/MAG/DATA/")
 
   # country_df = assign_country(mag)
   # print(country_df.show(50))
@@ -241,7 +246,7 @@ if __name__ == '__main__':
   print(citations.describe().show())
 
   citations.write.option("sep", "\t").option("encoding", "UTF-8")\
-  .csv("/home/agbe/MAG/DATA/Citations.txt")
+  .csv("/home/laal/MAG/DATA/Citations.txt")
 
   spark.stop()
 

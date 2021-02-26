@@ -1,0 +1,3 @@
+Running on desktop3:
+INFO:sparkhpc.sparkjob:Submitted cluster -1
+slurmstepd: error: *** JOB 35671 ON desktop3 CANCELLED AT 2021-02-25T09:26:23 ***
