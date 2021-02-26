@@ -8,6 +8,9 @@
 #SBATCH -N 2
 #SBATCH --ntasks-per-core=1
 
+
+
+
 # setup the spark paths
 
 echo "Running on $(hostname):"
