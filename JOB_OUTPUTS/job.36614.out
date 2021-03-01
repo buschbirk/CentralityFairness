@@ -1,0 +1,53 @@
+Running on desktop4:
+172.16.16.104 
+[I 11:24:16.568 NotebookApp] JupyterLab extension loaded from /home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/jupyterlab
+[I 11:24:16.568 NotebookApp] JupyterLab application directory is /home/laal/.conda/envs/torchenv/share/jupyter/lab
+[I 11:24:16.572 NotebookApp] Serving notebooks from local directory: /home/laal/MAG/CentralityFairness
+[I 11:24:16.572 NotebookApp] Jupyter Notebook 6.1.4 is running at:
+[I 11:24:16.572 NotebookApp] http://localhost:8888/
+[I 11:24:16.572 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 11:30:37.053 NotebookApp] Kernel started: f7222222-8c36-48fb-a20c-ad1b963d1fc5, name: python3
+21/03/01 11:31:46 WARN Utils: Your hostname, desktop4 resolves to a loopback address: 127.0.0.1; using 172.16.16.104 instead (on interface eno1)
+21/03/01 11:31:46 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+21/03/01 11:31:46 WARN SparkConf: The configuration key 'spark.yarn.executor.memoryOverhead' has been deprecated as of Spark 2.3 and may be removed in the future. Please use the new key 'spark.executor.memoryOverhead' instead.
+Ivy Default Cache set to: /home/laal/.ivy2/cache
+The jars for the packages stored in: /home/laal/.ivy2/jars
+:: loading settings :: url = jar:file:/home/laal/MAG/spark-3.0.2-bin-hadoop2.7/jars/ivy-2.4.0.jar!/org/apache/ivy/core/settings/ivysettings.xml
+graphframes#graphframes added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-2b463886-3ea7-43a1-88fe-82d4735cc9e5;1.0
+	confs: [default]
+	found graphframes#graphframes;0.3.0-spark2.0-s_2.11 in spark-packages
+	found com.typesafe.scala-logging#scala-logging-api_2.11;2.1.2 in central
+	found com.typesafe.scala-logging#scala-logging-slf4j_2.11;2.1.2 in central
+	found org.scala-lang#scala-reflect;2.11.0 in central
+	found org.slf4j#slf4j-api;1.7.7 in central
+:: resolution report :: resolve 636ms :: artifacts dl 51ms
+	:: modules in use:
+	com.typesafe.scala-logging#scala-logging-api_2.11;2.1.2 from central in [default]
+	com.typesafe.scala-logging#scala-logging-slf4j_2.11;2.1.2 from central in [default]
+	graphframes#graphframes;0.3.0-spark2.0-s_2.11 from spark-packages in [default]
+	org.scala-lang#scala-reflect;2.11.0 from central in [default]
+	org.slf4j#slf4j-api;1.7.7 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   5   |   0   |   0   |   0   ||   5   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-2b463886-3ea7-43a1-88fe-82d4735cc9e5
+	confs: [default]
+	0 artifacts copied, 5 already retrieved (0kB/22ms)
+21/03/01 11:31:47 WARN SparkConf: The configuration key 'spark.yarn.executor.memoryOverhead' has been deprecated as of Spark 2.3 and may be removed in the future. Please use the new key 'spark.executor.memoryOverhead' instead.
+21/03/01 11:31:47 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+21/03/01 11:31:47 WARN SparkConf: The configuration key 'spark.yarn.executor.memoryOverhead' has been deprecated as of Spark 2.3 and may be removed in the future. Please use the new key 'spark.executor.memoryOverhead' instead.
+21/03/01 11:31:48 WARN SparkConf: The configuration key 'spark.yarn.executor.memoryOverhead' has been deprecated as of Spark 2.3 and may be removed in the future. Please use the new key 'spark.executor.memoryOverhead' instead.
+21/03/01 11:31:48 WARN SparkConf: The configuration key 'spark.yarn.executor.memoryOverhead' has been deprecated as of Spark 2.3 and may be removed in the future. Please use the new key 'spark.executor.memoryOverhead' instead.
+21/03/01 11:31:50 WARN SparkContext: Please ensure that the number of slots available on your executors is limited by the number of cores to task cpus and not another custom resource. If cores is not the limiting resource then dynamic allocation will not work properly!
+21/03/01 11:31:50 WARN SparkConf: The configuration key 'spark.yarn.executor.memoryOverhead' has been deprecated as of Spark 2.3 and may be removed in the future. Please use the new key 'spark.executor.memoryOverhead' instead.
+21/03/01 11:31:50 WARN SparkConf: The configuration key 'spark.yarn.executor.memoryOverhead' has been deprecated as of Spark 2.3 and may be removed in the future. Please use the new key 'spark.executor.memoryOverhead' instead.
+21/03/01 11:31:50 WARN SparkConf: The configuration key 'spark.yarn.executor.memoryOverhead' has been deprecated as of Spark 2.3 and may be removed in the future. Please use the new key 'spark.executor.memoryOverhead' instead.
+21/03/01 11:31:50 WARN SparkConf: The configuration key 'spark.yarn.executor.memoryOverhead' has been deprecated as of Spark 2.3 and may be removed in the future. Please use the new key 'spark.executor.memoryOverhead' instead.
+[I 11:32:37.291 NotebookApp] Saving file at /MAG analysis notebook.ipynb
