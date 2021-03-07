@@ -11,7 +11,7 @@ from sparkhpc import sparkjob
 
 print("What is going on")
 
-sparkjob.start_cluster('24000M', 
+sparkjob.start_cluster('20000M', 
                        cores_per_executor=4, 
                        spark_home='/home/laal/MAG/spark-3.0.2-bin-hadoop2.7')
 
