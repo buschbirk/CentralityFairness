@@ -1,0 +1,127 @@
+Running on desktop1:
+INFO:sparkhpc.sparkjob:master command: /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/sbin/start-master.sh
+INFO:sparkhpc.sparkjob:[[92mstart_cluster] [0mmaster running at spark://172.16.16.101:7077
+INFO:sparkhpc.sparkjob:[[92mstart_cluster] [0mmaster UI available at http://desktop1.hpc.itu.dk:8080
+What is going on
+I GOT THE SCHEDULER
+slurm
+master_command: /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/sbin/start-master.sh
+['desktop1', 'desktop2', 'desktop3', 'desktop4']
+INFO:sparkhpc.sparkjob:slaves command: srun /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/sbin/start-slave.sh spark://172.16.16.101:7077 -c 4
+INFO:sparkhpc.sparkjob:XXX SLAVES SLAVES: srun /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/sbin/start-slave.sh spark://172.16.16.101:7077 -c 4
+starting org.apache.spark.deploy.worker.Worker, logging to /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/logs/spark-laal-org.apache.spark.deploy.worker.Worker-1-desktop1.out
+starting org.apache.spark.deploy.worker.Worker, logging to /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/logs/spark-laal-org.apache.spark.deploy.worker.Worker-1-desktop1.out
+starting org.apache.spark.deploy.worker.Worker, logging to /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/logs/spark-laal-org.apache.spark.deploy.worker.Worker-1-desktop1.out
+starting org.apache.spark.deploy.worker.Worker, logging to /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/logs/spark-laal-org.apache.spark.deploy.worker.Worker-1-desktop1.out
+Spark Command: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64/bin/java -cp /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/conf/:/home/laal/MAG/spark-3.0.2-bin-hadoop2.7/jars/* -Xmx1g org.apache.spark.deploy.worker.Worker --webui-port 8081 spark://172.16.16.101:7077 -c 4
+========================================
+Spark Command: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64/bin/java -cp /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/conf/:/home/laal/MAG/spark-3.0.2-bin-hadoop2.7/jars/* -Xmx1g org.apache.spark.deploy.worker.Worker --webui-port 8081 spark://172.16.16.101:7077 -c 4
+========================================
+Spark Command: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64/bin/java -cp /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/conf/:/home/laal/MAG/spark-3.0.2-bin-hadoop2.7/jars/* -Xmx1g org.apache.spark.deploy.worker.Worker --webui-port 8081 spark://172.16.16.101:7077 -c 4
+========================================
+Spark Command: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.242.b08-0.el7_7.x86_64/bin/java -cp /home/laal/MAG/spark-3.0.2-bin-hadoop2.7/conf/:/home/laal/MAG/spark-3.0.2-bin-hadoop2.7/jars/* -Xmx1g org.apache.spark.deploy.worker.Worker --webui-port 8081 spark://172.16.16.101:7077 -c 4
+========================================
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+21/03/09 12:01:47 INFO Worker: Started daemon with process name: 30658@desktop1
+21/03/09 12:01:47 INFO SignalUtils: Registered signal handler for TERM
+21/03/09 12:01:47 INFO SignalUtils: Registered signal handler for HUP
+21/03/09 12:01:47 INFO SignalUtils: Registered signal handler for INT
+21/03/09 12:01:47 WARN Utils: Your hostname, desktop1 resolves to a loopback address: 127.0.0.1; using 172.16.16.101 instead (on interface eno1)
+21/03/09 12:01:47 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+21/03/09 12:01:48 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+21/03/09 12:01:48 INFO SecurityManager: Changing view acls to: laal
+21/03/09 12:01:48 INFO SecurityManager: Changing modify acls to: laal
+21/03/09 12:01:48 INFO SecurityManager: Changing view acls groups to: 
+21/03/09 12:01:48 INFO SecurityManager: Changing modify acls groups to: 
+21/03/09 12:01:48 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(laal); groups with view permissions: Set(); users  with modify permissions: Set(laal); groups with modify permissions: Set()
+21/03/09 12:01:48 INFO Utils: Successfully started service 'sparkWorker' on port 37328.
+21/03/09 12:01:48 INFO Worker: Starting Spark worker 172.16.16.101:37328 with 4 cores, 19.5 GiB RAM
+21/03/09 12:01:48 INFO Worker: Running Spark version 3.0.2
+21/03/09 12:01:48 INFO Worker: Spark home: /home/laal/MAG/spark-3.0.2-bin-hadoop2.7
+21/03/09 12:01:48 INFO ResourceUtils: ==============================================================
+21/03/09 12:01:48 INFO ResourceUtils: Resources for spark.worker:
+
+21/03/09 12:01:48 INFO ResourceUtils: ==============================================================
+21/03/09 12:01:48 INFO Utils: Successfully started service 'WorkerUI' on port 8081.
+21/03/09 12:01:48 INFO WorkerWebUI: Bound WorkerWebUI to 0.0.0.0, and started at http://desktop1.hpc.itu.dk:8081
+21/03/09 12:01:48 INFO Worker: Connecting to master 172.16.16.101:7077...
+21/03/09 12:01:49 INFO TransportClientFactory: Successfully created connection to /172.16.16.101:7077 after 37 ms (0 ms spent in bootstraps)
+21/03/09 12:01:49 INFO Worker: Successfully registered with master spark://172.16.16.101:7077
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+21/03/09 12:01:49 INFO Worker: Started daemon with process name: 17325@desktop4
+21/03/09 12:01:49 INFO SignalUtils: Registered signal handler for TERM
+21/03/09 12:01:49 INFO SignalUtils: Registered signal handler for HUP
+21/03/09 12:01:49 INFO SignalUtils: Registered signal handler for INT
+21/03/09 12:01:49 WARN Utils: Your hostname, desktop4 resolves to a loopback address: 127.0.0.1; using 172.16.16.104 instead (on interface eno1)
+21/03/09 12:01:49 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+21/03/09 12:01:49 INFO Worker: Started daemon with process name: 30681@desktop2
+21/03/09 12:01:49 INFO Worker: Started daemon with process name: 2967@desktop3
+21/03/09 12:01:49 INFO SignalUtils: Registered signal handler for TERM
+21/03/09 12:01:49 INFO SignalUtils: Registered signal handler for HUP
+21/03/09 12:01:49 INFO SignalUtils: Registered signal handler for INT
+21/03/09 12:01:49 INFO SignalUtils: Registered signal handler for TERM
+21/03/09 12:01:49 INFO SignalUtils: Registered signal handler for HUP
+21/03/09 12:01:49 INFO SignalUtils: Registered signal handler for INT
+21/03/09 12:01:49 WARN Utils: Your hostname, desktop2 resolves to a loopback address: 127.0.0.1; using 172.16.16.102 instead (on interface eno1)
+21/03/09 12:01:49 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+21/03/09 12:01:49 WARN Utils: Your hostname, desktop3 resolves to a loopback address: 127.0.0.1; using 172.16.16.103 instead (on interface eno1)
+21/03/09 12:01:49 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
+21/03/09 12:01:50 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+21/03/09 12:01:50 INFO SecurityManager: Changing view acls to: laal
+21/03/09 12:01:50 INFO SecurityManager: Changing modify acls to: laal
+21/03/09 12:01:50 INFO SecurityManager: Changing view acls groups to: 
+21/03/09 12:01:50 INFO SecurityManager: Changing modify acls groups to: 
+21/03/09 12:01:50 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(laal); groups with view permissions: Set(); users  with modify permissions: Set(laal); groups with modify permissions: Set()
+21/03/09 12:01:50 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+21/03/09 12:01:50 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+21/03/09 12:01:50 INFO SecurityManager: Changing view acls to: laal
+21/03/09 12:01:50 INFO SecurityManager: Changing modify acls to: laal
+21/03/09 12:01:50 INFO SecurityManager: Changing view acls groups to: 
+21/03/09 12:01:50 INFO SecurityManager: Changing modify acls groups to: 
+21/03/09 12:01:50 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(laal); groups with view permissions: Set(); users  with modify permissions: Set(laal); groups with modify permissions: Set()
+21/03/09 12:01:50 INFO SecurityManager: Changing view acls to: laal
+21/03/09 12:01:50 INFO SecurityManager: Changing modify acls to: laal
+21/03/09 12:01:50 INFO SecurityManager: Changing view acls groups to: 
+21/03/09 12:01:50 INFO SecurityManager: Changing modify acls groups to: 
+21/03/09 12:01:50 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(laal); groups with view permissions: Set(); users  with modify permissions: Set(laal); groups with modify permissions: Set()
+21/03/09 12:01:50 INFO Utils: Successfully started service 'sparkWorker' on port 45418.
+21/03/09 12:01:50 INFO Worker: Starting Spark worker 172.16.16.104:45418 with 4 cores, 19.5 GiB RAM
+21/03/09 12:01:50 INFO Worker: Running Spark version 3.0.2
+21/03/09 12:01:50 INFO Worker: Spark home: /home/laal/MAG/spark-3.0.2-bin-hadoop2.7
+21/03/09 12:01:50 INFO ResourceUtils: ==============================================================
+21/03/09 12:01:50 INFO ResourceUtils: Resources for spark.worker:
+
+21/03/09 12:01:50 INFO ResourceUtils: ==============================================================
+21/03/09 12:01:50 INFO Utils: Successfully started service 'WorkerUI' on port 8081.
+21/03/09 12:01:50 INFO WorkerWebUI: Bound WorkerWebUI to 0.0.0.0, and started at http://desktop4.hpc.itu.dk:8081
+21/03/09 12:01:50 INFO Worker: Connecting to master 172.16.16.101:7077...
+21/03/09 12:01:50 INFO Utils: Successfully started service 'sparkWorker' on port 37864.
+21/03/09 12:01:50 INFO TransportClientFactory: Successfully created connection to /172.16.16.101:7077 after 23 ms (0 ms spent in bootstraps)
+21/03/09 12:01:50 INFO Utils: Successfully started service 'sparkWorker' on port 40812.
+21/03/09 12:01:50 INFO Worker: Successfully registered with master spark://172.16.16.101:7077
+21/03/09 12:01:51 INFO Worker: Starting Spark worker 172.16.16.102:40812 with 4 cores, 19.5 GiB RAM
+21/03/09 12:01:51 INFO Worker: Starting Spark worker 172.16.16.103:37864 with 4 cores, 19.5 GiB RAM
+21/03/09 12:01:51 INFO Worker: Running Spark version 3.0.2
+21/03/09 12:01:51 INFO Worker: Spark home: /home/laal/MAG/spark-3.0.2-bin-hadoop2.7
+21/03/09 12:01:51 INFO Worker: Running Spark version 3.0.2
+21/03/09 12:01:51 INFO Worker: Spark home: /home/laal/MAG/spark-3.0.2-bin-hadoop2.7
+21/03/09 12:01:51 INFO ResourceUtils: ==============================================================
+21/03/09 12:01:51 INFO ResourceUtils: Resources for spark.worker:
+
+21/03/09 12:01:51 INFO ResourceUtils: ==============================================================
+21/03/09 12:01:51 INFO ResourceUtils: ==============================================================
+21/03/09 12:01:51 INFO ResourceUtils: Resources for spark.worker:
+
+21/03/09 12:01:51 INFO ResourceUtils: ==============================================================
+21/03/09 12:01:51 INFO Utils: Successfully started service 'WorkerUI' on port 8081.
+21/03/09 12:01:51 INFO Utils: Successfully started service 'WorkerUI' on port 8081.
+21/03/09 12:01:51 INFO WorkerWebUI: Bound WorkerWebUI to 0.0.0.0, and started at http://desktop2.hpc.itu.dk:8081
+21/03/09 12:01:51 INFO Worker: Connecting to master 172.16.16.101:7077...
+21/03/09 12:01:51 INFO WorkerWebUI: Bound WorkerWebUI to 0.0.0.0, and started at http://desktop3.hpc.itu.dk:8081
+21/03/09 12:01:51 INFO Worker: Connecting to master 172.16.16.101:7077...
+21/03/09 12:01:51 INFO TransportClientFactory: Successfully created connection to /172.16.16.101:7077 after 34 ms (0 ms spent in bootstraps)
+21/03/09 12:01:51 INFO TransportClientFactory: Successfully created connection to /172.16.16.101:7077 after 37 ms (0 ms spent in bootstraps)
+21/03/09 12:01:51 INFO Worker: Successfully registered with master spark://172.16.16.101:7077
+21/03/09 12:01:51 INFO Worker: Successfully registered with master spark://172.16.16.101:7077

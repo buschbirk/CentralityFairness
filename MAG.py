@@ -93,7 +93,11 @@ class MicrosoftAcademicGraph(object):
     'PaperRootField': ('PaperRootField.csv', ['PaperId:long', 'AncestorId:long', 'NumSubfieldsInField:int', 'fieldRank:int']),
     'PaperRootFieldMag': ('PaperRootFieldMag.txt', ['PaperId:long', 'FieldOfStudyId:long']),
     'AuthorRootField': ('AuthorRootField.csv', ['AuthorId:long', 'AncestorId:long', 'NumPapersInField:int', 'fieldRank:int']),
-    'AuthorsPerPaper': ('AuthorsPerPaper.txt', ['PaperId:long', 'NumAuthors:int', 'Weight:float', 'NumMagGendered:int'])
+    'AuthorsPerPaper': ('AuthorsPerPaper.txt', ['PaperId:long', 'NumAuthors:int', 'Weight:float', 'NumMagGendered:int']),
+    'Citations': ('Citations.tsv', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
+    'CitationsFromUnknownGender': ('CitationsFromUnknownGender.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
+    'CitationsToUnknownGender': ('CitationsToUnknownGender.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
+    'PaperAuthorAffiliationsGendered' : ('PaperAuthorAffiliationsGendered.txt', ['PaperId:long', 'AuthorId:long', 'Gender:int']),
   }
 
 

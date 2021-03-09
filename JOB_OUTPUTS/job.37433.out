@@ -1,0 +1,9 @@
+Running on desktop5:
+172.16.16.105 
+[I 12:01:51.284 NotebookApp] JupyterLab extension loaded from /home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/jupyterlab
+[I 12:01:51.284 NotebookApp] JupyterLab application directory is /home/laal/.conda/envs/torchenv/share/jupyter/lab
+[I 12:01:51.287 NotebookApp] Serving notebooks from local directory: /home/laal/MAG/CentralityFairness
+[I 12:01:51.287 NotebookApp] Jupyter Notebook 6.1.4 is running at:
+[I 12:01:51.287 NotebookApp] http://localhost:8888/
+[I 12:01:51.287 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+[I 12:04:06.716 NotebookApp] Kernel started: c11fa678-82c6-465c-9833-f45666dc38d9, name: python3
