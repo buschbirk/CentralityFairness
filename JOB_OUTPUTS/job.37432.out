@@ -236,3 +236,6 @@ java.io.IOException: Failed to delete: /home/laal/MAG/TMP/spark-98bed6b4-3100-40
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
 	at java.lang.Thread.run(Thread.java:748)
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** JOB 37432 ON desktop1 CANCELLED AT 2021-03-10T11:31:36 DUE TO TIME LIMIT ***
+slurmstepd: error: *** STEP 37432.1 ON desktop1 CANCELLED AT 2021-03-10T11:31:36 DUE TO TIME LIMIT ***

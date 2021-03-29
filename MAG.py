@@ -98,7 +98,19 @@ class MicrosoftAcademicGraph(object):
     'CitationsFromUnknownGender': ('CitationsFromUnknownGender.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
     'CitationsToUnknownGender': ('CitationsToUnknownGender.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
     'PaperAuthorAffiliationsGendered' : ('PaperAuthorAffiliationsGendered.txt', ['PaperId:long', 'AuthorId:long', 'Gender:int']),
+    'PaperAuthorAffiliationsGenderedFull' : ('PaperAuthorAffiliationsGenderedFull.txt', ['PaperId:long', 'AuthorId:long', 'Gender:int']),
+    'PaperReferencesMedicine' : ('PaperReferencesMedicine.txt', ['PaperId:long', 'PaperReferenceId:long']),
+    'PaperReferencesBiology' : ('PaperReferencesBiology.txt', ['PaperId:long', 'PaperReferenceId:long']),
+    'PaperReferencesChemistry' : ('PaperReferencesChemistry.txt', ['PaperId:long', 'PaperReferenceId:long']),
+    'PaperReferencesPsychology' : ('PaperReferencesPsychology.txt', ['PaperId:long', 'PaperReferenceId:long']),
+    'PaperReferencesMathematics' : ('PaperReferencesMathematics.txt', ['PaperId:long', 'PaperReferenceId:long']),
+    'PaperReferencesEconomics' : ('PaperReferencesEconomics.txt', ['PaperId:long', 'PaperReferenceId:long']),
+    'CitationsBiology': ('CitationsBiology.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
+    'CitationsChemistry': ('CitationsChemistry.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
+    'CitationsMathematics': ('CitationsMathematics.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
+    'CitationsMedicine': ('CitationsMedicine.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
+    'CitationsPsychology': ('CitationsPsychology.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
+    'CitationsEconomics': ('CitationsEconomics.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
   }
-
 
 
