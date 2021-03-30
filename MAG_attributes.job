@@ -10,7 +10,7 @@
 
 echo "Running on $(hostname):"
 
-module load Anaconda3
+module --ignore-cache load "Anaconda3" 
 . $(conda info --base)/etc/profile.d/conda.sh
 conda activate torchenv
 
