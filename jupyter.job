@@ -15,8 +15,7 @@ conda activate gtenv
 
 # python /home/laal/MAG/CentralityFairness/clusterscript.py
 
-
-jupyter notebook --no-browser --port=8887
+jupyter notebook --no-browser --port=8886
 
 # python /home/laal/MAG/CentralityFairness/MAG_attributes_cluster.py
 conda deactivate
