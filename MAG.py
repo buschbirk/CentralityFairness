@@ -5,12 +5,6 @@ Created on Mon Feb 22 06:05:03 2021
 @author: lasse
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 15 18:11:38 2021
-
-@author: lasse
-"""
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
@@ -99,6 +93,7 @@ class MicrosoftAcademicGraph(object):
     'CitationsToUnknownGender': ('CitationsToUnknownGender.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
     'PaperAuthorAffiliationsGendered' : ('PaperAuthorAffiliationsGendered.txt', ['PaperId:long', 'AuthorId:long', 'Gender:int']),
     'PaperAuthorAffiliationsGenderedFull' : ('PaperAuthorAffiliationsGenderedFull.txt', ['PaperId:long', 'AuthorId:long', 'Gender:int']),
+    "NumAuthorsPerPaper" : ('NumAuthorsPerPaper.txt', ['PaperId:long', 'NumAuthors:int', 'PublishDate:DateTime']),
     'PaperReferencesMedicine' : ('PaperReferencesMedicine.txt', ['PaperId:long', 'PaperReferenceId:long']),
     'PaperReferencesBiology' : ('PaperReferencesBiology.txt', ['PaperId:long', 'PaperReferenceId:long']),
     'PaperReferencesChemistry' : ('PaperReferencesChemistry.txt', ['PaperId:long', 'PaperReferenceId:long']),

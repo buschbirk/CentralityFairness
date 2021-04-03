@@ -5,12 +5,6 @@ Created on Mon Feb 22 06:04:40 2021
 @author: lasse
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Feb 15 18:11:38 2021
-
-@author: lasse
-"""
 
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
