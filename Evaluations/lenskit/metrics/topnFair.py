@@ -164,19 +164,15 @@ def calculateNDFairnessPara(_ranking, _protected_group, _cut_point, _gf_measure,
             pro_cutpoint= set(ranking_cutpoint).intersection(protected_group_set)
             gf=calculateFairness(ranking_cutpoint,pro_cutpoint,items_n, proItems_n,_gf_measure)
             
-            # OBS
             discounted_gf+=gf/math.log(countni+1,LOG_BASE) # log base -> global variable
-            # print("countni : ", countni)
-            # THESIS: discounted_gf+=gf/(1.1**(countni-10/1000)) # log base -> global variable
-            
-            # discounted_gf+=gf/(1.1**(countni-NORM_CUTPOINT))
 
 
             # make a call to compute, or look up, the normalizer; make sure to check that it's not 0!
-            # generally, think about error handling
 
     
     return discounted_gf/_normalizer
+
+
 
 def calculateFairness(_ranking,_protected_group,items_n, proItems_n,_gf_measure):
     """
