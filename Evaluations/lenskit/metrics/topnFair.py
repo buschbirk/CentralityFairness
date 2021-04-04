@@ -23,7 +23,7 @@ KL_DIVERGENCE="rKL" #represent kl-divergence group fairness measure
 RD_DIFFERENCE="rRD" #represent ratio difference group fairness measure
 LOG_BASE=2 #log base used in logorithm function
 
-NORM_CUTPOINT=10 # cut-off point used in normalizer computation
+NORM_CUTPOINT=1000 # cut-off point used in normalizer computation
 NORM_ITERATION=10 # max iterations used in normalizer computation
 NORM_FILE="normalizer.txt" # externally text file for normalizers
 
@@ -40,7 +40,7 @@ def calculateNDFairnes(recs, truth, metric, protected_varible, providers=None):
     #pro_index=[idx for idx,row in _data.iterrows() if row[_sensi_att] == _sensi_bound]
     _protected_group_temp = recs.loc[recs[protected_varible] == 1]
     _protected_group = _protected_group_temp['item'].values
-    _cut_point = 10 
+    _cut_point = NORM_CUTPOINT
     _gf_measure = metric
     
     if _gf_measure == "APCR":
@@ -154,23 +154,29 @@ def calculateNDFairnessPara(_ranking, _protected_group, _cut_point, _gf_measure,
     if not isinstance( _gf_measure, str ):
         raise TypeError("Input group fairness measure must be a string that choose from ['rKL', 'rND', 'rRD']")
 
+    protected_group_set = set(_protected_group)
+
     discounted_gf=0 #initialize the returned gf value
     for countni in range(len(_ranking)):
         countni=countni+1
-        if(countni%_cut_point ==0):
+        if(countni%_cut_point == 0):
             ranking_cutpoint=_ranking[0:countni]
-            pro_cutpoint=set(ranking_cutpoint).intersection(_protected_group)
+            pro_cutpoint= set(ranking_cutpoint).intersection(protected_group_set)
             gf=calculateFairness(ranking_cutpoint,pro_cutpoint,items_n, proItems_n,_gf_measure)
-            #discounted_gf+=gf/math.log(countni+1,LOG_BASE) # log base -> global variable
-            #print("counttni : ", countni)
-            discounted_gf+=gf/(1.1**(countni-10/1000)) # log base -> global variable
             
+            # OBS
+            discounted_gf+=gf/math.log(countni+1,LOG_BASE) # log base -> global variable
+            # print("countni : ", countni)
+            # THESIS: discounted_gf+=gf/(1.1**(countni-10/1000)) # log base -> global variable
+            
+            # discounted_gf+=gf/(1.1**(countni-NORM_CUTPOINT))
+
+
             # make a call to compute, or look up, the normalizer; make sure to check that it's not 0!
             # generally, think about error handling
 
     
     return discounted_gf/_normalizer
-
 
 def calculateFairness(_ranking,_protected_group,items_n, proItems_n,_gf_measure):
     """
@@ -312,11 +318,14 @@ def getNormalizer(items_n,proItems_n,_gf_measure):
     if proItems_n >= items_n:
         raise ValueError("Input a valid protected group size")
 
+    #('no errors detected so far')
+
 
     current_normalizer_key=str(items_n)+","+str(proItems_n)+","+_gf_measure
     if current_normalizer_key in normalizer_dic.keys():
         normalizer=normalizer_dic[current_normalizer_key]
     else:
+        #print('start to calculate norm')
         normalizer=calculateNormalizer(items_n,proItems_n,_gf_measure) 
         #print("normalizer: " , normalizer)
         #try:
@@ -382,10 +391,10 @@ def calculateNormalizer(items_n,proItems_n,_gf_measure):
             input_ranking=[x for x in range(items_n)]
             protected_group=[x for x in range(proItems_n)]
             # generate unfair ranking using algorithm
-            unfair_ranking=generateUnfairRanking(input_ranking,protected_group,fpi)    
+            unfair_ranking=generateUnfairRanking(input_ranking,protected_group,fpi)   
             # calculate the non-normalized group fairness value i.e. input normalized value as 1
             gf=calculateNDFairnessPara(unfair_ranking,protected_group,NORM_CUTPOINT,_gf_measure,1, items_n, proItems_n)
-            
+
             iter_results.append(gf)
         avg_maximums.append(np.mean(iter_results))        
     #print ("normalizer value to return : ", max(avg_maximums))
