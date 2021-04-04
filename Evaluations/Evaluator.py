@@ -14,28 +14,23 @@ from lenskit.metrics.topnFair import *
 
 class Evaluator:
 
-  def __init__(self, file_name, centrality):
+  def __init__(self, file_name, centrality, sample):
     path = os.path.join(currentdir, file_name)
     self.data = pd.read_csv(path, sep='\t')
     self.data = self.data.query('Gender != -1')
-    print('Data size:', len(self.data))
-    self.data = self.data.sample(10000)
-    print(self.data.Gender.value_counts(normalize = True))
-    print(self.data.Gender.value_counts(normalize = False))
+    #print('Data size:', len(self.data))
+    self.data = self.data.sample(sample)
+    #print(self.data.Gender.value_counts(normalize = True))
+    #print(self.data.Gender.value_counts(normalize = False))
     self.add_column()
     self.centrality = centrality
     self.data.sort_values(by = self.centrality, ascending = False, inplace = True)
-    print(self.data.head(100).Gender.value_counts(normalize = True))
+    #print(self.data.head(100).Gender.value_counts(normalize = True))
     self.data.rename(columns = {'AuthorId': 'item', self.centrality: 'rank'}, inplace = True)
 
   def add_column(self):
     self.data['protected'] = self.data.Gender.apply(lambda x: int(x == 0))
   
-  # unnecessary? 
-  def sort_data(self):
-    if not self.sorted:
-      self.data.sort_values(by = self.centrality, ascending = False, inplace = True)
-      self.sorted = True
 
   def topK(self, k, remove_unknown_gender = False):
     sort_data()
@@ -47,7 +42,6 @@ class Evaluator:
 
 
   def run_evaluations(self):
-    print(self.data.head())
     print('rND:', calculateNDFairnes(recs = self.data, truth = [], metric = 'rND', protected_varible = 'protected'))
     print('rKL:', calculateNDFairnes(recs = self.data, truth = [], metric = 'rKL', protected_varible = 'protected'))
     print('rRD:', calculateNDFairnes(recs = self.data, truth = [], metric = 'rRD', protected_varible = 'protected'))
@@ -56,6 +50,6 @@ class Evaluator:
 
 
 if __name__ == '__main__':
-  eval = Evaluator('psychology.csv', 'PageRank')
+  eval = Evaluator('psychology.csv', 'PageRank', 10000)
   # eval = Evaluator('propublica.csv', 'Recidivism_rawscore')
   eval.run_evaluations()

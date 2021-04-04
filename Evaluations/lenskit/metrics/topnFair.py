@@ -155,13 +155,16 @@ def calculateNDFairnessPara(_ranking, _protected_group, _cut_point, _gf_measure,
         raise TypeError("Input group fairness measure must be a string that choose from ['rKL', 'rND', 'rRD']")
 
     protected_group_set = set(_protected_group)
+    pro_cutpoint = set()
+    ranking_cutpoint = []
 
     discounted_gf=0 #initialize the returned gf value
     for countni in range(len(_ranking)):
-        countni=countni+1
+        countni = countni+1
         if(countni%_cut_point == 0):
-            ranking_cutpoint=_ranking[0:countni]
-            pro_cutpoint= set(ranking_cutpoint).intersection(protected_group_set)
+            ranking_cutpoint_temp = _ranking[countni - _cut_point:countni]
+            ranking_cutpoint += ranking_cutpoint_temp
+            pro_cutpoint = pro_cutpoint.union(set(ranking_cutpoint_temp).intersection(protected_group_set))
             gf=calculateFairness(ranking_cutpoint,pro_cutpoint,items_n, proItems_n,_gf_measure)
             
             discounted_gf+=gf/math.log(countni+1,LOG_BASE) # log base -> global variable
