@@ -18,8 +18,9 @@ class Evaluator:
     path = os.path.join(currentdir, file_name)
     self.data = pd.read_csv(path, sep='\t')
     self.data = self.data.query('Gender != -1')
-    #print('Data size:', len(self.data))
-    self.data = self.data.sample(sample)
+    print('Data size:', len(self.data))
+    if sample is not None:
+      self.data = self.data.sample(sample)
     #print(self.data.Gender.value_counts(normalize = True))
     #print(self.data.Gender.value_counts(normalize = False))
     self.add_column()
@@ -50,6 +51,6 @@ class Evaluator:
 
 
 if __name__ == '__main__':
-  eval = Evaluator('psychology.csv', 'PageRank', 10000)
+  eval = Evaluator('economics.csv', 'PageRank', None)
   # eval = Evaluator('propublica.csv', 'Recidivism_rawscore')
   eval.run_evaluations()

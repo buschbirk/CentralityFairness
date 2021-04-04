@@ -76,13 +76,22 @@ def calculate_equal_ex(recs, protected_group):
     count_pro = 0
     exposure_unpro = 0
     count_unpro = 0
-    for index, row in recs.iterrows():
-        if row["item"] in protected_group:
-           exposure_pro = exposure_pro + (1/math.log2(1+row["rank"])) 
-           count_pro += 1
-        else:
-           exposure_unpro = exposure_unpro + (1/math.log2(1+row["rank"]))  
-           count_unpro += 1
+
+    pro_set = set(protected_group)
+
+    recs['computed'] = recs['rank'].apply(lambda x: 1/math.log2(1+x))
+    count_pro = len(pro_set)
+    count_unpro = len(recs) - count_pro
+    exposure_pro = recs[recs['protected'] == 1]['computed'].sum()
+    exposure_unpro = recs[recs['protected'] == 0]['computed'].sum()
+
+    #for index, row in recs.iterrows():
+     #   if row["item"] in pro_set:
+      #     exposure_pro = exposure_pro + row['computed'] 
+       #    count_pro += 1
+       # else:
+        #   exposure_unpro = exposure_unpro + row['computed']  
+         #  count_unpro += 1
     #return abs(exposure_pro-exposure_unpro)
     return (exposure_pro/count_pro)/(exposure_unpro/count_unpro)
 
