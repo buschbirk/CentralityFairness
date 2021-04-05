@@ -58,7 +58,7 @@ def calculateNDFairnes(recs, truth, metric, protected_varible, providers=None):
         #print ("calculate normalizer : ", len(recs), "+", len(_protected_group), "+", _gf_measure )
         #_normalizer = 1
         _normalizer = getNormalizer(len(recs), len(_protected_group), _gf_measure)
-        print (_normalizer)
+        # print (_normalizer) OBS
         return calculateNDFairnessPara(_ranking, _protected_group, _cut_point, _gf_measure, _normalizer, len(recs), len(_protected_group))
      
     elif _gf_measure == "ndcg":
@@ -79,7 +79,7 @@ def calculate_equal_ex(recs, protected_group):
 
     pro_set = set(protected_group)
 
-    recs['computed'] = recs['rank'].apply(lambda x: 1/math.log2(1+x))
+    recs['computed'] = recs['rank'].apply(lambda x: 1/math.log2(1+x) if x > 0 else 0)
     count_pro = len(pro_set)
     count_unpro = len(recs) - count_pro
     exposure_pro = recs[recs['protected'] == 1]['computed'].sum()
@@ -296,7 +296,22 @@ def calculaterRD(_ranking_k,_pro_k,items_n,proItems_n):
  
     return abs(min_ratio-input_ratio)
 
-def getNormalizer(items_n,proItems_n,_gf_measure):
+def getNormalizer(items_n, proItems_n, _gf_measure):
+
+    # TODO: noget skal ske her
+
+    if items_n <=0:
+        raise ValueError("Input a valud user number")
+    if proItems_n <=0:
+        raise ValueError("Input a valid protected group size")
+    if proItems_n >= items_n:
+        raise ValueError("Input a valid protected group size")
+
+
+    normalizer = calculateNormalizer(items_n,proItems_n,_gf_measure)
+    return float(normalizer)
+
+def getNormalizerOLD(items_n,proItems_n,_gf_measure):
     """
         Retrieve the normalizer of the current setting in external normalizer dictionary.
         If not founded, call function 'calculateNormalizer' to calculate the normalizer of input group fairness measure at current setting.

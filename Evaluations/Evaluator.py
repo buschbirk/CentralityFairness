@@ -11,46 +11,49 @@ sys.path.insert(0,parentdir)
 
 from lenskit.metrics.topnFair import *
 
-
 class Evaluator:
 
   def __init__(self, file_name, centrality, sample):
-    path = os.path.join(currentdir, file_name)
+    self.centrality = centrality
+    self.read_data(file_name)
+    if sample is not None:
+      self.data = self.data.sample(sample)
+    print('gender counts normalized:', self.data.Gender.value_counts(normalize = True))
+    print('gender counts:', self.data.Gender.value_counts(normalize = False))
+    self.add_protected_column()
+    self.data.rename(columns = {'AuthorId': 'item', self.centrality: 'rank'}, inplace = True)
+    self.sort_data()
+    print('sorted data.head():')
+    print(self.data.head())
+
+  def sort_data(self):
+    if self.centrality == 'Rank':
+      self.data.sort_values(by = 'rank', ascending = True, inplace = True) 
+    else: 
+      self.data.sort_values(by = 'rank', ascending = False, inplace = True)
+
+  def read_data(self, path):
     self.data = pd.read_csv(path, sep='\t')
     self.data = self.data.query('Gender != -1')
     print('Data size:', len(self.data))
-    if sample is not None:
-      self.data = self.data.sample(sample)
-    #print(self.data.Gender.value_counts(normalize = True))
-    #print(self.data.Gender.value_counts(normalize = False))
-    self.add_column()
-    self.centrality = centrality
-    self.data.sort_values(by = self.centrality, ascending = False, inplace = True)
-    #print(self.data.head(100).Gender.value_counts(normalize = True))
-    self.data.rename(columns = {'AuthorId': 'item', self.centrality: 'rank'}, inplace = True)
 
-  def add_column(self):
+  def add_protected_column(self):
     self.data['protected'] = self.data.Gender.apply(lambda x: int(x == 0))
-  
 
-  def topK(self, k, remove_unknown_gender = False):
-    sort_data()
-    if remove_unknown_gender:
-      self.data = self.data.query('Gender != -1')
-
-    self.data.rename(columns = {'Author': 'item', self.centrality: 'rank'}, inplace = True)
-    return renamed.head()
-
-
-  def run_evaluations(self):
-    print('rND:', calculateNDFairnes(recs = self.data, truth = [], metric = 'rND', protected_varible = 'protected'))
-    print('rKL:', calculateNDFairnes(recs = self.data, truth = [], metric = 'rKL', protected_varible = 'protected'))
-    print('rRD:', calculateNDFairnes(recs = self.data, truth = [], metric = 'rRD', protected_varible = 'protected'))
-    print('equal_ex:', calculateNDFairnes(recs = self.data, truth = [], metric = 'equal_ex', protected_varible = 'protected'))
-    print('done')
+  def run_evaluations(self, metrics):
+    for m in metrics:
+      print(m, calculateNDFairnes(recs=self.data, truth=[], metric=m, protected_varible='protected'))
 
 
 if __name__ == '__main__':
-  eval = Evaluator('economics.csv', 'PageRank', None)
-  # eval = Evaluator('propublica.csv', 'Recidivism_rawscore')
-  eval.run_evaluations()
+  sample = sys.argv[1]
+  if (sample == 'None'):
+    sample = None
+  else:
+    sample = int(sample)
+  centrality = sys.argv[2]
+  path = sys.argv[3]
+  metrics = ['rND', 'rKL', 'rRD', 'equal_ex']
+  print('Evaluating', path, 'with sample size', sample, 'and centrality', centrality)
+  eval = Evaluator(path, centrality, sample)
+  eval.run_evaluations(metrics)

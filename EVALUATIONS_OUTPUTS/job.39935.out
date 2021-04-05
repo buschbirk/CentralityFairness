@@ -1,0 +1,35 @@
+Running evaluations on desktop9:
+172.16.16.109 
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv with sample size 1000 and centrality PageRank
+Data size: 1109438
+gender counts normalized: 1    0.511
+0    0.489
+Name: Gender, dtype: float64
+gender counts: 1    511
+0    489
+Name: Gender, dtype: int64
+sorted data.head():
+               item      rank  PageRank05  ...  Gender   Rank  protected
+747855   2100384044  0.000175    0.000095  ...       1  12554          0
+504301   2150001748  0.000016    0.000006  ...       1  15205          0
+1473146  2703833790  0.000013    0.000005  ...       1  14533          0
+1822591  2168797893  0.000012    0.000006  ...       0  15489          1
+494590    106113579  0.000008    0.000005  ...       0  15593          1
+
+[5 rows x 10 columns]
+Traceback (most recent call last):
+  File "/home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py", line 59, in <module>
+    eval.run_evaluations(metrics)
+  File "/home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py", line 45, in run_evaluations
+    print(m, calculateNDFairnes(recs=self.data, truth=[], metric=m, protected_varible='protected'))
+  File "/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/metrics/topnFair.py", line 62, in calculateNDFairnes
+    return calculateNDFairnessPara(_ranking, _protected_group, _cut_point, _gf_measure, _normalizer, len(recs), len(_protected_group))
+  File "/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/metrics/topnFair.py", line 153, in calculateNDFairnessPara
+    raise ValueError("Normalizer equals to zero")
+ValueError: Normalizer equals to zero
+
+real	0m21.509s
+user	0m2.218s
+sys	0m0.426s
