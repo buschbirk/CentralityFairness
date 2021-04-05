@@ -13,6 +13,10 @@ module load Anaconda3
 . $(conda info --base)/etc/profile.d/conda.sh
 conda activate magenv
 
-time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 100000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
-echo "\n\n\n\n"
-time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 100000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 10000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 10000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 10000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 10000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/chemistry.csv 
