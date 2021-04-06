@@ -1,0 +1,60 @@
+Running evaluations on desktop9:
+172.16.16.109 
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv with sample size 100000 and centrality PageRank
+Data size: 1109438
+gender counts normalized: 1    0.52317
+0    0.47683
+Name: Gender, dtype: float64
+gender counts: 1    52317
+0    47683
+Name: Gender, dtype: int64
+sorted data.head():
+               item      rank  PageRank05  ...  Gender   Rank  protected
+1202609  2137065126  0.001166    0.000684  ...       1  11038          0
+995684   2116067072  0.000531    0.000275  ...       1  11410          0
+1907194  2265852318  0.000346    0.000192  ...       1  12508          0
+1409883  2158373995  0.000345    0.000138  ...       0  13348          1
+260       131178592  0.000287    0.000157  ...       1  12390          0
+
+[5 rows x 10 columns]
+rND 0.16207935715309707
+rKL 0.034019301279110736
+rRD 0.24407295392672365
+equal_ex 1.087887246688818
+
+real	0m22.221s
+user	0m6.265s
+sys	0m0.460s
+
+
+
+
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv with sample size 100000 and centrality PageRank
+Data size: 291347
+gender counts normalized: 1    0.76596
+0    0.23404
+Name: Gender, dtype: float64
+gender counts: 1    76596
+0    23404
+Name: Gender, dtype: int64
+sorted data.head():
+              item      rank  PageRank05  ...  Gender   Rank  protected
+24775   2084647615  0.002264    0.000783  ...       1  11989          0
+457986  1965572909  0.001782    0.000619  ...       1  11708          0
+306838  2119427290  0.001256    0.000571  ...       1  11892          0
+352146  1508821818  0.001243    0.000442  ...       1  12379          0
+18311   2612173084  0.001237    0.000416  ...       1  12635          0
+
+[5 rows x 10 columns]
+rND 0.1143386822937905
+rKL 0.018373346172645365
+rRD 0.234030018356787
+equal_ex 1.0899493196592431
+
+real	0m4.964s
+user	0m4.195s
+sys	0m0.232s
