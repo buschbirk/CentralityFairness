@@ -32,7 +32,6 @@ def generateUnfairRanking(_ranking,_protected_group,_fairness_probability):
     pro_ranking = [] 
     unpro_ranking = [] 
     _protected_group = set(_protected_group)
-    # OBS se lige vores optimering fra O(2nm) til O(n)
 
     for x in _ranking:
         if x not in _protected_group:

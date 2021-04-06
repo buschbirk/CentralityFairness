@@ -13,10 +13,69 @@ module load Anaconda3
 . $(conda info --base)/etc/profile.d/conda.sh
 conda activate magenv
 
-time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 10000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
+printf "PageRank:\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
 printf "\n\n\n\n"
-time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 10000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
 printf "\n\n\n\n"
-time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 10000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv 
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv 
 printf "\n\n\n\n"
-time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py 10000 PageRank /home/agbe/MAG/CentralityFairness/Evaluations/chemistry.csv 
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank /home/agbe/MAG/CentralityFairness/Evaluations/chemistry.csv 
+
+
+printf "\n\n\n\nPageRank05\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank05 /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank05 /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank05 /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank05 /home/agbe/MAG/CentralityFairness/Evaluations/chemistry.csv 
+
+
+printf "\n\n\n\nPageRank05\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank05 /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank05 /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank05 /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None PageRank05 /home/agbe/MAG/CentralityFairness/Evaluations/chemistry.csv 
+
+printf "\n\n\n\nInDegreeStrength\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None InDegreeStrength /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None InDegreeStrength /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None InDegreeStrength /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None InDegreeStrength /home/agbe/MAG/CentralityFairness/Evaluations/chemistry.csv 
+
+printf "\n\n\n\nInDegree\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None InDegree /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None InDegree /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None InDegree /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None InDegree /home/agbe/MAG/CentralityFairness/Evaluations/chemistry.csv 
+
+
+printf "\n\n\n\nOutDegreeStrength\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None OutDegreeStrength /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None OutDegreeStrength /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None OutDegreeStrength /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None OutDegreeStrength /home/agbe/MAG/CentralityFairness/Evaluations/chemistry.csv 
+
+
+printf "\n\n\n\nOutDegree\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None OutDegree /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None OutDegree /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None OutDegree /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None OutDegree /home/agbe/MAG/CentralityFairness/Evaluations/chemistry.csv 

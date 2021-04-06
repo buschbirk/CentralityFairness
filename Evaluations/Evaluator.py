@@ -18,8 +18,10 @@ class Evaluator:
     self.read_data(file_name)
     if sample is not None:
       self.data = self.data.sample(sample)
-    print('gender counts normalized:', self.data.Gender.value_counts(normalize = True))
-    print('gender counts:', self.data.Gender.value_counts(normalize = False))
+    print('gender counts normalized:')
+    print(self.data.Gender.value_counts(normalize = True))
+    print('gender counts:')
+    print(self.data.Gender.value_counts(normalize = False))
     self.add_protected_column()
     self.data.rename(columns = {'AuthorId': 'item', self.centrality: 'rank'}, inplace = True)
     self.sort_data()

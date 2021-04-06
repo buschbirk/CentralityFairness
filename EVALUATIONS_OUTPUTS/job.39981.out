@@ -1,0 +1,97 @@
+Running evaluations on desktop10:
+172.16.16.110 
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/psychology.csv with sample size 10000 and centrality PageRank
+Data size: 1109438
+gender counts normalized:
+1    0.5254
+0    0.4746
+Name: Gender, dtype: float64
+gender counts:
+1    5254
+0    4746
+Name: Gender, dtype: int64
+sorted data.head():
+               item      rank  PageRank05  ...  Gender   Rank  protected
+1280791  2062740863  0.000324    0.000116  ...       1  13367          0
+871841   2114066382  0.000073    0.000036  ...       1  13217          0
+1818936  2117655219  0.000056    0.000018  ...       1  13977          0
+1366111  2124867029  0.000050    0.000024  ...       1  14489          0
+1730959  1549375924  0.000047    0.000026  ...       1  12172          0
+
+[5 rows x 10 columns]
+rND 0.15684047081019462
+rKL 0.026906055613306522
+rRD 0.2413506714365106
+equal_ex 1.1008830277070212
+
+real	0m16.553s
+user	0m2.436s
+sys	0m0.409s
+
+
+
+
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/economics.csv with sample size 10000 and centrality PageRank
+Data size: 291347
+gender counts normalized:
+1    0.7627
+0    0.2373
+Name: Gender, dtype: float64
+gender counts:
+1    7627
+0    2373
+Name: Gender, dtype: int64
+sorted data.head():
+              item      rank  PageRank05  ...  Gender   Rank  protected
+166909  2143581210  0.000825    0.000480  ...       1  11631          0
+158123  2504408715  0.000627    0.000249  ...       1  12840          0
+339835     1389213  0.000470    0.000294  ...       1  12625          0
+189765  2117668619  0.000466    0.000277  ...       1  11010          0
+211511  1387620779  0.000438    0.000134  ...       1  13159          0
+
+[5 rows x 10 columns]
+rND 0.10112292914536963
+rKL 0.012380841035758223
+rRD 0.1989969431468071
+equal_ex 1.0815515154791278
+
+real	0m2.158s
+user	0m1.389s
+sys	0m0.180s
+
+
+
+
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/mathematics.csv with sample size 10000 and centrality PageRank
+Data size: 674562
+gender counts normalized:
+1    0.8124
+0    0.1876
+Name: Gender, dtype: float64
+gender counts:
+1    8124
+0    1876
+Name: Gender, dtype: int64
+sorted data.head():
+               item      rank  PageRank05  ...  Gender   Rank  protected
+1711854  2230522276  0.000301    0.000116  ...       1  12615          0
+199501   1827936189  0.000237    0.000115  ...       1  12496          0
+124185   2109866308  0.000168    0.000064  ...       1  13086          0
+1109834  1913332324  0.000134    0.000060  ...       1  13174          0
+711862    253818022  0.000119    0.000059  ...       1  12849          0
+
+[5 rows x 10 columns]
+rND 0.12336442513227959
+rKL 0.02003251292493957
+rRD 0.2578798085642736
+equal_ex 1.1258980958061937
+
+real	0m2.589s
+user	0m2.021s
+sys	0m0.208s
