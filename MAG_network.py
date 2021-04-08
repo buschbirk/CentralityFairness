@@ -12,7 +12,7 @@ import MAGspark
 import os
 import shutil
 import pandas as pd
-
+import numpy as np
 
 def paper_root_field_mag(mag, destination="/home/laal/MAG/DATA/PaperRootFieldMag.txt"):
     """
@@ -319,9 +319,11 @@ class CitationNetwork():
         LEFT JOIN WosToMag wtm ON a.AuthorId = wtm.MAG
         """.format(self.network_name, self.network_name)
 
-        nodelist = self.mag.query_sql(query)
-        num_nodes = nodelist.count()
+        nodelist = self.mag.query_sql(query).toPandas()
+        
+        num_nodes = nodelist.shape[0]
         print("The network has {} nodes".format(num_nodes))
+        print("Gender distribution: {}".format(nodelist.Gender.value_counts(normalize=False)))
         
         return network, nodelist
 
@@ -344,6 +346,10 @@ class CitationNetwork():
         g = gt.Graph()
         eweight = g.new_ep("double")
         
+        eweight_array = []
+        node_mapping = {}
+        node_idx = 0
+        
         for filename in sorted(os.listdir(self.network_destination)):
 
             # skip all Spark helper-files
@@ -353,16 +359,40 @@ class CitationNetwork():
             # print("Parsing file: {}".format(filename))
 
             with open(self.network_destination + "/" + filename) as file:
+                # extract source and target node + edge weight
+                print(filename)
+
                 for line in file:
-                    # extract source and target node + edge weight
                     contents = line.strip().split("\t")
-                    edges.append((str(contents[0]), str(contents[1]), float(contents[2])))
+                    
+                    edge_from = contents[0]
+                    edge_to = contents[1]
+                    
+                    weight = float(contents[2])
+                    
+                    if edge_from in node_mapping:
+                        from_vertex = node_mapping[edge_from]
+                    else:
+                        from_vertex = g.add_vertex()
+                        node_mapping[edge_from] = from_vertex
+                        
+                    if edge_to in node_mapping:
+                        to_vertex = node_mapping[edge_to]
+                    else:
+                        to_vertex = g.add_vertex()
+                        node_mapping[edge_to] = to_vertex
+                        
+                    eweight_array.append(weight)
+                    
+                    g.add_edge(from_vertex, to_vertex)
+        idx_to_node = [(int(v), node) for node, v in node_mapping.items()]
+        idx_to_node = sorted(idx_to_node, key=lambda x: x[0])
         
-        # construct Graph from weighted edgelist, hashing node IDs
-        # node_mapping will contain mapping between MAG ID and node index in graph
-        node_mapping = g.add_edge_list(edges, eprops=[eweight], hashed=True, hash_type='string')
+        nodes = [node for idx, node in idx_to_node]
         
-        return g, node_mapping, eweight
+        eweight.a = np.array(eweight_array)
+        
+        return g, nodes, eweight
 
 
     def compute_centralities(self, graph, node_mapping, eweight, filename, pr_damping=0.85):
