@@ -106,6 +106,7 @@ class MicrosoftAcademicGraph(object):
     'CitationsMedicine': ('CitationsMedicine.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
     'CitationsPsychology': ('CitationsPsychology.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
     'CitationsEconomics': ('CitationsEconomics.txt', ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int']),
+    'AuthorMetadataField': ('AuthorMetaDataField.txt', ['AuthorId:long', 'FieldOfStudyId:long', 'Gender:int', 'MinAffiliationRank:uint', 'NumPapers:int', 'MinPubDate:Datetime?', 'MaxPubDate:Datetime?', 'PubsPerYear:float']),
   }
 
 

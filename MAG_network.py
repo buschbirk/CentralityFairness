@@ -123,6 +123,10 @@ class CitationNetwork():
         self.network_name = None
         self.network_destination = None
 
+        self.paper_references_name = None
+        self.citation_dataset_name = None
+
+
     def get_paper_references_field(self):
 
         paper_references = self.mag.getDataframe('PaperReferences')
@@ -191,6 +195,8 @@ class CitationNetwork():
         self.mag.streams["PaperReferences{}".format(self.fos_name)] = \
         ('PaperReferences{}.txt'.format(self.fos_name), ['PaperId:long', 'PaperReferenceId:long'])
 
+        self.paper_references_name = "PaperReferences{}".format(self.fos_name)
+
         field_citations_location = self.root_folder + "/Citations{}.txt".format(self.fos_name)
         if (not os.path.exists(field_citations_location)) or overwrite:
 
@@ -204,18 +210,23 @@ class CitationNetwork():
             .csv(field_citations_location)
         
 
+        self.citation_dataset_name = "Citations{}".format(self.fos_name)
+
         # ensure that mag has dataset information for field citations
-        self.mag.streams["Citations{}".format(self.fos_name)] = \
+        self.mag.streams[self.citation_dataset_name] = \
         ('Citations{}.txt'.format(self.fos_name), \
         ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 
          'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int'])
+
+        
 
         print("Paper references and citations available for {}".format(self.fos_name))
 
         return
 
 
-    def extract_author_author_network(self, mindate='1800-01-01', maxdate='2021-06-01'):
+    def extract_author_author_network(self, mindate='1800-01-01', maxdate='2021-06-01',
+                                            min_rownum=None, max_rownum=None):
         """
         Filters by publishing date of citing paper (Radicchi et. al., 2009). 
         Does not allow references to cited papers published after maxdate.
@@ -223,37 +234,74 @@ class CitationNetwork():
 
         # ensure that field references and citation datasets are available
         self.check_references_and_citations(overwrite=False)
+        paper_ref_name = "PaperReferences{}".format(self.fos_name)
+        # citation_dataset_name = 'Citations{}'.format(self.fos_name)
 
-        citations_dataset_name = 'Citations{}'.format(self.fos_name)
-
-        citations =  self.mag.getDataframe(citations_dataset_name)
+        paper_references = self.mag.getDataframe(paper_ref_name)
+        citations =  self.mag.getDataframe(self.citation_dataset_name)
         author_affiliations = self.mag.getDataframe('PaperAuthorAffiliations')
         authors_per_paper = self.mag.getDataframe('NumAuthorsPerPaper')
 
-        query = """
-            SELECT 
-              CitingAuthorId, 
-              CitedAuthorId, 
-              SUM( 1 / (app1.NumAuthors * app2.NumAuthors)  ) as Weight,
-              COUNT(DISTINCT(CitingPaperId)) as numCitingPapers,
-              COUNT(DISTINCT(CitedPaperId)) as numCitedPapers,
-              COUNT(*) as numCitations
-            FROM {} AS ac
-            INNER JOIN NumAuthorsPerPaper app1 ON ac.CitingPaperId = app1.PaperId
-            INNER JOIN NumAuthorsPerPaper app2 ON ac.CitedPaperId = app2.PaperId 
-            WHERE 
-            app1.PublishDate >= '{}' AND
-            app1.PublishDate <= '{}' AND app2.PublishDate <= '{}' 
-            GROUP BY CitingAuthorId, CitedAuthorId
-        """.format(citations_dataset_name, 
-                   mindate, maxdate, maxdate)    
-        
+        # get ordered references to filter citations by
+        if min_rownum is not None and max_rownum is not None:
+            papers = self.mag.getDataframe('Papers')
+            query = """
+            SELECT * FROM (
+                SELECT pr.PaperId, pr.PaperReferenceId,
+                p.Date as pubDate, 
+                row_number() over (order by p.Date ASC) rownum
+                FROM {} pr
+                INNER JOIN Papers p ON pr.PaperId = p.PaperId
+                WHERE 
+                p.Date is not null and p.Date <= '2020-12-31'
+            ) x
+            WHERE rownum >= {} AND rownum <= {} 
+            """.format(paper_ref_name, min_rownum, max_rownum)
+
+            df = self.mag.query_sql(query)
+            pr_filtered = df.createOrReplaceTempView('PaperRefsFiltered')
+
+        if min_rownum is None or max_rownum is None:
+            query = """
+                SELECT 
+                CitingAuthorId, 
+                CitedAuthorId, 
+                SUM( 1 / (app1.NumAuthors * app2.NumAuthors)  ) as Weight,
+                COUNT(DISTINCT(CitingPaperId)) as numCitingPapers,
+                COUNT(DISTINCT(CitedPaperId)) as numCitedPapers,
+                COUNT(*) as numCitations
+                FROM {} AS ac
+                INNER JOIN NumAuthorsPerPaper app1 ON ac.CitingPaperId = app1.PaperId
+                INNER JOIN NumAuthorsPerPaper app2 ON ac.CitedPaperId = app2.PaperId 
+                WHERE 
+                app1.PublishDate >= '{}' AND
+                app1.PublishDate <= '{}' AND app2.PublishDate <= '{}' 
+                GROUP BY CitingAuthorId, CitedAuthorId
+            """.format(self.citation_dataset_name, 
+                    mindate, maxdate, maxdate)    
+        else:
+            query = """
+                SELECT 
+                CitingAuthorId, 
+                CitedAuthorId, 
+                SUM( 1 / (app1.NumAuthors * app2.NumAuthors)  ) as Weight,
+                COUNT(DISTINCT(CitingPaperId)) as numCitingPapers,
+                COUNT(DISTINCT(CitedPaperId)) as numCitedPapers,
+                COUNT(*) as numCitations
+                FROM {} AS ac
+                INNER JOIN NumAuthorsPerPaper app1 ON ac.CitingPaperId = app1.PaperId
+                INNER JOIN NumAuthorsPerPaper app2 ON ac.CitedPaperId = app2.PaperId 
+                INNER JOIN PaperRefsFiltered prf ON ac.CitingPaperId = prf.PaperId AND ac.CitedPaperId = prf.PaperReferenceId
+                GROUP BY CitingAuthorId, CitedAuthorId
+            """.format(self.citation_dataset_name) 
+
         author_edgelist = self.mag.query_sql(query)
         
         return author_edgelist
 
 
-    def save_author_network(self, network_name, mindate='1800-01-01', maxdate='2021-06-01', overwrite=False):
+    def save_author_network(self, network_name, mindate='1800-01-01', maxdate='2021-06-01', overwrite=False,
+                            min_rownum=None, max_rownum=None):
 
         self.network_name = network_name
         self.network_destination = self.root_folder + "/NETWORKS/{}.txt".format(self.network_name)
@@ -262,7 +310,7 @@ class CitationNetwork():
             print("Network exists at " + self.network_destination + ". Use overwrite to replace")
             return
 
-        author_network = self.extract_author_author_network(mindate=mindate, maxdate=maxdate)
+        author_network = self.extract_author_author_network(mindate=mindate, maxdate=maxdate, min_rownum=min_rownum, max_rownum=max_rownum)
         author_network.write.option("sep", "\t").option("encoding", "UTF-8")\
         .csv(self.network_destination)
 
