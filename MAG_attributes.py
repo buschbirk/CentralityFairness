@@ -116,6 +116,61 @@ def author_metadata(mag):
   author_metadata_df = mag.query_sql(query)
   return author_metadata_df
 
+
+def author_metadata_field(mag):
+
+  author_affiliations = mag.getDataframe('PaperAuthorAffiliations')
+  authors = mag.getDataframe('WosToMag')
+  paper_root_field = mag.getDataframe('PaperRootFieldMag')
+  papers = mag.getDataframe('Papers')
+  affiliation = mag.getDataframe('Affiliations')
+
+  query = """
+  SELECT paa.AuthorId, prf.FieldOfStudyId, 
+  CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END as Gender,
+  MIN(a.Rank) as MinAffiliationRank,
+  COUNT(DISTINCT(paa.PaperId)) as NumPapers,
+  MIN(p.Date) as MinPubDate,
+  MAX(p.Date) as MaxPubDate, 
+  (COUNT(DISTINCT(paa.PaperId)) / (DATEDIFF( MAX(p.Date), MIN(p.Date) ) / 365)) as PubsPerYear
+  FROM PaperAuthorAffiliations AS paa 
+  INNER JOIN WosToMag AS wtm ON paa.AuthorId = wtm.MAG 
+  INNER JOIN PaperRootFieldMag prf ON paa.PaperId = prf.PaperId
+  INNER JOIN Papers p ON p.PaperId = paa.PaperId
+  INNER JOIN Affiliations AS a ON paa.AffiliationId = a.AffiliationId
+  GROUP BY paa.AuthorId, prf.FieldOfStudyId, CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END 
+  ORDER BY paa.AuthorId
+  """
+  author_metadata_df = mag.query_sql(query)
+  return author_metadata_df
+
+def author_metadata_cross_disciplines(mag):
+
+  author_affiliations = mag.getDataframe('PaperAuthorAffiliations')
+  authors = mag.getDataframe('WosToMag')
+  paper_root_field = mag.getDataframe('PaperRootFieldMag')
+  papers = mag.getDataframe('Papers')
+  affiliation = mag.getDataframe('Affiliations')
+
+  query = """
+  SELECT paa.AuthorId,
+  CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END as Gender,
+  MIN(a.Rank) as MinAffiliationRank,
+  COUNT(DISTINCT(paa.PaperId)) as NumPapers,
+  MIN(p.Date) as MinPubDate,
+  MAX(p.Date) as MaxPubDate, 
+  (COUNT(DISTINCT(paa.PaperId)) / (DATEDIFF( MAX(p.Date), MIN(p.Date) ) / 365)) as PubsPerYear
+  FROM PaperAuthorAffiliations AS paa 
+  INNER JOIN WosToMag AS wtm ON paa.AuthorId = wtm.MAG 
+  INNER JOIN Papers p ON p.PaperId = paa.PaperId
+  INNER JOIN Affiliations AS a ON paa.AffiliationId = a.AffiliationId
+  GROUP BY paa.AuthorId, CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END 
+  ORDER BY paa.AuthorId
+  """
+  author_metadata_df = mag.query_sql(query)
+  return author_metadata_df
+
+
 def citation_edges(mag):
 
   author_affiliations = mag.getDataframe('PaperAuthorAffiliations')
@@ -175,13 +230,13 @@ def citation_edges(mag):
 
 if __name__ == '__main__':
 
-  os.environ["SPARK_LOCAL_DIRS"] = "/home/agbe/MAG/TMP"
+  os.environ["SPARK_LOCAL_DIRS"] = "/home/laal/MAG/TMP"
 
   spark = SparkSession \
       .builder \
-      .config("spark.executor.memory", "4g")\
-      .config("spark.driver.memory", "2g")\
-      .config("spark.executor.cores", 7)\
+      .config("spark.executor.memory", "16g")\
+      .config("spark.driver.memory", "4g")\
+      .config("spark.executor.cores", 6)\
       .config("spark.memory.offHeap.enabled", True)\
       .config("spark.memory.offHeap.size","1g")\
       .config("spark.sql.adaptive.enabled", True)\
@@ -190,7 +245,7 @@ if __name__ == '__main__':
       .appName("MAG app") \
       .getOrCreate()
 
-  mag = MicrosoftAcademicGraph(spark=spark, data_folderpath="/home/agbe/MAG/DATA/")
+  mag = MicrosoftAcademicGraph(spark=spark, data_folderpath="/home/laal/MAG/DATA/")
 
   # country_df = assign_country(mag)
   # print(country_df.show(50))
@@ -211,19 +266,19 @@ if __name__ == '__main__':
   # .csv("/home/agbe/MAG/DATA/AuthorRootField.csv")
 
   # AUTHOR METADATA
-  # author_metadata = author_metadata(mag)
+  author_metadata = author_metadata_field(mag)
   # print(author_metadata.show(50))
-  # author_metadata.write.option("sep", "\t").option("encoding", "UTF-8")\
-  # .csv("/home/agbe/MAG/DATA/AuthorMetadata.csv")
+  author_metadata.write.option("sep", "\t").option("encoding", "UTF-8")\
+  .csv("/home/laal/MAG/DATA/AuthorMetadataField.csv")
 
   # CITATIONS
-  citations = citation_edges(mag)
+  #citations = citation_edges(mag)
 
-  print(citations.show(50))
-  print(citations.describe().show())
+  #print(citations.show(50))
+  #print(citations.describe().show())
 
-  citations.write.option("sep", "\t").option("encoding", "UTF-8")\
-  .csv("/home/agbe/MAG/DATA/Citations.txt")
+  #citations.write.option("sep", "\t").option("encoding", "UTF-8")\
+  #.csv("/home/agbe/MAG/DATA/Citations.txt")
 
   spark.stop()
 
