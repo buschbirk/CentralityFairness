@@ -56,7 +56,7 @@ def match(centrality_df, author_df, random_seed, centrality='PageRank',
     ids = list(male_sampled.AuthorId.values) + list(female_sampled.AuthorId.values)
     cent_df_sampled = cent_df[cent_df.AuthorId.isin(ids)]
     
-    _, __ = plot_group_dist(cent_df_sampled, centrality, interval_size=100, max_N=len(cent_df_new), protected_group=0, 
+    _, __ = plot_group_dist(cent_df_sampled, centrality, interval_size=100, max_N=len(cent_df_sampled), protected_group=0, 
                             unprotected=1, show_unknown=False, field_name='Economics', na_removed=True, 
                             ax=None, global_rates=None)
     
@@ -93,7 +93,7 @@ def match(centrality_df, author_df, random_seed, centrality='PageRank',
     ids = list(male_sampled.AuthorId.values) + list(female_sampled.AuthorId.values)
     cent_df_sampled = cent_df[cent_df.AuthorId.isin(ids)]
     
-    _, __ = plot_group_dist(cent_df_sampled, centrality, interval_size=100, max_N=len(cent_df_new), protected_group=0, 
+    _, __ = plot_group_dist(cent_df_sampled, centrality, interval_size=100, max_N=len(cent_df_sampled), protected_group=0, 
                             unprotected=1, show_unknown=False, field_name='Economics', na_removed=True, 
                             ax=None, global_rates=None)
     
