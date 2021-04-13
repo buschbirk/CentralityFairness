@@ -1,35 +1,18 @@
 
-import os 
+import os, sys
 import pandas as pd
 import numpy as np
 from visualizations import plot_group_dist, plot_side_by_side
 import random
 
+sys.path.insert(0, "Evaluations")
+
+from Evaluations.Evaluator import Evaluator
+
 from tqdm import tqdm
 
-
-def read_author_metadata(fos_id=162324750):
-    base_destination = "/home/laal/MAG/DATA/AuthorMetadataField.csv"
-    
-    columns = ['AuthorId', 'FieldOfStudyId', 'Gender', 'MinAffiliationRank', 'NumPapers', 'MinPubDate', 'MaxPubDate', 'PubsPerYear']
-    
-    author_df = pd.DataFrame()
-    
-    for file in os.listdir(base_destination):
-        if file.endswith('.csv'):
-            df = pd.read_csv(base_destination + "/" + file, names=columns, sep="\t")
-            author_df = pd.concat([author_df, df.query("FieldOfStudyId == {}".format(fos_id))])
-    
-    # parse datetimes
-    author_df['MinPubDate'] = pd.to_datetime(author_df['MinPubDate'])
-    author_df['MaxPubDate'] = pd.to_datetime(author_df['MaxPubDate'])
-    
-    author_df['MinPubYear'] = author_df['MinPubDate'].apply(lambda x: x.year)
-    author_df['MaxPubYear'] = author_df['MaxPubDate'].apply(lambda x: x.year)
-    
-    return author_df
-
-
+METRICS = ['rND', 'rKL', 'rRD', 'equal_ex']
+CENTRALITIES = ['PageRank', 'PageRank05', 'InDegreeStrength', 'Rank']
 
 class Matcher():
 
@@ -49,7 +32,7 @@ class Matcher():
 
 
 
-    def load_authors(self, fos_id=162324750, folder_destination = "/home/laal/MAG/DATA/AuthorMetadataField.csv"):
+    def load_authors(self, fos_id=162324750, folder_destination = "/home/agbe/MAG/DATA/AuthorMetadataField.csv"):
 
         # base_destination = "/home/laal/MAG/DATA/AuthorMetadataField.csv"
         
@@ -57,9 +40,9 @@ class Matcher():
         
         author_df = pd.DataFrame()
         
-        for file in os.listdir(base_destination):
+        for file in os.listdir(folder_destination):
             if file.endswith('.csv'):
-                df = pd.read_csv(base_destination + "/" + file, names=columns, sep="\t")
+                df = pd.read_csv(folder_destination + "/" + file, names=columns, sep="\t")
                 author_df = pd.concat([author_df, df.query("FieldOfStudyId == {}".format(fos_id))])
         
         # parse datetimes
@@ -72,7 +55,7 @@ class Matcher():
 
         # filter out unknown gender and authors not in centrality dataset
         self.author_df = author_df.query("Gender != -1")
-        self.author_df = self.author_df[self.author_df.AuthorId.isin(self.centr_df.AuthorId)]
+        self.author_df = self.author_df[self.author_df.AuthorId.isin(self.cent_df.AuthorId)]
 
 
         # affiliation_quintile and max year mapping 
@@ -98,15 +81,17 @@ class Matcher():
 
     def matched_sample(self): 
         # shuffle male population using seed
-        male_population = self.male_population.sample(frac=1, random_state=random_seed).copy()
+        male_population = self.male_population.sample(frac=1, random_state=self.seed).copy()
+        sample_females = []
+        sample_males = []
 
         # shuffle female population and iterate over each row as dict (record) 
-        for female_record in tqdm(self.female_population.sample(frac=1, random_state=random_seed).to_dict('records'), 
+        for female_record in tqdm(self.female_population.sample(frac=1, random_state=self.seed).to_dict('records'), 
                                 total=len(self.female_population)):
             
             # identify all matching candidates
             male_filtered = male_population[ 
-                  (abs(male_population.MinPubYear - female_record['MinPubYear']) <= min_year_tolerance) &
+                  (abs(male_population.MinPubYear - female_record['MinPubYear']) <= self.min_year_tolerance) &
                   (male_population.MaxYear == female_record['MaxYear']) &
                   (male_population.AffiliationBin == female_record['AffiliationBin'])
                 ]
@@ -117,6 +102,7 @@ class Matcher():
             
             # sample a single record
             male_sample = male_filtered.sample(1, random_state=self.seed)
+
             
             # remove sample from male_population
             male_population.drop(male_sample.index, axis='index', inplace=True)
@@ -126,14 +112,50 @@ class Matcher():
             sample_males.append(male_sample.iloc[0].to_dict())
             
 
-        print("Found {} matches to {} females".format(len(sample_females), len(female_population)))
+        print("Found {} matches to {} females".format(len(sample_females), len(self.female_population)))
         
         females_df = pd.DataFrame.from_records(sample_females)
         males_df = pd.DataFrame.from_records(sample_males)        
 
+        return  males_df, females_df
 
-        return females_df, males_df 
+    def samples_to_centrality_data(self, males, females):
+        ids = list(males.AuthorId.values) + list(females.AuthorId.values)
+        cent_df_sampled = self.cent_df[self.cent_df.AuthorId.isin(ids)]
+        return cent_df_sampled
 
+    def evaluate(self, centrality, data):
+        eval = Evaluator(centrality=centrality, data=data)
+        return eval.run_evaluations(METRICS)
+
+    def evaluateAll(self, data, field):
+        for centr in CENTRALITIES:
+            results = self.evaluate(centrality=centr, data = data)
+            destination = "/home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/" + field + "_" + centr + ".csv"
+            print("Destination:", destination)
+            self.save_results(destination, results)
+
+    def save_results(self, destination, results):
+        final_results = pd.DataFrame.from_dict(results)
+        final_results.to_csv(destination)
 
 if __name__ == '__main__':
-    pass
+    # FILE_PATH FIELD
+    file_path = sys.argv[1] # "/home/agbe/MAG/CentralityFairness/Evaluations/economics2020.csv"
+    field = sys.argv[2]
+
+    data = pd.read_csv(file_path, sep="\t")
+    matcher = Matcher(centrality_df = data, random_seed=28)
+    matcher.load_authors()
+
+    # step 1
+    random_data_males, random_data_females = matcher.random_sample()
+    random_data = matcher.samples_to_centrality_data(random_data_males, random_data_females)
+    #print(matcher.evaluate(centrality='PageRank', data=random_data))
+    matcher.evaluateAll(data=random_data, field=field)
+
+    # step 2
+    matched_data_males, matched_data_females = matcher.matched_sample()
+    matched_data = matcher.samples_to_centrality_data(matched_data_males, matched_data_females)
+    matcher.evaluateAll(data=matched_data, field = field)
+    print("done")
