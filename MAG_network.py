@@ -454,7 +454,7 @@ class CitationNetwork():
         nodes = list(graph.vertices())
         
         # identify nodes in largest component for Katz centrality
-        largest_comp = label_largest_component(graph)
+        # largest_comp = label_largest_component(graph)
         
         print("Initiating PageRank")
         # compute PageRank with given damping factor
@@ -502,21 +502,24 @@ class CitationNetwork():
         
         print("Centrality CSV saved to {}".format(filepath))
 
-        return
+        return df
 
 
-    def append_gender_and_macrank(self):
+    def append_gender_and_macrank(self, centrality_filename=None):
         """
         Merges CSV with centrality scores with Gender information and MAG Rank for each author.
         Stores results in single CSV file with header. 
         """
-        centrality_filename = self.network_destination.split("/")[-1].split(".")[0] + "Centrality"
+        if centrality_filename is None:
+            centrality_filename = self.network_destination.split("/")[-1].split(".")[0] + "Centrality"
 
         # Assign centrality dataset info on mag
         self.mag.streams[centrality_filename] = ('NETWORKS/{}.csv'.format(centrality_filename), 
                                                 ['AuthorId:long', 'PageRank:float', 'PageRank05:float', 
                                                  'InDegreeStrength:float', 'InDegree:float', 'OutDegreeStrength:float', 
                                                  'OutDegree:float'])
+        if 'master' in centrality_filename.lower():
+            self.mag.streams[centrality_filename][1].append('sliceid:int')
         
         cent = self.mag.getDataframe(centrality_filename)
         wtm = self.mag.getDataframe('WosToMag')
