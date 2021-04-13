@@ -129,11 +129,15 @@ class Matcher():
         return eval.run_evaluations(METRICS)
 
     def evaluateAll(self, data, field):
+        results = []
+        destination = "/home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/" + field + "_" + centr + ".csv"
         for centr in CENTRALITIES:
-            results = self.evaluate(centrality=centr, data = data)
-            destination = "/home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/" + field + "_" + centr + ".csv"
+            evaluations = {'centr': centr}
+            evaluations = self.evaluate(centrality=centr, data = data)
             print("Destination:", destination)
             self.save_results(destination, results)
+            results.append(evaluations)
+        self.save_results()
 
     def save_results(self, destination, results):
         final_results = pd.DataFrame.from_dict(results)
