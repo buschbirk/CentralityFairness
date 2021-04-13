@@ -11,13 +11,17 @@ sys.path.insert(0,parentdir)
 
 from lenskit.metrics.topnFair import *
 
+pd.options.mode.chained_assignment = None
+
 CHUNK_SIZE = 100000
+SLICES = 30
 
 class SliceEvaluator:
 
-  def __init__(self, file_name, centrality):
+  def __init__(self, file_name, centrality, metrics):
     self.centrality = centrality
     self.results = []
+    self.metrics = metrics
     self.process_data(file_name)
     # print('gender counts normalized:')
     # print(self.data.Gender.value_counts(normalize = True))
@@ -35,13 +39,19 @@ class SliceEvaluator:
       data.sort_values(by = 'rank', ascending = False, inplace = True)
 
   def process_data(self, path):
-    for i in range(slices):
+    for i in range(SLICES):
       _slice = []
-      for chunk in self.data = pd.read_csv(path, sep = '\t', chunksize = CHUNK_SIZE):
+      for chunk in pd.read_csv(path, sep = '\t', chunksize = CHUNK_SIZE):
         _slice.append(chunk[chunk.sliceid==i])
       df_slice = pd.concat(_slice)
       df_slice = df_slice.query('Gender != -1')
-      process_slice(df_slice.sample(10000)) # TODO fjern sample
+      print('Gender counts before filtering on InDegree:')
+      print(df_slice.Gender.value_counts(normalize = False))
+      df_slice = df_slice.query('InDegree != 0')
+      print('\nGender counts before after on InDegree:')
+      print(df_slice.Gender.value_counts(normalize = False))
+      df_slice.rename(columns = {'AuthorId': 'item', self.centrality: 'rank'}, inplace = True)
+      self.process_slice(df_slice, i, self.metrics)
 
   def process_slice(self, df_slice, slice_index, metrics):
     df_slice['protected'] = df_slice.Gender.apply(lambda x: int(x == 0))
@@ -49,8 +59,10 @@ class SliceEvaluator:
     self.add_protected_column(df_slice)
     evaluations = {'index': slice_index}
     for m in metrics:
-      evaluations[m] = calculate_fairness(df_slice)
+      evaluations[m] = self.calculate_fairness(df_slice, m)
     self.results.append(evaluations)
+    self.print_results()
+    self.results = []
 
   def calculate_fairness(self, df_slice, metric):
     return calculateNDFairnes(recs=df_slice, truth=[], metric=metric, protected_varible='protected')
@@ -67,5 +79,5 @@ if __name__ == '__main__':
   path = sys.argv[3]
   metrics = ['rND', 'rKL', 'rRD', 'equal_ex']
   print('Evaluating', path, 'for centrality', centrality)
-  eval = SliceEvaluator(path, centrality)
-  eval.print_results()
+  eval = SliceEvaluator(path, centrality, metrics)
+  # eval.print_results()
