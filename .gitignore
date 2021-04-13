@@ -1,6 +1,5 @@
 JUNMIN/*.csv
-JOB_OUTPUTS/job.36848.out
-JOB_OUTPUTS/job.36887.out
 MAG_FILES/CitationsByDisciplineAndYear*
-JOB_OUTPUTS/*
 Evaluations/lenskit/batch/__pycache__/*.pyc
+MAG_FILES/GenderedCitationsPerYear.csv
+JOB_OUTPUTS/*.out
