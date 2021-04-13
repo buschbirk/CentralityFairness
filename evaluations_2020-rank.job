@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#SBATCH --job-name=jupyter    # Job name
+#SBATCH --output=/home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/evaluation.job%j.out      # Name of output file (%j expands to jobId)
+#SBATCH --cpus-per-task=6        # Schedule 8 cores (includes hyperthreading)
+#SBATCH --time=23:30:00          # Run time (hh:mm:ss) - run for one hour max
+
+echo "Running evaluations on $(hostname):"
+
+echo "$(hostname -I)"
+
+module load Anaconda3
+. $(conda info --base)/etc/profile.d/conda.sh
+conda activate magenv
+
+printf "Rank:\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None Rank /home/agbe/MAG/CentralityFairness/Evaluations/psychology2020.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None Rank /home/agbe/MAG/CentralityFairness/Evaluations/economics2020.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None Rank /home/agbe/MAG/CentralityFairness/Evaluations/mathematics2020.csv 
+printf "\n\n\n\n"
+time python /home/agbe/MAG/CentralityFairness/Evaluations/Evaluator.py None Rank /home/agbe/MAG/CentralityFairness/Evaluations/chemistry2020.csv 
