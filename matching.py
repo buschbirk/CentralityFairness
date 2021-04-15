@@ -47,8 +47,6 @@ class Matcher():
         self.female_population = None
         self.male_population = None
 
-
-
     def load_authors(self, fos_id=162324750, folder_destination = "/home/laal/MAG/DATA/AuthorMetadataField.csv"):
 
         # base_destination = "/home/laal/MAG/DATA/AuthorMetadataField.csv"
