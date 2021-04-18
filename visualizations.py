@@ -73,7 +73,9 @@ def plot_group_dist(centrality_df, centrality, interval_size, max_N, protected_g
     
     return y_values, xticks
 
-def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centrality="Pagerank"):
+
+def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centrality="Pagerank",
+                      filepath=None):
     idx = 0
     fig, axs = plt.subplots(nrows=1, ncols=4, figsize=figsize, sharex=False, sharey=True)
     axs = list(axs.flatten())
@@ -152,11 +154,82 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
     axs[3].set_ylabel(None)
     axs[3].legend().set_visible(False)
     
-    plt.suptitle("Group proportions in Top N ranking in {} ({})".format(field_name, centrality), fontsize=20)
+    plt.suptitle("Group membership in Top N ranking in {} ({})".format(field_name, centrality), fontsize=20)
     plt.tight_layout()
     
-    plt.show()
+    if filepath is None:
+        plt.show()
+    else:
+        plt.savefig(filepath)
 
+
+
+
+
+def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, centrality_matched_sample, 
+                      interval=1000, figsize=(15,12), centrality="Pagerank", filepath=None):
+    
+    idx = 0
+    fig, axs = plt.subplots(nrows=1, ncols=3, figsize=figsize, sharex=False, sharey=True)
+    axs = list(axs.flatten())
+
+    
+    cent_df.sort_values(by=centrality, ascending=False, inplace=True)
+    
+    plot_group_dist(cent_df, centrality, 
+                    interval_size=interval, 
+                    max_N=len(cent_df), 
+                    protected_group=0, 
+                    unprotected=1,
+                    show_unknown=False,
+                    na_removed=True,
+                    field_name=field_name, 
+                    ax=axs[0], global_rates=None)
+    
+    axs[0].set_title("Whole population \n N increment = {}. N/A removed".format(interval))
+    axs[0].set_ylabel("Membership proportion in top N")
+    axs[0].legend().set_visible(True)
+            
+    y, x = plot_group_dist(centrality_random_sample, centrality, 
+                           interval_size=interval,
+                           max_N=len(centrality_random_sample), 
+                           protected_group=0, 
+                           unprotected=1, 
+                           show_unknown=False,
+                           na_removed=True,
+                           field_name=field_name,
+                           ax=axs[1],
+                           global_rates=None)
+                           
+    axs[1].set_title("Random matching \n N increment = {}. N/A removed".format(interval))
+    axs[1].set_ylabel(None)
+    axs[1].legend().set_visible(False)
+    
+
+    y, x = plot_group_dist(centrality_matched_sample, centrality, 
+                           interval_size=interval,
+                           max_N=len(centrality_matched_sample), 
+                           protected_group=0, 
+                           unprotected=1, 
+                           show_unknown=False,
+                           na_removed=True,
+                           field_name=field_name,
+                           ax=axs[2],
+                           global_rates=None)
+
+    axs[2].set_title("Career and affiliation matching \n N increment = {}. N/A removed".format(100))
+    axs[2].set_ylabel(None)
+    axs[2].legend().set_visible(False)
+    
+    
+    plt.suptitle("Group membership in Top N ranking in {} ({}) on matched population"
+                 .format(field_name, centrality), fontsize=16)
+    plt.tight_layout()
+    
+    if filepath is None:
+        plt.show()
+    else:
+        plt.savefig(filepath)
 
 
 def plot_all_fields(centrality, interval=1000):
