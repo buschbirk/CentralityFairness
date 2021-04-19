@@ -48,6 +48,8 @@ class SliceEvaluator:
         if tempMax > max:
           max = tempMax
       df_slice = pd.concat(_slice)
+      if df_slice.empty:
+        return
       df_slice = df_slice.query('Gender != -1')
       # TODO :) df_slice = df_slice.query('InDegree != 0')
       df_slice.rename(columns = {'AuthorId': 'item', self.centrality: 'rank'}, inplace = True)
@@ -76,7 +78,7 @@ class SliceEvaluator:
     print(self.results)
 
 if __name__ == '__main__':
-  sample = sys.argv[1]
+  SLICES = int(sys.argv[1])
   centrality = sys.argv[2]
   path = sys.argv[3]
   destination = sys.argv[4]
