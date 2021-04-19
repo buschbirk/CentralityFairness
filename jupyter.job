@@ -11,7 +11,7 @@ echo "$(hostname -I)"
 
 module load Anaconda3
 . $(conda info --base)/etc/profile.d/conda.sh
-conda activate gtenv
+conda activate magenv
 
 # python /home/laal/MAG/CentralityFairness/clusterscript.py
 

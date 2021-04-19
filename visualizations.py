@@ -217,7 +217,7 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
                            ax=axs[2],
                            global_rates=None)
 
-    axs[2].set_title("Career and affiliation matching \n N increment = {}. N/A removed".format(100))
+    axs[2].set_title("Career and affiliation matching \n N increment = {}. N/A removed".format(interval))
     axs[2].set_ylabel(None)
     axs[2].legend().set_visible(False)
     
