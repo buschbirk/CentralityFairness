@@ -137,20 +137,27 @@ class Matcher():
         eval = Evaluator(centrality=centrality, data=data)
         return eval.run_evaluations(METRICS)
 
-    def evaluateAll(self, data, field):
+    def evaluateAll(self, random_data, matched_data, field):
         results = []
         for centr in CENTRALITIES:
-            evaluations = {'centr': centr}
-            evaluations = self.evaluate(centrality=centr, data = data)
-            destination = self.base_filepath + "/CentralityFairness/EVALUATIONS_OUTPUTS/" + field + "_" + centr + ".csv"
-            print("Destination:", destination)
-            results.append(evaluations)
-        self.save_results(destination, results)
+            evaluations_random = self.evaluate(centrality=centr, data = random_data)
+            evaluations_matched = self.evaluate(centrality = centr, data = matched_data)
+            # TODO delete? destination = self.base_filepath + "/CentralityFairness/EVALUATIONS_OUTPUTS/" + field + "_" + centr + ".csv"
+            results.append(self.save_line(centr, 'random', evaluations_random))
+            results.append(self.save_line(centr, 'matched', evaluations_matched))
+        return results
+        # self.save_results(destination, results)
         # FIXME virker ikke
+
+    def save_line(self, centrality, type, evaluations):
+        line = evaluations
+        line['centrality'] = centrality
+        line['type'] = type
+        return line
 
     def save_results(self, destination, results):
         final_results = pd.DataFrame.from_dict(results)
-        final_results.to_csv(destination)
+        final_results.to_csv(destination, index=False, sep="\t")
 
     def save_visualizations(self, field, centrality_df, random_centrality_df, matched_centrality_df):
         
@@ -172,28 +179,28 @@ if __name__ == '__main__':
     file_path = sys.argv[1] # "/home/agbe/MAG/CentralityFairness/Evaluations/economics2020.csv"
     field = sys.argv[2]     # Economics 
     field_id = sys.argv[3]  # 162324750
+    base_filepath = sys.argv[4] # "/home/agbe/MAG"
+
+    destination = base_filepath + "/CentralityFairness/EVALUATIONS_OUTPUTS/maching_" + field + ".csv"
 
     data = pd.read_csv(file_path, sep="\t")
-    matcher = Matcher(centrality_df = data, random_seed=12, base_filepath="/home/laal/MAG", fos_name=field)
-    matcher.load_authors(fos_id=int(field_id), folder_destination = "/home/laal/MAG/DATA/AuthorMetadataField.csv")
+    matcher = Matcher(centrality_df = data, random_seed=12, base_filepath=base_filepath, fos_name=field)
+    matcher.load_authors(fos_id=int(field_id), folder_destination = "/home/agbe/MAG/DATA/AuthorMetadataField.csv")
 
     # step 1
     random_data_males, random_data_females = matcher.random_sample()
     random_data = matcher.samples_to_centrality_data(random_data_males, random_data_females)
 
-    print("Sampled {} males and {} females randomly. Total {} records".format(len(random_data_males), len(random_data_females),
+    print("Sampled {} men and {} women randomly. Total {} records".format(len(random_data_males), len(random_data_females),
     len(random_data)))
-    #print(matcher.evaluate(centrality='PageRank', data=random_data))
-    # matcher.evaluateAll(data=random_data, field=field)
 
     # step 2
     matched_data_males, matched_data_females = matcher.matched_sample()
     matched_data = matcher.samples_to_centrality_data(matched_data_males, matched_data_females, store=True, is_matched=True)
-    # matcher.evaluateAll(data=matched_data, field = field)  
-    print("done")
-
-
-    print("Matched {} males and {} females. Total {} records".format(len(matched_data_males), len(matched_data_females),
+    
+    total_results = matcher.evaluateAll(random_data=random_data, matched_data=matched_data, field=field)
+    matcher.save_results(destination, total_results)
+    print("Matched {} men and {} women. Total {} records".format(len(matched_data_males), len(matched_data_females),
     len(matched_data)))
 
     matcher.save_visualizations(field=field, centrality_df=data, random_centrality_df=random_data, 

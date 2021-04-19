@@ -17,7 +17,7 @@ class Evaluator:
     if file_name != "":
       self.read_data(file_name)
     else:
-      self.data = data
+      self.data = data.copy()
     if sample is not None:
       self.data = self.data.sample(sample)
     self.centrality = centrality
@@ -35,7 +35,7 @@ class Evaluator:
   def sort_data(self):
     if self.centrality == 'Rank':
       self.data.sort_values(by = 'rank', ascending = True, inplace = True) 
-    else: 
+    else:
       self.data.sort_values(by = 'rank', ascending = False, inplace = True)
 
   def read_data(self, path):
