@@ -3,3 +3,7 @@ MAG_FILES/CitationsByDisciplineAndYear*
 Evaluations/lenskit/batch/__pycache__/*.pyc
 MAG_FILES/GenderedCitationsPerYear.csv
 JOB_OUTPUTS/*.out
+Evaluations/lenskit/metrics/__pycache__/dataGenerator.cpython-38.pyc
+EVALUATIONS_OUTPUTS/job.*.out
+Evaluations/lenskit/metrics/__pycache__/topnFair.cpython-38.pyc
+Evaluations/__pycache__/Evaluator.cpython-38.pyc
