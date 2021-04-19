@@ -175,7 +175,7 @@ class Matcher():
 
 
 if __name__ == '__main__':
-    # FILE_PATH FIELD
+    # FILE_PATH FIELD FIELD_ID BASE_FILEPATH
     file_path = sys.argv[1] # "/home/agbe/MAG/CentralityFairness/Evaluations/economics2020.csv"
     field = sys.argv[2]     # Economics 
     field_id = sys.argv[3]  # 162324750

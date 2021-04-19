@@ -18,12 +18,12 @@ time python /home/agbe/MAG/CentralityFairness/matching.py "/home/agbe/MAG/Centra
 
 printf "Matching Mathematics:\n"
 #time python /home/laal/MAG/CentralityFairness/matching.py /home/laal/MAG/DATA/NETWORKS/SimpleWeightMathematics2020CentralityGendered.csv Mathematics 33923547 
-time python /home/agbe/MAG/CentralityFairness/matching.py "/home/agbe/MAG/CentralityFairness/Evaluations/mathematics2020.csv" Economics 33923547 "/home/agbe/MAG"
+time python /home/agbe/MAG/CentralityFairness/matching.py "/home/agbe/MAG/CentralityFairness/Evaluations/mathematics2020.csv" Mathematics 33923547 "/home/agbe/MAG"
 
 printf "Matching Psychology:\n"
 #time python /home/laal/MAG/CentralityFairness/matching.py /home/laal/MAG/DATA/NETWORKS/SimpleWeightPsychology2020CentralityGendered.csv Psychology 15744967 
-time python /home/agbe/MAG/CentralityFairness/matching.py "/home/agbe/MAG/CentralityFairness/Evaluations/psychology2020.csv" Economics 15744967 "/home/agbe/MAG"
+time python /home/agbe/MAG/CentralityFairness/matching.py "/home/agbe/MAG/CentralityFairness/Evaluations/psychology2020.csv" Psychology 15744967 "/home/agbe/MAG"
 
 printf "Matching Chemistry:\n"
 #time python /home/laal/MAG/CentralityFairness/matching.py /home/laal/MAG/DATA/NETWORKS/SimpleWeightChemistry2020CentralityGendered.csv Chemistry 185592680 
-time python /home/agbe/MAG/CentralityFairness/matching.py "/home/agbe/MAG/CentralityFairness/Evaluations/chemistry2020.csv" Economics 185592680 "/home/agbe/MAG"
+time python /home/agbe/MAG/CentralityFairness/matching.py "/home/agbe/MAG/CentralityFairness/Evaluations/chemistry2020.csv" Chemistry 185592680 "/home/agbe/MAG"
