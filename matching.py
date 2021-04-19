@@ -138,6 +138,7 @@ class Matcher():
             self.save_results(destination, results)
             results.append(evaluations)
         self.save_results()
+        # FIXME virker ikke
 
     def save_results(self, destination, results):
         final_results = pd.DataFrame.from_dict(results)

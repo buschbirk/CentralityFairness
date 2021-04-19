@@ -5,7 +5,7 @@
 #SBATCH --cpus-per-task=6        # Schedule 8 cores (includes hyperthreading)
 #SBATCH --time=23:30:00          # Run time (hh:mm:ss) - run for one hour max
 
-echo "Running evaluations on $(hostname):"
+echo "Running slice evaluations on $(hostname):"
 
 echo "$(hostname -I)"
 
@@ -13,5 +13,11 @@ module load Anaconda3
 . $(conda info --base)/etc/profile.d/conda.sh
 conda activate magenv
 
-#printf "PageRank:\n"
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py None PageRank /home/agbe/MAG/CentralityFairness/Evaluations/EconomicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/economics_slices_PageRank_test.csv
+# PageRank
+time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py None PageRank /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_PageRank.csv
+# PageRank05
+time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py None PageRank05 /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_PageRank05.csv
+# InDegreeStrength
+time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py None InDegreeStrength /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_InDegreeStrength.csv
+# Rank
+time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py None Rank /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_Rank.csv
