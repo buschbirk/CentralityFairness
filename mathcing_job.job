@@ -14,4 +14,13 @@ module load Anaconda3
 conda activate magenv
 
 printf "Matching economics:\n"
-time python /home/laal/MAG/CentralityFairness/matching.py /home/laal/MAG/DATA/NETWORKS/SimpleWeightEconomics2020SliceMasterCentralityGendered.csv Economics 162324750 
+time python /home/laal/MAG/CentralityFairness/matching.py /home/laal/MAG/DATA/NETWORKS/SimpleWeightEconomics2020CentralityGendered.csv Economics 162324750 
+
+printf "Matching Mathematics:\n"
+time python /home/laal/MAG/CentralityFairness/matching.py /home/laal/MAG/DATA/NETWORKS/SimpleWeightMathematics2020CentralityGendered.csv Mathematics 33923547 
+
+printf "Matching Psychology:\n"
+time python /home/laal/MAG/CentralityFairness/matching.py /home/laal/MAG/DATA/NETWORKS/SimpleWeightPsychology2020CentralityGendered.csv Psychology 15744967 
+
+printf "Matching Chemistry:\n"
+time python /home/laal/MAG/CentralityFairness/matching.py /home/laal/MAG/DATA/NETWORKS/SimpleWeightChemistry2020CentralityGendered.csv Chemistry 185592680 

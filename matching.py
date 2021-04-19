@@ -20,7 +20,7 @@ class Matcher():
     def __init__(self, centrality_df, random_seed, max_year_limit=2018, min_year_tolerance=0, 
                  base_filepath="/home/agbe/MAG", fos_name="Economics"):
 
-        self.cent_df = centrality_df
+        self.cent_df = centrality_df.query("Gender != -1")
         self.seed = random_seed
         self.max_year_limit = max_year_limit
         self.min_year_tolerance = min_year_tolerance
@@ -166,8 +166,8 @@ class Matcher():
 if __name__ == '__main__':
     # FILE_PATH FIELD
     file_path = sys.argv[1] # "/home/agbe/MAG/CentralityFairness/Evaluations/economics2020.csv"
-    field = sys.argv[2]
-    field_id = sys.argv[3]
+    field = sys.argv[2]     # Economics 
+    field_id = sys.argv[3]  # 162324750
 
     data = pd.read_csv(file_path, sep="\t")
     matcher = Matcher(centrality_df = data, random_seed=12, base_filepath="/home/laal/MAG", fos_name=field)

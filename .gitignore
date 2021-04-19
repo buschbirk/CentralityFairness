@@ -3,3 +3,4 @@ MAG_FILES/CitationsByDisciplineAndYear*
 Evaluations/lenskit/batch/__pycache__/*.pyc
 MAG_FILES/GenderedCitationsPerYear.csv
 JOB_OUTPUTS/*.out
+MATCHING_OUTPUTS/Psychology_seed12_matched.csv
