@@ -29,7 +29,8 @@ def get_cluster_client(jobid, memory_per_executor=16000):
     "spark.reducer.maxReqsInFlight": 5,
     "spark.executor.memoryOverhead": "2gb",
     "spark.driver.memory": "20g",
-    "spark.sql.shuffle.partitions": 300  
+    "spark.sql.shuffle.partitions": 300,
+    "spark.sql.broadcastTimeout": "36000"
     }
 
     job = sj.start_spark(extra_conf = config_options)

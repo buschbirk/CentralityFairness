@@ -12,7 +12,7 @@ import MAGspark
 import os
 import shutil
 import pandas as pd
-
+import numpy as np
 
 def paper_root_field_mag(mag, destination="/home/laal/MAG/DATA/PaperRootFieldMag.txt"):
     """
@@ -123,6 +123,10 @@ class CitationNetwork():
         self.network_name = None
         self.network_destination = None
 
+        self.paper_references_name = None
+        self.citation_dataset_name = None
+
+
     def get_paper_references_field(self):
 
         paper_references = self.mag.getDataframe('PaperReferences')
@@ -191,6 +195,8 @@ class CitationNetwork():
         self.mag.streams["PaperReferences{}".format(self.fos_name)] = \
         ('PaperReferences{}.txt'.format(self.fos_name), ['PaperId:long', 'PaperReferenceId:long'])
 
+        self.paper_references_name = "PaperReferences{}".format(self.fos_name)
+
         field_citations_location = self.root_folder + "/Citations{}.txt".format(self.fos_name)
         if (not os.path.exists(field_citations_location)) or overwrite:
 
@@ -204,18 +210,23 @@ class CitationNetwork():
             .csv(field_citations_location)
         
 
+        self.citation_dataset_name = "Citations{}".format(self.fos_name)
+
         # ensure that mag has dataset information for field citations
-        self.mag.streams["Citations{}".format(self.fos_name)] = \
+        self.mag.streams[self.citation_dataset_name] = \
         ('Citations{}.txt'.format(self.fos_name), \
         ['CitingAuthorId:long', 'CitingPaperId:long', 'CitingAuthorGender:int', 
          'CitedAuthorId:long', 'CitedPaperId:long', 'CitedAuthorGender:int'])
+
+        
 
         print("Paper references and citations available for {}".format(self.fos_name))
 
         return
 
 
-    def extract_author_author_network(self, mindate='1800-01-01', maxdate='2021-06-01'):
+    def extract_author_author_network(self, mindate='1800-01-01', maxdate='2021-06-01',
+                                            min_rownum=None, max_rownum=None):
         """
         Filters by publishing date of citing paper (Radicchi et. al., 2009). 
         Does not allow references to cited papers published after maxdate.
@@ -223,37 +234,74 @@ class CitationNetwork():
 
         # ensure that field references and citation datasets are available
         self.check_references_and_citations(overwrite=False)
+        paper_ref_name = "PaperReferences{}".format(self.fos_name)
+        # citation_dataset_name = 'Citations{}'.format(self.fos_name)
 
-        citations_dataset_name = 'Citations{}'.format(self.fos_name)
-
-        citations =  self.mag.getDataframe(citations_dataset_name)
+        paper_references = self.mag.getDataframe(paper_ref_name)
+        citations =  self.mag.getDataframe(self.citation_dataset_name)
         author_affiliations = self.mag.getDataframe('PaperAuthorAffiliations')
         authors_per_paper = self.mag.getDataframe('NumAuthorsPerPaper')
 
-        query = """
-            SELECT 
-              CitingAuthorId, 
-              CitedAuthorId, 
-              SUM( 1 / (app1.NumAuthors * app2.NumAuthors)  ) as Weight,
-              COUNT(DISTINCT(CitingPaperId)) as numCitingPapers,
-              COUNT(DISTINCT(CitedPaperId)) as numCitedPapers,
-              COUNT(*) as numCitations
-            FROM {} AS ac
-            INNER JOIN NumAuthorsPerPaper app1 ON ac.CitingPaperId = app1.PaperId
-            INNER JOIN NumAuthorsPerPaper app2 ON ac.CitedPaperId = app2.PaperId 
-            WHERE 
-            app1.PublishDate >= '{}' AND
-            app1.PublishDate <= '{}' AND app2.PublishDate <= '{}' 
-            GROUP BY CitingAuthorId, CitedAuthorId
-        """.format(citations_dataset_name, 
-                   mindate, maxdate, maxdate)    
-        
+        # get ordered references to filter citations by
+        if min_rownum is not None and max_rownum is not None:
+            papers = self.mag.getDataframe('Papers')
+            query = """
+            SELECT * FROM (
+                SELECT pr.PaperId, pr.PaperReferenceId,
+                p.Date as pubDate, 
+                row_number() over (order by p.Date ASC) rownum
+                FROM {} pr
+                INNER JOIN Papers p ON pr.PaperId = p.PaperId
+                WHERE 
+                p.Date is not null and p.Date <= '2020-12-31'
+            ) x
+            WHERE rownum >= {} AND rownum <= {} 
+            """.format(paper_ref_name, min_rownum, max_rownum)
+
+            df = self.mag.query_sql(query)
+            pr_filtered = df.createOrReplaceTempView('PaperRefsFiltered')
+
+        if min_rownum is None or max_rownum is None:
+            query = """
+                SELECT 
+                CitingAuthorId, 
+                CitedAuthorId, 
+                SUM( 1 / (app1.NumAuthors * app2.NumAuthors)  ) as Weight,
+                COUNT(DISTINCT(CitingPaperId)) as numCitingPapers,
+                COUNT(DISTINCT(CitedPaperId)) as numCitedPapers,
+                COUNT(*) as numCitations
+                FROM {} AS ac
+                INNER JOIN NumAuthorsPerPaper app1 ON ac.CitingPaperId = app1.PaperId
+                INNER JOIN NumAuthorsPerPaper app2 ON ac.CitedPaperId = app2.PaperId 
+                WHERE 
+                app1.PublishDate >= '{}' AND
+                app1.PublishDate <= '{}' AND app2.PublishDate <= '{}' 
+                GROUP BY CitingAuthorId, CitedAuthorId
+            """.format(self.citation_dataset_name, 
+                    mindate, maxdate, maxdate)    
+        else:
+            query = """
+                SELECT 
+                CitingAuthorId, 
+                CitedAuthorId, 
+                SUM( 1 / (app1.NumAuthors * app2.NumAuthors)  ) as Weight,
+                COUNT(DISTINCT(CitingPaperId)) as numCitingPapers,
+                COUNT(DISTINCT(CitedPaperId)) as numCitedPapers,
+                COUNT(*) as numCitations
+                FROM {} AS ac
+                INNER JOIN NumAuthorsPerPaper app1 ON ac.CitingPaperId = app1.PaperId
+                INNER JOIN NumAuthorsPerPaper app2 ON ac.CitedPaperId = app2.PaperId 
+                INNER JOIN PaperRefsFiltered prf ON ac.CitingPaperId = prf.PaperId AND ac.CitedPaperId = prf.PaperReferenceId
+                GROUP BY CitingAuthorId, CitedAuthorId
+            """.format(self.citation_dataset_name) 
+
         author_edgelist = self.mag.query_sql(query)
         
         return author_edgelist
 
 
-    def save_author_network(self, network_name, mindate='1800-01-01', maxdate='2021-06-01', overwrite=False):
+    def save_author_network(self, network_name, mindate='1800-01-01', maxdate='2021-06-01', overwrite=False,
+                            min_rownum=None, max_rownum=None):
 
         self.network_name = network_name
         self.network_destination = self.root_folder + "/NETWORKS/{}.txt".format(self.network_name)
@@ -262,7 +310,7 @@ class CitationNetwork():
             print("Network exists at " + self.network_destination + ". Use overwrite to replace")
             return
 
-        author_network = self.extract_author_author_network(mindate=mindate, maxdate=maxdate)
+        author_network = self.extract_author_author_network(mindate=mindate, maxdate=maxdate, min_rownum=min_rownum, max_rownum=max_rownum)
         author_network.write.option("sep", "\t").option("encoding", "UTF-8")\
         .csv(self.network_destination)
 
@@ -319,9 +367,11 @@ class CitationNetwork():
         LEFT JOIN WosToMag wtm ON a.AuthorId = wtm.MAG
         """.format(self.network_name, self.network_name)
 
-        nodelist = self.mag.query_sql(query)
-        num_nodes = nodelist.count()
+        nodelist = self.mag.query_sql(query).toPandas()
+        
+        num_nodes = nodelist.shape[0]
         print("The network has {} nodes".format(num_nodes))
+        print("Gender distribution: {}".format(nodelist.Gender.value_counts(normalize=False)))
         
         return network, nodelist
 
@@ -344,6 +394,10 @@ class CitationNetwork():
         g = gt.Graph()
         eweight = g.new_ep("double")
         
+        eweight_array = []
+        node_mapping = {}
+        node_idx = 0
+        
         for filename in sorted(os.listdir(self.network_destination)):
 
             # skip all Spark helper-files
@@ -353,16 +407,40 @@ class CitationNetwork():
             # print("Parsing file: {}".format(filename))
 
             with open(self.network_destination + "/" + filename) as file:
+                # extract source and target node + edge weight
+                print(filename)
+
                 for line in file:
-                    # extract source and target node + edge weight
                     contents = line.strip().split("\t")
-                    edges.append((str(contents[0]), str(contents[1]), float(contents[2])))
+                    
+                    edge_from = contents[0]
+                    edge_to = contents[1]
+                    
+                    weight = float(contents[2])
+                    
+                    if edge_from in node_mapping:
+                        from_vertex = node_mapping[edge_from]
+                    else:
+                        from_vertex = g.add_vertex()
+                        node_mapping[edge_from] = from_vertex
+                        
+                    if edge_to in node_mapping:
+                        to_vertex = node_mapping[edge_to]
+                    else:
+                        to_vertex = g.add_vertex()
+                        node_mapping[edge_to] = to_vertex
+                        
+                    eweight_array.append(weight)
+                    
+                    g.add_edge(from_vertex, to_vertex)
+        idx_to_node = [(int(v), node) for node, v in node_mapping.items()]
+        idx_to_node = sorted(idx_to_node, key=lambda x: x[0])
         
-        # construct Graph from weighted edgelist, hashing node IDs
-        # node_mapping will contain mapping between MAG ID and node index in graph
-        node_mapping = g.add_edge_list(edges, eprops=[eweight], hashed=True, hash_type='string')
+        nodes = [node for idx, node in idx_to_node]
         
-        return g, node_mapping, eweight
+        eweight.a = np.array(eweight_array)
+        
+        return g, nodes, eweight
 
 
     def compute_centralities(self, graph, node_mapping, eweight, filename, pr_damping=0.85):
@@ -376,7 +454,7 @@ class CitationNetwork():
         nodes = list(graph.vertices())
         
         # identify nodes in largest component for Katz centrality
-        largest_comp = label_largest_component(graph)
+        # largest_comp = label_largest_component(graph)
         
         print("Initiating PageRank")
         # compute PageRank with given damping factor
@@ -424,21 +502,24 @@ class CitationNetwork():
         
         print("Centrality CSV saved to {}".format(filepath))
 
-        return
+        return df
 
 
-    def append_gender_and_macrank(self):
+    def append_gender_and_macrank(self, centrality_filename=None):
         """
         Merges CSV with centrality scores with Gender information and MAG Rank for each author.
         Stores results in single CSV file with header. 
         """
-        centrality_filename = self.network_destination.split("/")[-1].split(".")[0] + "Centrality"
+        if centrality_filename is None:
+            centrality_filename = self.network_destination.split("/")[-1].split(".")[0] + "Centrality"
 
         # Assign centrality dataset info on mag
         self.mag.streams[centrality_filename] = ('NETWORKS/{}.csv'.format(centrality_filename), 
                                                 ['AuthorId:long', 'PageRank:float', 'PageRank05:float', 
                                                  'InDegreeStrength:float', 'InDegree:float', 'OutDegreeStrength:float', 
                                                  'OutDegree:float'])
+        if 'master' in centrality_filename.lower():
+            self.mag.streams[centrality_filename][1].append('sliceid:int')
         
         cent = self.mag.getDataframe(centrality_filename)
         wtm = self.mag.getDataframe('WosToMag')

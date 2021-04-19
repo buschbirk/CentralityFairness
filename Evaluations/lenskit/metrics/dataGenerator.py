@@ -15,7 +15,10 @@ def generateUnfairRanking(_ranking,_protected_group,_fairness_probability):
                  the protected group
     """
     # error handling for ranking and protected group
+    #print('Enter generate unfair')
     completeCheckRankingProperties(_ranking,_protected_group)
+
+    # print('checked properties')
 
     if not isinstance( _fairness_probability, ( int, float, complex ) ):
         raise TypeError("Input fairness probability must be a number")
@@ -24,11 +27,24 @@ def generateUnfairRanking(_ranking,_protected_group,_fairness_probability):
         raise ValueError("Input fairness probability must be a number in [0,1]")
 
 
-    pro_ranking=[x for x in _ranking if x not in _protected_group] # partial ranking of protected member
-    unpro_ranking=[x for x in _ranking if x in _protected_group] # partial ranking of unprotected member
+    # pro_ranking=[x for x in _ranking if x not in _protected_group] # partial ranking of protected member
+    # unpro_ranking=[x for x in _ranking if x in _protected_group] # partial ranking of unprotected member
+    pro_ranking = [] 
+    unpro_ranking = [] 
+    _protected_group = set(_protected_group)
+
+    for x in _ranking:
+        if x not in _protected_group:
+          pro_ranking.append(x)
+        else:
+            unpro_ranking.append(x)
+    
+    #print('added to pro and unpro')
     pro_ranking.reverse() #prepare for pop function to get the first element
     unpro_ranking.reverse()
     unfair_ranking=[]
+
+    #print('created variables')
     
     while(len(unpro_ranking)>0 and len(pro_ranking)>0):
         random_seed=random.random() # generate a random value in range [0,1]
@@ -37,12 +53,16 @@ def generateUnfairRanking(_ranking,_protected_group,_fairness_probability):
         else:
             unfair_ranking.append(pro_ranking.pop()) # insert unprotected group first
     
+    #print('done popping')
+
     if len(unpro_ranking)>0: # insert the remain unprotected member
         unpro_ranking.reverse()
         unfair_ranking=unfair_ranking+unpro_ranking        
     if len(pro_ranking)>0: # insert the remain protected member
         pro_ranking.reverse()
         unfair_ranking=unfair_ranking+pro_ranking
+
+    # print('done with ranking')
         
     if len(unfair_ranking)<len(_ranking): # check error for insertation
         print ("Error!")
