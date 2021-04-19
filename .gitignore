@@ -3,3 +3,5 @@ JOB_OUTPUTS/job.36848.out
 JOB_OUTPUTS/job.36887.out
 MAG_FILES/CitationsByDisciplineAndYear*
 JOB_OUTPUTS/*
+MAG_FILES/GenderedCitationsPerYear.csv
+MATCHING_OUTPUTS/*
