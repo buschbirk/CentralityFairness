@@ -13,11 +13,14 @@ from lenskit.metrics.topnFair import *
 
 class Evaluator:
 
-  def __init__(self, file_name, centrality, sample):
-    self.centrality = centrality
-    self.read_data(file_name)
+  def __init__(self, file_name="", centrality='PageRank', sample=None, data=None):
+    if file_name != "":
+      self.read_data(file_name)
+    else:
+      self.data = data
     if sample is not None:
       self.data = self.data.sample(sample)
+    self.centrality = centrality
     print('gender counts normalized:')
     print(self.data.Gender.value_counts(normalize = True))
     print('gender counts:')
@@ -27,6 +30,7 @@ class Evaluator:
     self.sort_data()
     print('sorted data.head():')
     print(self.data.head())
+
 
   def sort_data(self):
     if self.centrality == 'Rank':
@@ -43,9 +47,13 @@ class Evaluator:
     self.data['protected'] = self.data.Gender.apply(lambda x: int(x == 0))
 
   def run_evaluations(self, metrics):
+    result = {}
     for m in metrics:
-      print(m, calculateNDFairnes(recs=self.data, truth=[], metric=m, protected_varible='protected'))
+      result[m] = calculateNDFairnes(recs=self.data, truth=[], metric=m, protected_varible='protected')
+    return result
 
+  def run_and_print_evaluations(self, metrics):
+    print(self.run_evaluations(metrics))
 
 if __name__ == '__main__':
   sample = sys.argv[1]
@@ -57,5 +65,5 @@ if __name__ == '__main__':
   path = sys.argv[3]
   metrics = ['rND', 'rKL', 'rRD', 'equal_ex']
   print('Evaluating', path, 'with sample size', sample, 'and centrality', centrality)
-  eval = Evaluator(path, centrality, sample)
-  eval.run_evaluations(metrics)
+  eval = Evaluator(file_name=path, centrality=centrality, sample=sample)
+  eval.run_and_print_evaluations(metrics)

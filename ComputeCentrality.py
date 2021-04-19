@@ -134,7 +134,7 @@ def build_wacn_graphs(fos_id, fos_name, root_data_folder, csv_filepath):
             df.to_csv("/home/laal/MAG/DATA/NETWORKS/SimpleWeight{}2020SliceMasterCentrality.csv"
                       .format(fos_name), index=False, header=False, mode='a', sep="\t")        
             
-    network.append_gender_and_macrank("SimpleWeight{}2020SliceMasterCentrality".format(fos_name))
+    # network.append_gender_and_macrank("SimpleWeight{}2020SliceMasterCentrality".format(fos_name))
 
 
 if __name__ == '__main__':
