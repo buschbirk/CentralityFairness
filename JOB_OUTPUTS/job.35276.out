@@ -1,354 +1,0 @@
-Running on desktop3:
-21/02/21 13:00:48 WARN Utils: Your hostname, desktop3 resolves to a loopback address: 127.0.0.1; using 172.16.16.103 instead (on interface eno1)
-21/02/21 13:00:48 WARN Utils: Set SPARK_LOCAL_IP if you need to bind to another address
-21/02/21 13:00:48 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
-Setting default log level to "WARN".
-To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-[Stage 0:>                (0 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>                (2 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>                (4 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>                (5 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>                (7 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>                (8 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>               (10 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>               (13 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>               (14 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>               (15 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>               (16 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>               (17 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>               (19 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:>               (21 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (22 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (23 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (24 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (25 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (27 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (29 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (30 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (31 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (32 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (33 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (34 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (35 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (35 + 9) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (36 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (37 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (39 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (40 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (41 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (42 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=>              (43 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (44 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (45 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (46 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (47 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (48 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (49 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (50 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (51 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (53 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (54 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (55 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (56 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (57 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (58 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (60 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (61 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (62 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (63 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==>             (64 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (65 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (66 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (68 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (69 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (70 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (71 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (72 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (74 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (77 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (78 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (79 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (81 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (82 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (83 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (84 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (85 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===>            (86 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (87 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (88 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (89 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (90 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (91 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (92 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (93 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (94 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (95 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (96 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (97 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (98 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>           (99 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (100 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (101 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (102 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (103 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (104 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (105 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (105 + 9) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (106 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (107 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (108 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (109 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (110 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (111 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:====>          (113 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (115 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (116 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (117 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (119 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (121 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (122 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (124 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (125 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (126 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (127 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (129 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (131 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (132 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (133 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (134 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (136 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=====>         (137 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (138 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (139 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (141 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (142 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (143 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (144 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (147 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (148 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (149 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (151 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (153 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (155 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (156 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (157 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (159 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:======>        (160 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (161 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (163 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (164 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (165 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (167 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (168 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (170 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (171 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (172 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (175 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (176 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (177 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (179 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (180 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (182 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=======>       (183 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (184 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (185 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (186 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (187 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (188 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (190 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (191 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (192 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (193 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (194 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (195 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (197 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (199 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (200 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (201 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (202 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (203 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (204 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:========>      (206 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (207 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (208 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (209 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (210 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (212 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (213 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (214 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (215 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (216 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (217 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (218 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (219 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (220 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (221 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (223 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (225 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (227 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (228 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=========>     (229 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (230 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (231 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (233 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (235 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (236 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (237 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (238 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (239 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (240 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (241 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (242 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (243 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (244 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (245 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (246 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (247 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (248 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (249 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (250 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (251 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==========>    (252 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (253 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (254 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (255 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (257 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (258 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (259 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (261 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (262 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (263 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (264 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (265 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (266 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (267 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (268 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (269 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (270 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (272 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (273 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:===========>   (274 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (276 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (277 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (278 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (279 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (280 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (281 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (282 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (283 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (284 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (285 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (287 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (288 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (289 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (290 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (291 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (292 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (293 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (294 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (296 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (297 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:============>  (298 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (300 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (302 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (303 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (304 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (305 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (308 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (309 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (310 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (311 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (312 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (313 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (314 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (316 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (317 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (318 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (319 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:=============> (321 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(322 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(323 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(325 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(326 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(327 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(328 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(329 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(330 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(331 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(333 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(334 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(335 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(337 + 8) / 345][Stage 1:>                  (0 + 0) / 3][Stage 0:==============>(338 + 7) / 345][Stage 1:>                  (0 + 1) / 3][Stage 0:==============>(339 + 6) / 345][Stage 1:>                  (0 + 2) / 3][Stage 0:==============>(340 + 5) / 345][Stage 1:>                  (0 + 3) / 3][Stage 0:==============>(340 + 5) / 345][Stage 1:============>      (2 + 1) / 3][Stage 0:======================================================>(340 + 5) / 345][Stage 0:======================================================>(341 + 4) / 345][Stage 0:======================================================>(342 + 3) / 345][Stage 0:======================================================>(343 + 2) / 345][Stage 0:======================================================>(344 + 1) / 345][Stage 2:>                                                        (0 + 8) / 200]21/02/21 13:08:08 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:08 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:08 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:08 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:08 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:08 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:08 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:08 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:09 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:10 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:11 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:12 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:13 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:14 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:15 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:16 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:17 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:17 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:17 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:17 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:17 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:17 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:17 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:17 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:18 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:19 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:20 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:20 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:20 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:20 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:21 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:21 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:21 WARN TaskMemoryManager: Failed to allocate a page (8388608 bytes), try again.
-21/02/21 13:08:21 WARN TaskMemoryManager: Failed to allocate a page (16777216 bytes), try again.
-21/02/21 13:08:21 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:22 WARN TaskMemoryManager: Failed to allocate a page (8388608 bytes), try again.
-21/02/21 13:08:22 WARN TaskMemoryManager: Failed to allocate a page (8388608 bytes), try again.
-21/02/21 13:08:22 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:22 WARN TaskMemoryManager: Failed to allocate a page (8077515 bytes), try again.
-21/02/21 13:08:22 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:23 ERROR Executor: Exception in task 7.0 in stage 2.0 (TID 355)
-java.lang.OutOfMemoryError: Java heap space
-21/02/21 13:08:23 WARN RowBasedKeyValueBatch: Calling spill() on RowBasedKeyValueBatch. Will not spill but return 0.
-21/02/21 13:08:23 ERROR SparkUncaughtExceptionHandler: Uncaught exception in thread Thread[Executor task launch worker for task 355,5,main]
-java.lang.OutOfMemoryError: Java heap space
-21/02/21 13:08:23 ERROR Inbox: Ignoring error
-java.util.concurrent.RejectedExecutionException: Task org.apache.spark.executor.Executor$TaskRunner@4f7a8132 rejected from java.util.concurrent.ThreadPoolExecutor@233492e2[Shutting down, pool size = 8, active threads = 8, queued tasks = 0, completed tasks = 348]
-	at java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2063)
-	at java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:830)
-	at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1379)
-	at org.apache.spark.executor.Executor.launchTask(Executor.scala:230)
-	at org.apache.spark.scheduler.local.LocalEndpoint.$anonfun$reviveOffers$1(LocalSchedulerBackend.scala:93)
-	at org.apache.spark.scheduler.local.LocalEndpoint.$anonfun$reviveOffers$1$adapted(LocalSchedulerBackend.scala:91)
-	at scala.collection.Iterator.foreach(Iterator.scala:941)
-	at scala.collection.Iterator.foreach$(Iterator.scala:941)
-	at scala.collection.AbstractIterator.foreach(Iterator.scala:1429)
-	at scala.collection.IterableLike.foreach(IterableLike.scala:74)
-	at scala.collection.IterableLike.foreach$(IterableLike.scala:73)
-	at scala.collection.AbstractIterable.foreach(Iterable.scala:56)
-	at org.apache.spark.scheduler.local.LocalEndpoint.reviveOffers(LocalSchedulerBackend.scala:91)
-	at org.apache.spark.scheduler.local.LocalEndpoint$$anonfun$receive$1.applyOrElse(LocalSchedulerBackend.scala:74)
-	at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:115)
-	at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:203)
-	at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:100)
-	at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:75)
-	at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:41)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-21/02/21 13:08:23 WARN TaskSetManager: Lost task 7.0 in stage 2.0 (TID 355, desktop3.hpc.itu.dk, executor driver): java.lang.OutOfMemoryError: Java heap space
-
-21/02/21 13:08:23 ERROR TaskSetManager: Task 7 in stage 2.0 failed 1 times; aborting job
-21/02/21 13:08:23 WARN TaskSetManager: Lost task 1.0 in stage 2.0 (TID 349, desktop3.hpc.itu.dk, executor driver): TaskKilled (Stage cancelled)
-21/02/21 13:08:23 WARN TaskSetManager: Lost task 0.0 in stage 2.0 (TID 348, desktop3.hpc.itu.dk, executor driver): TaskKilled (Stage cancelled)
-21/02/21 13:08:23 WARN TaskSetManager: Lost task 3.0 in stage 2.0 (TID 351, desktop3.hpc.itu.dk, executor driver): TaskKilled (Stage cancelled)
-21/02/21 13:08:23 WARN TaskSetManager: Lost task 2.0 in stage 2.0 (TID 350, desktop3.hpc.itu.dk, executor driver): TaskKilled (Stage cancelled)
-21/02/21 13:08:23 ERROR TaskSchedulerImpl: Exception in statusUpdate
-java.util.concurrent.RejectedExecutionException: Task org.apache.spark.scheduler.TaskResultGetter$$Lambda$3157/228739612@65c1f33c rejected from java.util.concurrent.ThreadPoolExecutor@1e4d3be[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 353]
-	at java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2063)
-	at java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:830)
-	at java.util.concurrent.ThreadPoolExecutor.execute(ThreadPoolExecutor.java:1379)
-	at org.apache.spark.scheduler.TaskResultGetter.enqueueFailedTask(TaskResultGetter.scala:137)
-	at org.apache.spark.scheduler.TaskSchedulerImpl.liftedTree2$1(TaskSchedulerImpl.scala:624)
-	at org.apache.spark.scheduler.TaskSchedulerImpl.statusUpdate(TaskSchedulerImpl.scala:599)
-	at org.apache.spark.scheduler.local.LocalEndpoint$$anonfun$receive$1.applyOrElse(LocalSchedulerBackend.scala:71)
-	at org.apache.spark.rpc.netty.Inbox.$anonfun$process$1(Inbox.scala:115)
-	at org.apache.spark.rpc.netty.Inbox.safelyCall(Inbox.scala:203)
-	at org.apache.spark.rpc.netty.Inbox.process(Inbox.scala:100)
-	at org.apache.spark.rpc.netty.MessageLoop.org$apache$spark$rpc$netty$MessageLoop$$receiveLoop(MessageLoop.scala:75)
-	at org.apache.spark.rpc.netty.MessageLoop$$anon$1.run(MessageLoop.scala:41)
-	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
-	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
-	at java.lang.Thread.run(Thread.java:748)
-Traceback (most recent call last):
-  File "/home/laal/MAG/CentralityFairness/MAG_attributes.py", line 82, in <module>
-    print(paper_field_df.show(50))
-  File "/home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/pyspark/sql/dataframe.py", line 440, in show
-    print(self._jdf.showString(n, 20, vertical))
-  File "/home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/py4j/java_gateway.py", line 1305, in __call__
-    answer, self.gateway_client, self.target_id, self.name)
-  File "/home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/pyspark/sql/utils.py", line 128, in deco
-    return f(*a, **kw)
-  File "/home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/py4j/protocol.py", line 328, in get_return_value
-    format(target_id, ".", name), value)
-py4j.protocol.Py4JJavaError: An error occurred while calling o44.showString.
-: org.apache.spark.SparkException: Job aborted due to stage failure: Task 7 in stage 2.0 failed 1 times, most recent failure: Lost task 7.0 in stage 2.0 (TID 355, desktop3.hpc.itu.dk, executor driver): java.lang.OutOfMemoryError: Java heap space
-
-Driver stacktrace:
-	at org.apache.spark.scheduler.DAGScheduler.failJobAndIndependentStages(DAGScheduler.scala:2059)
-	at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2(DAGScheduler.scala:2008)
-	at org.apache.spark.scheduler.DAGScheduler.$anonfun$abortStage$2$adapted(DAGScheduler.scala:2007)
-	at scala.collection.mutable.ResizableArray.foreach(ResizableArray.scala:62)
-	at scala.collection.mutable.ResizableArray.foreach$(ResizableArray.scala:55)
-	at scala.collection.mutable.ArrayBuffer.foreach(ArrayBuffer.scala:49)
-	at org.apache.spark.scheduler.DAGScheduler.abortStage(DAGScheduler.scala:2007)
-	at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1(DAGScheduler.scala:973)
-	at org.apache.spark.scheduler.DAGScheduler.$anonfun$handleTaskSetFailed$1$adapted(DAGScheduler.scala:973)
-	at scala.Option.foreach(Option.scala:407)
-	at org.apache.spark.scheduler.DAGScheduler.handleTaskSetFailed(DAGScheduler.scala:973)
-	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.doOnReceive(DAGScheduler.scala:2239)
-	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2188)
-	at org.apache.spark.scheduler.DAGSchedulerEventProcessLoop.onReceive(DAGScheduler.scala:2177)
-	at org.apache.spark.util.EventLoop$$anon$1.run(EventLoop.scala:49)
-	at org.apache.spark.scheduler.DAGScheduler.runJob(DAGScheduler.scala:775)
-	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2099)
-	at org.apache.spark.SparkContext.runJob(SparkContext.scala:2194)
-	at org.apache.spark.rdd.RDD.$anonfun$reduce$1(RDD.scala:1094)
-	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
-	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
-	at org.apache.spark.rdd.RDD.withScope(RDD.scala:388)
-	at org.apache.spark.rdd.RDD.reduce(RDD.scala:1076)
-	at org.apache.spark.rdd.RDD.$anonfun$takeOrdered$1(RDD.scala:1498)
-	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:151)
-	at org.apache.spark.rdd.RDDOperationScope$.withScope(RDDOperationScope.scala:112)
-	at org.apache.spark.rdd.RDD.withScope(RDD.scala:388)
-	at org.apache.spark.rdd.RDD.takeOrdered(RDD.scala:1486)
-	at org.apache.spark.sql.execution.TakeOrderedAndProjectExec.executeCollect(limit.scala:183)
-	at org.apache.spark.sql.Dataset.collectFromPlan(Dataset.scala:3627)
-	at org.apache.spark.sql.Dataset.$anonfun$head$1(Dataset.scala:2697)
-	at org.apache.spark.sql.Dataset.$anonfun$withAction$1(Dataset.scala:3618)
-	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$5(SQLExecution.scala:100)
-	at org.apache.spark.sql.execution.SQLExecution$.withSQLConfPropagated(SQLExecution.scala:160)
-	at org.apache.spark.sql.execution.SQLExecution$.$anonfun$withNewExecutionId$1(SQLExecution.scala:87)
-	at org.apache.spark.sql.SparkSession.withActive(SparkSession.scala:764)
-	at org.apache.spark.sql.execution.SQLExecution$.withNewExecutionId(SQLExecution.scala:64)
-	at org.apache.spark.sql.Dataset.withAction(Dataset.scala:3616)
-	at org.apache.spark.sql.Dataset.head(Dataset.scala:2697)
-	at org.apache.spark.sql.Dataset.take(Dataset.scala:2904)
-	at org.apache.spark.sql.Dataset.getRows(Dataset.scala:300)
-	at org.apache.spark.sql.Dataset.showString(Dataset.scala:337)
-	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.lang.reflect.Method.invoke(Method.java:498)
-	at py4j.reflection.MethodInvoker.invoke(MethodInvoker.java:244)
-	at py4j.reflection.ReflectionEngine.invoke(ReflectionEngine.java:357)
-	at py4j.Gateway.invoke(Gateway.java:282)
-	at py4j.commands.AbstractCommand.invokeMethod(AbstractCommand.java:132)
-	at py4j.commands.CallCommand.execute(CallCommand.java:79)
-	at py4j.GatewayConnection.run(GatewayConnection.java:238)
-	at java.lang.Thread.run(Thread.java:748)
-Caused by: java.lang.OutOfMemoryError: Java heap space
-

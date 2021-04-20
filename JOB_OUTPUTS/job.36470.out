@@ -1,9 +1,0 @@
-Running on desktop4:
-FINISHED SETTIN UP CLUSTER
-[I 16:37:44.115 NotebookApp] JupyterLab extension loaded from /home/laal/.conda/envs/torchenv/lib/python3.7/site-packages/jupyterlab
-[I 16:37:44.115 NotebookApp] JupyterLab application directory is /home/laal/.conda/envs/torchenv/share/jupyter/lab
-[I 16:37:44.117 NotebookApp] Serving notebooks from local directory: /home/laal/MAG/CentralityFairness
-[I 16:37:44.117 NotebookApp] Jupyter Notebook 6.1.4 is running at:
-[I 16:37:44.117 NotebookApp] http://localhost:8080/
-[I 16:37:44.117 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
-slurmstepd: error: *** JOB 36470 ON desktop4 CANCELLED AT 2021-02-26T16:39:49 ***

@@ -1,16 +1,13 @@
 JUNMIN/*.csv
-MAG_FILES/CitationsByDisciplineAndYear*
 JOB_OUTPUTS/*
+
 MAG_FILES/GenderedCitationsPerYear.csv
+MAG_FILES/GenderedCitationsPerYear.csv
+MAG_FILES/CitationsByDisciplineAndYear*
+
 MATCHING_OUTPUTS/*
-Evaluations/lenskit/batch/__pycache__/*.pyc
-MAG_FILES/GenderedCitationsPerYear.csv
 JOB_OUTPUTS/*.out
-Evaluations/lenskit/metrics/__pycache__/dataGenerator.cpython-38.pyc
 EVALUATIONS_OUTPUTS/job.*.out
-Evaluations/lenskit/metrics/__pycache__/topnFair.cpython-38.pyc
-Evaluations/__pycache__/Evaluator.cpython-38.pyc
-MATCHING_OUTPUTS/Psychology_seed12_matched.csv
 
 __pycache__/*
 Evaluations/__pycache__/*
@@ -26,3 +23,5 @@ Evaluations/mathematics2020.csv
 Evaluations/propublica.csv
 Evaluations/psychology.csv
 Evaluations/psychology2020.csv
+
+ChemistrySlices2020.csv
