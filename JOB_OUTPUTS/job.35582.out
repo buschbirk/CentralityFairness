@@ -1,9 +1,0 @@
-Running on desktop10:
-Traceback (most recent call last):
-  File "/home/agbe/MAG/CentralityFairness/MAG_attributes_cluster.py", line 189, in <module>
-    sj = sparkjob.sparkjob(ncores=5)
-  File "/home/agbe/.conda/envs/magenv/lib/python3.8/site-packages/sparkhpc/slurmsparkjob.py", line 27, in __init__
-    super(SLURMSparkJob, self).__init__(**kwargs)
-  File "/home/agbe/.conda/envs/magenv/lib/python3.8/site-packages/sparkhpc/sparkjob.py", line 201, in __init__
-    raise RuntimeError('Please make sure you either put spark in ~/spark or set the SPARK_HOME environment variable.')
-RuntimeError: Please make sure you either put spark in ~/spark or set the SPARK_HOME environment variable.
