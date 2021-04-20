@@ -88,17 +88,32 @@ class Matcher():
         sample_females = []
         sample_males = []
 
+        # separate dataset according to min-year and max-year
+        matcher_datasets = {}
+        for min_year in male_population.MinPubYear.unique():
+            matcher_datasets[min_year] = {}
+
+            for max_year in male_population.MaxYear.unique():
+                matcher_datasets[min_year][max_year] = male_population[ 
+                  (male_population.MinPubYear == min_year) &
+                  (male_population.MaxYear == max_year)
+                ]
+
         # shuffle female population and iterate over each row as dict (record) 
         for female_record in tqdm(self.female_population.sample(frac=1, random_state=self.seed).to_dict('records'), 
                                 total=len(self.female_population)):
             
+            if female_record['MinPubYear'] not in matcher_datasets or female_record['MaxYear'] not in matcher_datasets[female_record['MinPubYear']]:
+                continue
+
             # identify all matching candidates
-            male_filtered = male_population[ 
-                  (abs(male_population.MinPubYear - female_record['MinPubYear']) <= self.min_year_tolerance) &
-                  (male_population.MaxYear == female_record['MaxYear']) &
-                  (male_population.AffiliationBin == female_record['AffiliationBin'])
-                ]
-            
+            male_filtered_df = matcher_datasets[female_record['MinPubYear']][female_record['MaxYear']]
+
+            if male_filtered_df.empty:
+                continue
+
+            male_filtered = male_filtered_df[male_filtered_df.AffiliationBin == female_record['AffiliationBin']]
+                        
             # if no candidates found, continue to next record
             if male_filtered.empty:
                 continue
@@ -108,7 +123,7 @@ class Matcher():
 
             
             # remove sample from male_population
-            male_population.drop(male_sample.index, axis='index', inplace=True)
+            matcher_datasets[female_record['MinPubYear']][female_record['MaxYear']].drop(male_sample.index, axis='index', inplace=True)
             
             # append male and female samples as dicts
             sample_females.append(female_record)
@@ -163,6 +178,16 @@ class Matcher():
         
         # loop over each centrality 
         for centr in CENTRALITIES:
+
+            
+        
+            if centr == 'Rank':
+                centrality_df['MAG Rank'] = cent_df['Rank'].apply(lambda x: x*-1)
+                random_centrality_df['MAG Rank'] = random_centrality_df['Rank'].apply(lambda x: x*-1)
+                matched_centrality_df['MAG Rank'] = matched_centrality_df['Rank'].apply(lambda x: x*-1)
+
+                centr = 'MAG Rank'
+
             # visualize TOP N (and top 10 % and 1 %) and save to file
             plot_side_by_side(centrality_df, field, interval=1000, figsize=(25,8), centrality=centr, 
             filepath=self.base_filepath + "/CentralityFairness/EVALUATIONS_PLOTS/" + field + "_" + centr + "_topn_visualization.png")
@@ -185,7 +210,7 @@ if __name__ == '__main__':
 
     data = pd.read_csv(file_path, sep="\t")
     matcher = Matcher(centrality_df = data, random_seed=12, base_filepath=base_filepath, fos_name=field)
-    matcher.load_authors(fos_id=int(field_id), folder_destination = "/home/agbe/MAG/DATA/AuthorMetadataField.csv")
+    matcher.load_authors(fos_id=int(field_id), folder_destination = "/home/laal/MAG/DATA/AuthorMetadataField.csv")
 
     # step 1
     random_data_males, random_data_females = matcher.random_sample()

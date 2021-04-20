@@ -13,38 +13,14 @@ module load Anaconda3
 . $(conda info --base)/etc/profile.d/conda.sh
 conda activate magenv
 
-# PageRank
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 28 PageRank /home/agbe/MAG/CentralityFairness/PsychologySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/psychology_slices_PageRank.csv
-# PageRank05
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 28 PageRank05 /home/agbe/MAG/CentralityFairness/PsychologySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/psychology_slices_PageRank05.csv
-# InDegreeStrength
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 28 InDegreeStrength /home/agbe/MAG/CentralityFairness/PsychologySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/psychology_slices_InDegreeStrength.csv
-# Rank
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 28 Rank /home/agbe/MAG/CentralityFairness/PsychologySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/psychology_slices_Rank.csv
+# Psychology 
+time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 28 /home/agbe/MAG/CentralityFairness/PsychologySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/psychology_slices_PageRank.csv
 
-#printf "PageRank:\n"
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 30 PageRank /home/agbe/MAG/CentralityFairness/EconomicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/economics_slices_PageRank.csv
-# PageRank05
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 30 PageRank05 /home/agbe/MAG/CentralityFairness/EconomicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/economics_slices_PageRank05.csv
-# InDegreeStrength
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 30 InDegreeStrength /home/agbe/MAG/CentralityFairness/EconomicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/economics_slices_InDegreeStrength.csv
-# Rank
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 30 Rank /home/agbe/MAG/CentralityFairness/EconomicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/economics_slices_Rank.csv
+# Economics
+time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 30 /home/agbe/MAG/CentralityFairness/EconomicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/economics_slices_PageRank.csv
 
-# PageRank
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 33 PageRank /home/agbe/MAG/CentralityFairness/MathematicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/math_slices_PageRank.csv
-# PageRank05
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 33 PageRank05 /home/agbe/MAG/CentralityFairness/MathematicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/math_slices_PageRank05.csv
-# InDegreeStrength
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 33 InDegreeStrength /home/agbe/MAG/CentralityFairness/MathematicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/math_slices_InDegreeStrength.csv
-# Rank
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 33 Rank /home/agbe/MAG/CentralityFairness/MathematicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/math_slices_Rank.csv
+# Mathematics
+time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 33 /home/agbe/MAG/CentralityFairness/MathematicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/math_slices_PageRank.csv
 
-# PageRank
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 37 PageRank /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_PageRank.csv
-# PageRank05
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 37 PageRank05 /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_PageRank05.csv
-# InDegreeStrength
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 37 InDegreeStrength /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_InDegreeStrength.csv
-# Rank
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 37 Rank /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_Rank.csv
+# Chemistry
+time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 37 /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_PageRank.csv
