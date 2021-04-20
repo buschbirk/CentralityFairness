@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 import pandas as pd
 import matplotlib
-import powerlaw
+# import powerlaw
 
 
 matplotlib.rcParams['figure.figsize'] = (15.0, 10.0) # default plots are app. same size as notebook

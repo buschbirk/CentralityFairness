@@ -182,7 +182,7 @@ class Matcher():
             
         
             if centr == 'Rank':
-                centrality_df['MAG Rank'] = cent_df['Rank'].apply(lambda x: x*-1)
+                centrality_df['MAG Rank'] = centrality_df['Rank'].apply(lambda x: x*-1)
                 random_centrality_df['MAG Rank'] = random_centrality_df['Rank'].apply(lambda x: x*-1)
                 matched_centrality_df['MAG Rank'] = matched_centrality_df['Rank'].apply(lambda x: x*-1)
 
@@ -206,10 +206,10 @@ if __name__ == '__main__':
     field_id = sys.argv[3]  # 162324750
     base_filepath = sys.argv[4] # "/home/agbe/MAG"
 
-    destination = base_filepath + "/CentralityFairness/EVALUATIONS_OUTPUTS/maching_" + field + ".csv"
+    destination = base_filepath + "/CentralityFairness/EVALUATIONS_OUTPUTS/matching_" + field + ".csv"
 
     data = pd.read_csv(file_path, sep="\t")
-    matcher = Matcher(centrality_df = data, random_seed=12, base_filepath=base_filepath, fos_name=field)
+    matcher = Matcher(centrality_df = data, random_seed=99, base_filepath=base_filepath, fos_name=field)
     matcher.load_authors(fos_id=int(field_id), folder_destination = "/home/laal/MAG/DATA/AuthorMetadataField.csv")
 
     # step 1
