@@ -12,3 +12,17 @@ Evaluations/lenskit/metrics/__pycache__/topnFair.cpython-38.pyc
 Evaluations/__pycache__/Evaluator.cpython-38.pyc
 MATCHING_OUTPUTS/Psychology_seed12_matched.csv
 
+__pycache__/*
+Evaluations/__pycache__/*
+Evaluations/lenskit/__pycache__/*
+Evaluations/lenskit/*/__pycache__/*
+
+Evaluations/chemistry.csv
+Evaluations/chemistry2020.csv
+Evaluations/economics.csv
+Evaluations/economics2020.csv
+Evaluations/mathematics.csv
+Evaluations/mathematics2020.csv
+Evaluations/propublica.csv
+Evaluations/psychology.csv
+Evaluations/psychology2020.csv
