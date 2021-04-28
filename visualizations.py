@@ -96,9 +96,18 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
                     field_name=field_name, 
                     ax=axs[0], global_rates=global_rates)
     
-    axs[0].set_title("Top N \n N increment = {}".format(interval))
+    axs[0].set_title("Top 100 % of N = {:,} \n Increment = {}".format(cent_df.shape[0], interval))
     axs[0].set_ylabel("Membership proportion in top N")
     axs[0].legend().set_visible(True)
+        
+
+    # normalize x-axis
+    #axs[0].set_xticks( axs[0].get_xticks() / axs[0].get_xticks().max() )
+    
+    #axs[2].get_xticks() / axs[1].get_xticks().max()
+    #axs[2].get_xticks() / axs[1].get_xticks().max()
+    
+    
     
     cent_df_filtered = cent_df.query("Gender != -1")
     
@@ -117,7 +126,8 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
                            field_name=field_name,
                            ax=axs[1],
                            global_rates=global_rates)
-    axs[1].set_title("Top N \n N increment = {}. N/A removed".format(interval))
+    axs[1].set_title("Top 100 % of N = {:,}\n Increment = {}. N/A removed".format(cent_df_filtered.shape[0], 
+                                                                               interval))
     axs[1].set_ylabel(None)
     axs[1].legend().set_visible(False)
     
@@ -133,7 +143,8 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
                            field_name=field_name,
                            ax=axs[2],
                            global_rates=global_rates)
-    axs[2].set_title("Top 10 % \n N increment = {}. N/A removed".format(100))
+    axs[2].set_title("Top 10 % of N = {:,}\n Increment = {}. N/A removed".format(cent_df_filtered.shape[0],
+                                                                               100))
     axs[2].set_ylabel(None)
     axs[2].legend().set_visible(False)
     
@@ -150,24 +161,47 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
                            ax=axs[3],
                            global_rates=global_rates)
     
-    axs[3].set_title("Top 1 % \n N increment = {}. N/A removed".format(10))
+    axs[3].set_title("Top 1 % of N = {:,} \n Increment = {}. N/A removed".format(cent_df_filtered.shape[0], 10))
     axs[3].set_ylabel(None)
     axs[3].legend().set_visible(False)
     
     plt.suptitle("Group membership in Top N ranking in {} ({})".format(field_name, centrality), fontsize=20)
     plt.tight_layout()
     
+    maxval = cent_df.shape[0]
+    
+    xticks = []
+    for tick in axs[0].get_xticklabels():
+        tick.set_text("{0:.1f}".format(int(100 * (tick._x / maxval))))
+        xticks.append(tick)
+    axs[0].set_xticklabels(xticks)
+    axs[0].set_xlabel('% of top N')
+    
+    
+    maxval = cent_df_filtered.shape[0]
+    
+    for i in range(1, 4):
+        xticks = []
+        for tick in axs[i].get_xticklabels():
+            tick.set_text("{0:.1f}".format(100 * (tick._x / maxval)))
+            xticks.append(tick)
+        axs[i].set_xticklabels(xticks)
+
+        axs[i].set_xlabel('% of top N')
+
+    
+    
     if filepath is None:
         plt.show()
     else:
         plt.savefig(filepath)
-
-
+        
+    return axs
 
 
 
 def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, centrality_matched_sample, 
-                      interval=1000, figsize=(15,12), centrality="Pagerank", filepath=None):
+                              interval=1000, figsize=(15,12), centrality="Pagerank", filepath=None):
     
     idx = 0
     fig, axs = plt.subplots(nrows=1, ncols=3, figsize=figsize, sharex=False, sharey=True)
@@ -186,7 +220,7 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
                     field_name=field_name, 
                     ax=axs[0], global_rates=None)
     
-    axs[0].set_title("Whole population \n N increment = {}. N/A removed".format(interval))
+    axs[0].set_title("True population \n N = {:,}, Increment = {}".format(cent_df.shape[0], interval))
     axs[0].set_ylabel("Membership proportion in top N")
     axs[0].legend().set_visible(True)
             
@@ -201,7 +235,7 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
                            ax=axs[1],
                            global_rates=None)
                            
-    axs[1].set_title("Random matching \n N increment = {}. N/A removed".format(interval))
+    axs[1].set_title("Random matching \n N = {:,}, Increment = {}".format(centrality_random_sample.shape[0], interval))
     axs[1].set_ylabel(None)
     axs[1].legend().set_visible(False)
     
@@ -217,20 +251,31 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
                            ax=axs[2],
                            global_rates=None)
 
-    axs[2].set_title("Career and affiliation matching \n N increment = {}. N/A removed".format(interval))
+    axs[2].set_title("Career and affiliation matching \n N = {:,}, Increment = {}".format(centrality_matched_sample.shape[0], interval))
     axs[2].set_ylabel(None)
     axs[2].legend().set_visible(False)
     
     
-    plt.suptitle("Group membership in Top N ranking in {} ({}) on matched population"
+    plt.suptitle("Group membership in Top N ranking in {} ({}) on matched populations"
                  .format(field_name, centrality), fontsize=16)
     plt.tight_layout()
+
+    datasets = [cent_df, centrality_random_sample, centrality_matched_sample]
     
+    for i in range(3):
+        maxval = datasets[i].shape[0]
+        xticks = []
+        for tick in axs[i].get_xticklabels():
+            tick.set_text("{0:.1f}".format(100 * (tick._x / maxval)))
+            xticks.append(tick)
+        axs[i].set_xticklabels(xticks)
+
+        axs[i].set_xlabel('% of top N')
+
     if filepath is None:
         plt.show()
     else:
         plt.savefig(filepath)
-
 
 def plot_all_fields(centrality, interval=1000):
     
