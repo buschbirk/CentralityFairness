@@ -20,6 +20,7 @@ class Matcher():
     def __init__(self, centrality_df, random_seed, field, max_year_limit=2018, min_year_tolerance=0, 
                  base_filepath="/home/agbe/MAG", fos_name="Economics"):
 
+        self.cent_df_raw = centrality_df
         self.cent_df = centrality_df.query("Gender != -1")
         self.seed = random_seed
         self.max_year_limit = max_year_limit
@@ -33,6 +34,7 @@ class Matcher():
 
         self.female_population = None
         self.male_population = None
+        self.unknown_population = None
 
         self.base_filepath = base_filepath
 
@@ -56,6 +58,7 @@ class Matcher():
         author_df['MinPubYear'] = author_df['MinPubDate'].apply(lambda x: x.year)
         author_df['MaxPubYear'] = author_df['MaxPubDate'].apply(lambda x: x.year)
         
+        self.unknown_population = author_df.query("Gender == -1 and NumPapers > 1")
 
         # filter out unknown gender and authors not in centrality dataset
         self.author_df = author_df.query("Gender != -1")
