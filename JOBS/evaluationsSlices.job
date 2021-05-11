@@ -1,8 +1,8 @@
 #!/bin/bash
 
-#SBATCH --job-name=jupyter    # Job name
+#SBATCH --job-name=slices    # Job name
 #SBATCH --output=/home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/job.%j.out      # Name of output file (%j expands to jobId)
-#SBATCH --cpus-per-task=6        # Schedule 8 cores (includes hyperthreading)
+#SBATCH --cpus-per-task=4        # Schedule 8 cores (includes hyperthreading)
 #SBATCH --time=23:30:00          # Run time (hh:mm:ss) - run for one hour max
 
 echo "Running SLICE evaluations on $(hostname) for psychology, economics, math and chemistry:"
@@ -14,13 +14,13 @@ module load Anaconda3
 conda activate magenv
 
 # Psychology 
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 28 /home/agbe/MAG/CentralityFairness/PsychologySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/psychology_slices_PageRank.csv
+# time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 28 /home/agbe/MAG/CentralityFairness/PsychologySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/psychology_slices_filtered.csv 15744967
 
 # Economics
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 30 /home/agbe/MAG/CentralityFairness/EconomicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/economics_slices_PageRank.csv
+# time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 30 /home/agbe/MAG/CentralityFairness/EconomicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/economics_slices_filtered.csv 162324750
 
 # Mathematics
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 33 /home/agbe/MAG/CentralityFairness/MathematicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/math_slices_PageRank.csv
+time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 33 /home/agbe/MAG/CentralityFairness/MathematicsSlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/mathematics_slices_filtered.csv 33923547
 
 # Chemistry
-time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 37 /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_PageRank.csv
+# time python /home/agbe/MAG/CentralityFairness/Evaluations/EvaluatorSlices.py 37 /home/agbe/MAG/CentralityFairness/ChemistrySlices2020.csv /home/agbe/MAG/CentralityFairness/EVALUATIONS_OUTPUTS/chemistry_slices_filtered.csv 185592680
