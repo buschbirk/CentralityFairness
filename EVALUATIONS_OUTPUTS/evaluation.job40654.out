@@ -1,0 +1,131 @@
+Running evaluations on desktop16:
+172.16.16.116 
+Rank:
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/psychology2020.csv with sample size None and centrality Rank
+Data size: 1623660
+gender counts normalized:
+0    0.501748
+1    0.498252
+Name: Gender, dtype: float64
+gender counts:
+0    814668
+1    808992
+Name: Gender, dtype: int64
+sorted data.head():
+               item      PageRank    PageRank05  ...  Gender   rank  protected
+2655372  2557216553  1.324592e-07  1.740591e-07  ...       1  10022          0
+2048501  1937107987  1.351477e-05  1.234880e-05  ...       1  10304          0
+1637367   563069026  7.256688e-06  2.777114e-06  ...       1  10380          0
+1230189  1793908362  7.836726e-07  7.645375e-07  ...       1  10429          0
+900699    161269817  6.883988e-08  1.450914e-07  ...       1  10432          0
+
+[5 rows x 10 columns]
+rND 0.21230494367375602
+rKL 0.06349347639165222
+rRD 0.29982001140040243
+equal_ex 0.997421750788502
+
+real	13m46.206s
+user	12m25.959s
+sys	1m4.414s
+
+
+
+
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/economics2020.csv with sample size None and centrality Rank
+Data size: 415736
+gender counts normalized:
+1    0.732121
+0    0.267879
+Name: Gender, dtype: float64
+gender counts:
+1    304369
+0    111367
+Name: Gender, dtype: int64
+sorted data.head():
+              item      PageRank    PageRank05  ...  Gender   rank  protected
+718893  2557216553  2.791163e-07  5.471953e-07  ...       1  10022          0
+333243  1793908362  3.059403e-07  6.136819e-07  ...       1  10429          0
+693556  2316804223  4.288655e-06  3.934334e-06  ...       1  10825          0
+951903   727612727  1.238573e-03  5.683025e-04  ...       1  10853          0
+269835  2128434403  2.451889e-07  5.371210e-07  ...       1  10896          0
+
+[5 rows x 10 columns]
+rND 0.07476445083247436
+rKL 0.012487379250192145
+rRD 0.12034730334677948
+equal_ex 0.999668272228261
+
+real	0m32.509s
+user	0m30.430s
+sys	0m0.539s
+
+
+
+
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/mathematics2020.csv with sample size None and centrality Rank
+Data size: 969237
+gender counts normalized:
+1    0.777491
+0    0.222509
+Name: Gender, dtype: float64
+gender counts:
+1    753573
+0    215664
+Name: Gender, dtype: int64
+sorted data.head():
+               item  PageRank  PageRank05  ...  Gender   rank  protected
+2235913  2557216553  0.000006    0.000004  ...       1  10022          0
+1727874  1937107987  0.000061    0.000051  ...       1  10304          0
+1380170   563069026  0.000097    0.000058  ...       1  10380          0
+1035925  1793908362  0.000003    0.000002  ...       1  10429          0
+758066    161269817  0.000018    0.000012  ...       1  10432          0
+
+[5 rows x 10 columns]
+rND 0.10353493856320037
+rKL 0.01450457503248762
+rRD 0.21656620498378545
+equal_ex 0.9978878719291585
+
+real	2m17.429s
+user	2m15.379s
+sys	0m1.112s
+
+
+
+
+/home/agbe/MAG/CentralityFairness/Evaluations/lenskit/util.py:45: NumbaDeprecationWarning: [1mThe 'numba.jitclass' decorator has moved to 'numba.experimental.jitclass' to better reflect the experimental nature of the functionality. Please update your imports to accommodate this change and see https://numba.pydata.org/numba-doc/latest/reference/deprecation.html#change-of-jitclass-location for the time frame.[0m
+  @jitclass([
+Evaluating /home/agbe/MAG/CentralityFairness/Evaluations/chemistry2020.csv with sample size None and centrality Rank
+Data size: 3935075
+gender counts normalized:
+1    0.655819
+0    0.344181
+Name: Gender, dtype: float64
+gender counts:
+1    2580695
+0    1354380
+Name: Gender, dtype: int64
+sorted data.head():
+                item      PageRank    PageRank05  ...  Gender   rank  protected
+10390996  2557216553  1.298842e-07  1.473754e-07  ...       1  10022          0
+10613874  2264929133  4.251643e-04  1.864918e-04  ...       1  10219          0
+4762713   1793908362  8.808587e-07  5.995925e-07  ...       1  10429          0
+1852746    679456835  1.818623e-06  1.270416e-06  ...       1  10449          0
+5878548   2426470670  1.856844e-08  3.756887e-08  ...       1  10533          0
+
+[5 rows x 10 columns]
+rND 0.1307522190795938
+rKL 0.02758210195961989
+rRD 0.2232997435530907
+equal_ex 0.9982922762102918
+
+real	54m43.493s
+user	48m4.732s
+sys	6m36.619s

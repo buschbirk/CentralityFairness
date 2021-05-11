@@ -20,6 +20,7 @@ class Matcher():
     def __init__(self, centrality_df, random_seed, field, max_year_limit=2018, min_year_tolerance=0, 
                  base_filepath="/home/agbe/MAG", fos_name="Economics"):
 
+        self.cent_df_raw = centrality_df
         self.cent_df = centrality_df.query("Gender != -1")
         self.seed = random_seed
         self.max_year_limit = max_year_limit
@@ -33,6 +34,7 @@ class Matcher():
 
         self.female_population = None
         self.male_population = None
+        self.unknown_population = None
 
         self.base_filepath = base_filepath
 
@@ -56,6 +58,7 @@ class Matcher():
         author_df['MinPubYear'] = author_df['MinPubDate'].apply(lambda x: x.year)
         author_df['MaxPubYear'] = author_df['MaxPubDate'].apply(lambda x: x.year)
         
+        self.unknown_population = author_df.query("Gender == -1 and NumPapers > 1")
 
         # filter out unknown gender and authors not in centrality dataset
         self.author_df = author_df.query("Gender != -1")
@@ -94,6 +97,17 @@ class Matcher():
     def matched_sample(self): 
         # shuffle male population using seed
         male_population = self.male_population.sample(frac=1, random_state=self.seed).copy()
+        female_population = self.female_population.sample(frac=1, random_state=self.seed).copy()
+
+        print("Number of men before removing NaN-affiliation bin: {}".format(male_population.shape[0]))
+        print("Number of women before removing NaN-affiliation bin: {}".format(female_population.shape[0]))
+        
+        male_population = male_population[~pd.isnull(male_population.AffiliationBin)]
+        female_population = female_population[~pd.isnull(female_population.AffiliationBin)]
+
+        print("Number of men after removing NaN-affiliation bin: {}".format(male_population.shape[0]))
+        print("Number of women after removing NaN-affiliation bin: {}".format(female_population.shape[0]))
+
         sample_females = []
         sample_males = []
 
@@ -109,8 +123,8 @@ class Matcher():
                 ]
 
         # shuffle female population and iterate over each row as dict (record) 
-        for female_record in tqdm(self.female_population.sample(frac=1, random_state=self.seed).to_dict('records'), 
-                                total=len(self.female_population)):
+        for female_record in tqdm(female_population.to_dict('records'), 
+                                  total=len(female_population)):
             
             if female_record['MinPubYear'] not in matcher_datasets or female_record['MaxYear'] not in matcher_datasets[female_record['MinPubYear']]:
                 continue
@@ -171,6 +185,7 @@ class Matcher():
             results.append(self.save_line(centr, 'true', evaluations_true, i))
             results.append(self.save_line(centr, 'random', evaluations_random, i))
             results.append(self.save_line(centr, 'matched', evaluations_matched, i))
+
         return results
         # FIXME virker ikke
 
@@ -224,7 +239,7 @@ class Matcher():
         for i in range(50):
             print("Completed ", i, "cycles")
             evaluations += self.cycle(i=i)
-        self.save_results(destination, evaluations)
+            self.save_results(destination, evaluations)
 
 
 
@@ -243,15 +258,15 @@ if __name__ == '__main__':
     matcher.load_authors(fos_id=int(field_id), folder_destination = base_filepath + "/DATA/AuthorMetadataField.csv")
 
     # step 1
-    ## random_data_males, random_data_females = matcher.random_sample()
-    ## random_data = matcher.samples_to_centrality_data(random_data_males, random_data_females)
+    # random_data_males, random_data_females = matcher.random_sample()
+    # random_data = matcher.samples_to_centrality_data(random_data_males, random_data_females)
 
     ##print("Sampled {} men and {} women randomly. Total {} records".format(len(random_data_males), len(random_data_females),
     ##len(random_data)))
 
     # step 2
-    ## matched_data_males, matched_data_females = matcher.matched_sample()
-    ## matched_data = matcher.samples_to_centrality_data(matched_data_males, matched_data_females, store=True, is_matched=True)
+    # matched_data_males, matched_data_females = matcher.matched_sample()
+    # matched_data = matcher.samples_to_centrality_data(matched_data_males, matched_data_females, store=True, is_matched=True)
     
     ## total_results = matcher.evaluateAll(random_data=random_data, matched_data=matched_data, field=field)
     ## matcher.save_results(destination, total_results)
