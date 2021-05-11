@@ -5,7 +5,7 @@
 #SBATCH --output=/home/laal/MAG/CentralityFairness/JOB_OUTPUTS/job.%j.out 
 #SBATCH --cpus-per-task=4        # Schedule 8 cores (includes hyperthreading)
 #SBATCH --time=23:30:00          # Run time (hh:mm:ss) - run for one hour max
-#SBATCH -N 2
+#SBATCH -N 4
 #SBATCH --ntasks-per-core=1
 
 # setup the spark paths
