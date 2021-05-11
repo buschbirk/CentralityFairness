@@ -129,7 +129,7 @@ def author_metadata_field(mag):
   SELECT paa.AuthorId, prf.FieldOfStudyId, 
   CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END as Gender,
   MIN(a.Rank) as MinAffiliationRank,
-  COUNT(DISTINCT(paa.PaperId)) as NumPapers,
+  COUNT(DISTINCT(COALESCE(paa.FamilyId, paa.PaperId))) as NumPapers,
   MIN(p.Date) as MinPubDate,
   MAX(p.Date) as MaxPubDate, 
   (COUNT(DISTINCT(paa.PaperId)) / (DATEDIFF( MAX(p.Date), MIN(p.Date) ) / 365)) as PubsPerYear

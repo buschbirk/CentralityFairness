@@ -5,6 +5,13 @@ import matplotlib
 # import powerlaw
 
 
+colors = {
+    'Psychology': '#3f2cfd',
+    'Chemistry' : '#282846',
+    'Mathematics': '#007580',
+    'Economics': '#fed049'
+}
+
 matplotlib.rcParams['figure.figsize'] = (15.0, 10.0) # default plots are app. same size as notebook
 plt.style.use('ggplot')
 
@@ -25,20 +32,32 @@ def plot_group_dist(centrality_df, centrality, interval_size, max_N, protected_g
         global_rate_protected = sorted_df.Gender.value_counts(normalize=True)[protected_group]
         global_rate_unprotected = sorted_df.Gender.value_counts(normalize=True)[unprotected]
     
+    normalizer = centrality_df.shape[0]
     
     xticks = []
     y_values = []
     y_values_unprotected = []
     y_values_unknown = []
     
+    parity_x = None
+    parity_pct = None
+    
     for N in range(interval_size, max_N, interval_size):
         
-        xticks.append(N)
+        xticks.append((N / normalizer) * 100)
         top_n_df = sorted_df[:N]
         value_counts = top_n_df.Gender.value_counts(normalize=True)
         
         y_values.append(value_counts[protected_group] if protected_group in value_counts else 0)
         y_values_unprotected.append(value_counts[unprotected] if unprotected in value_counts else 0)
+        
+        abs_protected = abs(y_values[-1] - global_rate_protected)
+        abs_unprotected = abs(y_values_unprotected[-1] - global_rate_unprotected)
+        
+        
+        if parity_x is None and abs_protected <= 0.01 and abs_unprotected <= 0.01:
+            parity_pct = (N / normalizer) * 100
+            parity_x = N
         
         if show_unknown: y_values_unknown.append(value_counts[-1] if -1 in value_counts else 0)
     
@@ -49,12 +68,17 @@ def plot_group_dist(centrality_df, centrality, interval_size, max_N, protected_g
         ax.axhline(y=global_rate_unknown, label="Total population N/A", linestyle='--', alpha=0.8, color="#b8b8b8")
     
     
-    ax.plot(xticks, y_values, '-o', label="Female", markersize=6, color="#6fc9f2")
-    ax.axhline(y=global_rate_protected, label="Total population female", linestyle='--', alpha=1.0, color="#6fc9f2")
+    ax.plot(xticks, y_values, '-o', label="Women", markersize=6, color="#6fc9f2")
+    ax.axhline(y=global_rate_protected, label="Total population women", linestyle='--', alpha=1.0, color="#6fc9f2")
     
     
-    ax.plot(xticks, y_values_unprotected, '-o', label="Male", markersize=6, color="#bd8aff")
-    ax.axhline(y=global_rate_unprotected, label="Total population male", linestyle='--', alpha=1.0, color="#bd8aff")
+    ax.plot(xticks, y_values_unprotected, '-o', label="Men", markersize=6, color="#bd8aff")
+    ax.axhline(y=global_rate_unprotected, label="Total population men", linestyle='--', alpha=1.0, color="#bd8aff")
+    
+    if parity_x is not None:
+        ax.axvline(x=parity_pct, color="#ff8c00", linestyle='-', label='Parity ($\pm$ 1 %)')
+        ax.text(parity_pct - 6, 0.55, "{:,} ({} %)".format(parity_x, int(parity_pct)), rotation=90, alpha=0.8,
+                fontsize=20)
     
     if global_rates is None:
         title = "Group membership in Top N rank ({})".format(centrality)
@@ -74,11 +98,16 @@ def plot_group_dist(centrality_df, centrality, interval_size, max_N, protected_g
     return y_values, xticks
 
 
+
 def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centrality="Pagerank",
                       filepath=None):
     idx = 0
     fig, axs = plt.subplots(nrows=1, ncols=4, figsize=figsize, sharex=False, sharey=True)
     axs = list(axs.flatten())
+    
+    labelsize = 28
+    
+    plt.rcParams['axes.labelsize'] = 16
     
     global_rates = {
         'protected': cent_df.Gender.value_counts(normalize=True)[0],
@@ -96,9 +125,28 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
                     field_name=field_name, 
                     ax=axs[0], global_rates=global_rates)
     
-    axs[0].set_title("Top N \n N increment = {}".format(interval))
-    axs[0].set_ylabel("Membership proportion in top N")
-    axs[0].legend().set_visible(True)
+    axs[0].set_title("Top 100 % of N = {:,} \n Increment = {}".format(cent_df.shape[0], interval), 
+                     fontsize=labelsize - 3, color='#363534')
+    centrality_format = r"$\bf{" + centrality.replace(" ", "\ ") + "}$"
+    
+    axs[0].set_ylabel( centrality_format + "\nGender prop. in top N", fontsize=labelsize + 2)
+    
+    if centrality == 'PageRank':
+        axs[0].legend(fontsize=labelsize - 10, loc='lower right').set_visible(True)
+    else:
+        axs[0].legend(fontsize=labelsize - 6, loc='lower right').set_visible(False)
+    
+    # axs[0].set_yticklabels(axs[0].get_yticklabels(),fontsize=labelsize)
+    axs[0].tick_params(axis='y', labelsize=labelsize + 6)
+    
+    axs[0].set_ylim(-0.05, 1.05)
+    # normalize x-axis
+    #axs[0].set_xticks( axs[0].get_xticks() / axs[0].get_xticks().max() )
+    
+    #axs[2].get_xticks() / axs[1].get_xticks().max()
+    #axs[2].get_xticks() / axs[1].get_xticks().max()
+    
+    
     
     cent_df_filtered = cent_df.query("Gender != -1")
     
@@ -117,7 +165,9 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
                            field_name=field_name,
                            ax=axs[1],
                            global_rates=global_rates)
-    axs[1].set_title("Top N \n N increment = {}. N/A removed".format(interval))
+    axs[1].set_title("Top 100 % of N = {:,}\n Increment = {}. N/A removed".format(cent_df_filtered.shape[0], 
+                                                                               interval), fontsize=labelsize - 3,
+                    color='#363534')
     axs[1].set_ylabel(None)
     axs[1].legend().set_visible(False)
     
@@ -133,7 +183,9 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
                            field_name=field_name,
                            ax=axs[2],
                            global_rates=global_rates)
-    axs[2].set_title("Top 10 % \n N increment = {}. N/A removed".format(100))
+    axs[2].set_title("Top 10 % of N = {:,}\n Increment = {}. N/A removed".format(cent_df_filtered.shape[0],
+                                                                               100), 
+                     fontsize=labelsize - 3, color='#363534')
     axs[2].set_ylabel(None)
     axs[2].legend().set_visible(False)
     
@@ -150,31 +202,69 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
                            ax=axs[3],
                            global_rates=global_rates)
     
-    axs[3].set_title("Top 1 % \n N increment = {}. N/A removed".format(10))
+    axs[3].set_title("Top 1 % of N = {:,} \n Increment = {}. N/A removed".format(cent_df_filtered.shape[0], 10), 
+                     fontsize=labelsize - 3, color='#363534')
     axs[3].set_ylabel(None)
-    axs[3].legend().set_visible(False)
+    axs[3].legend(fontsize=13, loc='right').set_visible(False)
     
-    plt.suptitle("Group membership in Top N ranking in {} ({})".format(field_name, centrality), fontsize=20)
+    plt.suptitle("Gender distribution in top N rankings in " + r"$\bf{" + field_name + "}$", 
+                 fontsize=labelsize + 4, color='#363534')
     plt.tight_layout()
+    
+    maxval = cent_df.shape[0]
+    
+    
+    xticks = []
+    for tick in axs[2].get_xticklabels()[1:-1]:
+        tick.set_text("{}".format(int(tick._x / 10)))
+        xticks.append(tick)
+    axs[2].set_xticklabels(xticks, fontsize=labelsize)
+    axs[2].set_xlabel('% of top N', fontsize=labelsize)
+    
+    
+    xticks = []
+    for tick in axs[3].get_xticklabels()[1:-1]:
+        tick.set_text("{0:.1f}".format(tick._x / 100))
+        xticks.append(tick)
+
+    axs[3].set_xticklabels(xticks, fontsize=labelsize)
+    axs[3].set_xlabel('% of top N', fontsize=labelsize)
+    
+    axs[3].labelsize = 30
+
+    
+    for i in range(4):
+        axs[i].set_xticks([0. ,  20,  40,  60,  80,  100])
+        axs[i].set_xlabel('% of top N', fontsize=labelsize)
+        axs[i].tick_params(axis='x', labelsize=labelsize + 10, rotation=90)
     
     if filepath is None:
         plt.show()
     else:
-        plt.savefig(filepath)
-
-
+        plt.savefig(filepath, bbox_inches='tight', pad_inches=0.2)
+        
+    return axs
 
 
 
 def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, centrality_matched_sample, 
-                      interval=1000, figsize=(15,12), centrality="Pagerank", filepath=None):
+                              interval=1000, figsize=(15,12), centrality="Pagerank", filepath=None):
     
     idx = 0
     fig, axs = plt.subplots(nrows=1, ncols=3, figsize=figsize, sharex=False, sharey=True)
     axs = list(axs.flatten())
-
+    
+    labelsize = 26
     
     cent_df.sort_values(by=centrality, ascending=False, inplace=True)
+
+    cent_df.reset_index(inplace=True)
+
+    cent_df['rank_position'] = cent_df.index
+    rank_position_df = cent_df[['AuthorId', 'rank_position']]
+
+    
+    centrality_format = r"$\bf{" + centrality.replace(" ", "\ ") + "}$"
     
     plot_group_dist(cent_df, centrality, 
                     interval_size=interval, 
@@ -186,9 +276,16 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
                     field_name=field_name, 
                     ax=axs[0], global_rates=None)
     
-    axs[0].set_title("Whole population \n N increment = {}. N/A removed".format(interval))
-    axs[0].set_ylabel("Membership proportion in top N")
-    axs[0].legend().set_visible(True)
+    axs[0].set_title("True population \n N = {:,}".format(cent_df.shape[0]),
+                    fontsize=labelsize, color='#363534')
+    axs[0].set_ylabel(centrality_format + "\nGender prop. in top N", fontsize=labelsize + 4)
+    
+    axs[0].tick_params(axis='y', labelsize=labelsize + 8)
+    
+    axs[0].legend().set_visible(False)
+    axs[0].set_ylim(-0.05, 1.05)
+
+    print("Full data median: {}".format(cent_df['rank_position'].median()))
             
     y, x = plot_group_dist(centrality_random_sample, centrality, 
                            interval_size=interval,
@@ -201,10 +298,13 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
                            ax=axs[1],
                            global_rates=None)
                            
-    axs[1].set_title("Random matching \n N increment = {}. N/A removed".format(interval))
+    axs[1].set_title("Random matching \n N = {:,}".format(centrality_random_sample.shape[0]),
+                    fontsize=labelsize, color='#363534')
     axs[1].set_ylabel(None)
     axs[1].legend().set_visible(False)
-    
+
+    print("Random data median: {}".format(centrality_random_sample.merge(rank_position_df, how='left', left_on='AuthorId', right_on='AuthorId')['rank_position'].median()))
+        
 
     y, x = plot_group_dist(centrality_matched_sample, centrality, 
                            interval_size=interval,
@@ -217,19 +317,47 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
                            ax=axs[2],
                            global_rates=None)
 
-    axs[2].set_title("Career and affiliation matching \n N increment = {}. N/A removed".format(interval))
+    axs[2].set_title("Career and affiliation matching \n N = {:,}"
+                     .format(centrality_matched_sample.shape[0]),
+                     fontsize=labelsize, color='#363534')
     axs[2].set_ylabel(None)
-    axs[2].legend().set_visible(False)
     
+    if centrality == 'PageRank':
+        axs[2].legend(loc="lower right", fontsize=labelsize-5).set_visible(True)
+    else:
+        axs[2].legend(loc="lower right", fontsize=labelsize-6).set_visible(False)
+    # print("Matched data median: {}".format(centrality_matched_sample.join(rank_position_df, how='left', on='AuthorId', rsuffix='x')['rank_position'].median()))
+    print("Matched data median: {}".format(centrality_matched_sample.merge(rank_position_df, how='left', left_on='AuthorId', right_on='AuthorId')['rank_position'].median()))
+        
     
-    plt.suptitle("Group membership in Top N ranking in {} ({}) on matched population"
-                 .format(field_name, centrality), fontsize=16)
+    plt.suptitle("Gender distribution in Top N ranking in " + r"$\bf{" +  field_name + "}$ on matched populations"
+                 , fontsize=labelsize + 4, color='#363534')
     plt.tight_layout()
+
+    datasets = [cent_df, centrality_random_sample, centrality_matched_sample]
     
+    # for i in range(3):
+    #     maxval = datasets[i].shape[0]
+    #     xticks = []
+    #     for tick in axs[i].get_xticklabels():
+    #         tick.set_text("{0:.1f}".format(100 * (tick._x / maxval)))
+    #         xticks.append(tick)
+    #     axs[i].set_xticklabels(xticks)
+
+    #     axs[i].set_xlabel('% of top N')
+
+    for i in range(3):
+        axs[i].set_xticks([0. ,  20,  40,  60,  80,  100])
+        axs[i].set_xlabel('% of top N', fontsize=labelsize)
+        axs[i].tick_params(axis='x', labelsize=labelsize + 10, rotation=90)
+
     if filepath is None:
         plt.show()
     else:
-        plt.savefig(filepath)
+        plt.savefig(filepath, bbox_inches='tight', pad_inches=0.2)
+        plt.show()
+
+
 
 
 def plot_all_fields(centrality, interval=1000):
