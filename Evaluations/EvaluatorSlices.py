@@ -17,11 +17,13 @@ CHUNK_SIZE = 1000000
 
 class SliceEvaluator:
 
-  def __init__(self, file_name, centralities, metrics, destination, slices):
+  def __init__(self, file_name, centralities, metrics, destination, slices, fos_id=162324750):
     self.centralities = centralities
     self.results = []
     self.metrics = metrics
     self.slices = slices
+    self.fos_id = fos_id
+    self.load_authors(fos_id = self.fos_id)
     self.process_data(file_name, destination)
     
     # print('gender counts normalized:')
@@ -33,6 +35,26 @@ class SliceEvaluator:
     # print('sorted data.head():')
     # print(self.data.head())
 
+  def load_authors(self, fos_id=162324750, folder_destination = "/home/agbe/MAG/DATA/AuthorMetadataField.csv"):
+
+      # base_destination = "/home/laal/MAG/DATA/AuthorMetadataField.csv"
+      
+      columns = ['AuthorId', 'FieldOfStudyId', 'Gender', 'MinAffiliationRank', 'NumPapers', 'MinPubDate', 'MaxPubDate', 'PubsPerYear']
+      
+      author_df = pd.DataFrame()
+      
+      for file in os.listdir(folder_destination):
+        if file.endswith('.csv'):
+            df = pd.read_csv(folder_destination + "/" + file, names=columns, sep="\t")
+            author_df = pd.concat([author_df, df.query("FieldOfStudyId == {}".format(fos_id))])
+      
+      # filter out unknown gender and authors not in centrality dataset
+      self.author_df = author_df.query("Gender != -1 and NumPapers > 1")
+      # self.author_df = self.author_df[self.author_df.AuthorId.isin(self.cent_df.AuthorId)]
+
+
+
+
   def sort_data(self, data, centrality):
     if centrality == 'Rank':
       data.sort_values(by = 'rank', ascending = True, inplace = True) 
@@ -40,6 +62,7 @@ class SliceEvaluator:
       data.sort_values(by = 'rank', ascending = False, inplace = True)
 
   def process_data(self, path, destination):
+
     i = 0
     while i < self.slices:
       _slice = []
@@ -51,6 +74,9 @@ class SliceEvaluator:
         return
       print("starting to process slice")
       df_slice = df_slice.query('Gender != -1')
+
+      df_slice = df_slice[df_slice.AuthorId.isin(self.author_df.AuthorId)]
+
       # loop over centralities
       for centrality in self.centralities:
         data_copy = df_slice.rename(columns = {'AuthorId': 'item', centrality: 'rank'}, inplace = False)
@@ -65,6 +91,9 @@ class SliceEvaluator:
     evaluations = {'index': slice_index, 'centrality': centrality}
     for m in self.metrics:
       evaluations[m] = self.calculate_fairness(df_slice, m)
+
+    evaluations['women_prop'] = df_slice['protected'].mean()
+
     self.results.append(evaluations)
 
   def calculate_fairness(self, df_slice, metric):
@@ -76,14 +105,15 @@ class SliceEvaluator:
   def save_results(self, destination):
     final_results = pd.DataFrame.from_records(self.results)
     final_results.to_csv(destination, index = False)
-    print(self.results)
+    print(final_results)
 
 if __name__ == '__main__':
   slices = int(sys.argv[1])
   path = sys.argv[2]
   destination = sys.argv[3]
-  metrics = ['rND', 'rKL', 'rRD', 'equal_ex']
-  centralities = ['PageRank', 'PageRank05', 'InDegreeStrength', 'Rank']
+  fos_id = int(sys.argv[4])
+  metrics = ['rND']
+  centralities = ['PageRank', 'InDegreeStrength']
   print('Evaluating', path, 'for centralities', centralities)
-  eval = SliceEvaluator(path, centralities, metrics, destination, slices)
+  eval = SliceEvaluator(path, centralities, metrics, destination, slices, fos_id)
   # eval.print_results()
