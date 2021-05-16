@@ -4,7 +4,7 @@ Repository for BSc thesis **A Fair Share: Fairness and Gender in Scholarly Ranki
 by Agnes Hardy Bertelsen (SWU) and Lasse Buschmann Alsbirk (DS), IT University of Copenhagen, 2021. 
 
 This repository implements the end-to-end analysis pipeline described in section 3 (Data and Methodology) of the thesis.  
-This pipeline was implemented and processed in a HPC cluster with a SLURM scheduler in a UNIX environement.   
+This pipeline was implemented and processed in a HPC cluster with a SLURM scheduler in a UNIX environment.
 The code requires considerable memory and computing resources due to the size of the database and certain memory-intensive analysis tasks. 
 
 ### Requirements
@@ -62,7 +62,7 @@ Located in `Evaluations/Evaluator.py`, this class prepares and evaluates ranked 
 
 
 ### Analysis pipeline
-This library implements the analysis pipeline drawn here:  
+This library implements the analysis pipeline depicted here:  
 ![](REPORT_FIGURES/annotated_pipeline.png)
 
 The full pipeline can be accessed and executed in a few lines of code. See the Jupyter notebook `Analysis pipeline.ipynb` for further details.  
