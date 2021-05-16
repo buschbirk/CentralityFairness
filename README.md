@@ -142,6 +142,9 @@ The first visualization visualizes the full ranking of authors with more than on
 The second visualization visualizes mathced rankings of authors with more than one publication throughout their career for the full ranking, randomly matched authors as well as authors matched in career and affiliation matching. It creates one plot for each centrality measure, seen here for PageRank in chemistry:  
 ![](EVALUATIONS_PLOTS/Chemistry_PageRank_match_visualization.png)
 
+The third visualization displays the CDF of an inter-event analysis on the number of days between consecutive publications for each gender on populations matched by career and affiliation matching. The plot reports the results of a two-sample Kolmogorov–Smirnov test on the two distributions. Seen here for chemistry:   
+![](REPORT_FIGURES/ks_test_chem.png) 
 
-
+The fourth visualization displays the linear correlation between all pairs of rankings as well as corresponding Pearson correlations: 
+![](EVALUATIONS_PLOTS/Chemistry_centrality_match_visualization.png)
 
