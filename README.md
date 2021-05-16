@@ -1,10 +1,10 @@
 # A Fair Share: Fairness and Gender in Scholarly Rankings
 
 Repository for BSc thesis **A Fair Share: Fairness and Gender in Scholarly Rankings**  
-by Agnes Hardy Berthelsen (SWU) and Lasse Buschmann Alsbirk (DS), IT University of Copenhagen, 2021. 
+by Agnes Hardy Bertelsen (SWU) and Lasse Buschmann Alsbirk (DS), IT University of Copenhagen, 2021. 
 
 This repository implements the end-to-end analysis pipeline described in section 3 (Data and Methodology) of the thesis.  
-This pipeline was implemented and processed in a HPC cluster with a SLURM scheduler in a UNIx environement.   
+This pipeline was implemented and processed in a HPC cluster with a SLURM scheduler in a UNIX environement.   
 The code requires considerable memory and computing resources due to the size of the database and certain memory-intensive analysis tasks. 
 
 ### Requirements
@@ -18,6 +18,20 @@ Install Python requirements using Anaconda:
 ```
 conda env create -f environment.yml
 ``` 
+
+### Computational infrastructure
+Several of the files in the MAG dataset are 40+ gb of size. As such it is not feasible to hold the data required in these experiments in memory on a single machine. Spark is incredibly well-suited for exactly this scenario, as it automatically schedules and distributes the required access to files onto any number of available machines. Spark also enables our analysis to be executed on a single machine, although this will be significantly slower than a distributed setup. 
+
+We have set up a cluster of machines on the HPC at the IT University of Copenhagen, which uses a SLURM scheduler. Each machine has 8 cores, 32 gb of memory and 400 gb of temporary storage. Most of our analysis is executed on a Spark cluster with one master node and four worker nodes each accessing 4 cores and 20 gb of memory.  
+We use a slightly modified version of the [`sparkhpc`](https://github.com/rokroskar/sparkhpc) library to launch Spark clusters. The modified version is available in a .zip file in `SPARKHPC/sparkhpc.zip` and should be placed in site-packages of the relevant conda environment.  
+
+Our code is implemented such that the SLURM-based Spark cluster can be easily exchanged for Spark clusters running on other environments, for instance on cloud services. As such, the technical infrastructure can be easily scaled up and down according to available resources. 
+
+The process of computing centrality measures is however not implemented using Spark due to a lack of graph-based functionality in Pyspark's GraphFrames. Instead we use the [`graph-tool`](https://graph-tool.skewed.de/) library by Tiago P. Peixoto. This functionality is executed on a single machine but is optimized to the fullest extent possible in terms of memory efficiency. Some networks grow very large in size, the most noticeable example being chemistry, which has 15 million nodes and 1.3 billion weighted edges: 
+
+![](REPORT_FIGURES/network_sizes.png)
+
+Roughly 110 gb of memory were required to process centrality measures on the chemsitry WACN. We were however able to process centrality measures on WACNs for economics, psychology and mathematics on machines with 32 gb of memory. 
 
 ### Core modules
 This project implements a series of classes to interact with the MAG database and execute the analysis implemented in our thesis:  
