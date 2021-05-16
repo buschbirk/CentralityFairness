@@ -13,7 +13,7 @@ from lenskit.metrics.topnFair import *
 
 class Evaluator:
 
-  def __init__(self, file_name="", centrality='PageRank', sample=None, data=None):
+  def __init__(self, file_name="", centrality='PageRank', sample=None, data=None, verbose=False):
     if file_name != "":
       self.read_data(file_name)
     else:
@@ -21,15 +21,21 @@ class Evaluator:
     if sample is not None:
       self.data = self.data.sample(sample)
     self.centrality = centrality
-    print('gender counts normalized:')
-    print(self.data.Gender.value_counts(normalize = True))
-    print('gender counts:')
-    print(self.data.Gender.value_counts(normalize = False))
+
+    self.verbose = verbose
+    
+    if self.verbose:
+      print('gender counts normalized:\n')
+      print(self.data.Gender.value_counts(normalize = True))
+      print('gender counts: \n')
+      print(self.data.Gender.value_counts(normalize = False))
     self.add_protected_column()
     self.data.rename(columns = {'AuthorId': 'item', self.centrality: 'rank'}, inplace = True)
     self.sort_data()
-    print('sorted data.head():')
-    print(self.data.head())
+
+    if self.verbose:
+      print('sorted data.head():')
+      print(self.data.head())
 
 
   def sort_data(self):

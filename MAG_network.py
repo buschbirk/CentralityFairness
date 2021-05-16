@@ -90,6 +90,108 @@ def authors_per_paper(mag, destination="/home/laal/MAG/DATA/NumAuthorsPerPaper.t
     return authors_paper
 
 
+def inter_event_paa(mag, destination="/home/laal/MAG/DATA/InterEventPublications.csv"): 
+    
+    paa = mag.getDataframe('PaperAuthorAffiliations')
+    prf_mag = mag.getDataframe('PaperRootFieldMag')
+    papers = mag.getDataframe('Papers')
+    
+    query = """
+        SELECT paa.PaperId, paa.AuthorId, prfm.FieldOfStudyId, p.Date, 
+        ROW_NUMBER() OVER (PARTITION BY paa.AuthorId, prfm.FieldOfStudyId ORDER BY p.Date ASC) AS pubNum
+        FROM PaperAuthorAffiliations paa 
+        INNER JOIN PaperRootFieldMag prfm ON paa.PaperId = prfm.PaperId
+        INNER JOIN Papers p ON paa.PaperId = p.PaperId
+        WHERE p.Date is not null AND (p.FamilyId is null OR p.PaperId = p.FamilyId)
+    """
+    
+    pubnums = mag.query_sql(query)
+    pubnums.createOrReplaceTempView("AuthorPublicationNumber")
+    
+    query = """
+        SELECT 
+        apn1.PaperId as PrevPaperId, 
+        apn2.PaperId as CurrentPaperId, 
+        apn1.AuthorId, 
+        apn1.FieldOfStudyId, 
+        apn1.Date as PreviousDate, 
+        apn2.Date as CurrentDate,
+        DATEDIFF(apn2.Date, apn1.Date) as numDays
+        FROM AuthorPublicationNumber apn1 
+        INNER JOIN AuthorPublicationNumber apn2 ON 
+            apn1.AuthorId = apn2.AuthorId AND
+            apn1.FieldOfStudyId = apn2.FieldOfStudyId AND
+            apn1.pubNum = (apn2.pubNum - 1)    
+    """
+    inter_events = mag.query_sql(query)
+    inter_events.write.option("sep", "\t").option("encoding", "UTF-8")\
+    .csv(destination)
+
+    return inter_events
+
+
+def author_metadata_field(mag, destination="/home/laal/MAG/DATA/AuthorMetadataField.csv"):
+
+    author_affiliations = mag.getDataframe('PaperAuthorAffiliations')
+    authors = mag.getDataframe('WosToMag')
+    paper_root_field = mag.getDataframe('PaperRootFieldMag')
+    papers = mag.getDataframe('Papers')
+    affiliation = mag.getDataframe('Affiliations')
+
+    query = """
+    SELECT paa.AuthorId, prf.FieldOfStudyId, 
+    CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END as Gender,
+    MIN(a.Rank) as MinAffiliationRank,
+    COUNT(DISTINCT(COALESCE(p.FamilyId, p.PaperId))) as NumPapers,
+    MIN(p.Date) as MinPubDate,
+    MAX(p.Date) as MaxPubDate, 
+    (COUNT(DISTINCT(paa.PaperId)) / (DATEDIFF( MAX(p.Date), MIN(p.Date) ) / 365)) as PubsPerYear
+    FROM PaperAuthorAffiliations AS paa 
+    INNER JOIN WosToMag AS wtm ON paa.AuthorId = wtm.MAG 
+    INNER JOIN PaperRootFieldMag prf ON paa.PaperId = prf.PaperId
+    INNER JOIN Papers p ON p.PaperId = paa.PaperId
+    LEFT JOIN Affiliations AS a ON paa.AffiliationId = a.AffiliationId 
+    GROUP BY paa.AuthorId, prf.FieldOfStudyId, CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END 
+    ORDER BY paa.AuthorId
+    """
+    author_metadata_df = mag.query_sql(query)
+
+    author_metadata_df.write.option("sep", "\t").option("encoding", "UTF-8")\
+    .csv(destination)
+
+    return author_metadata_df
+
+
+def author_metadata_global(mag, destination="/home/laal/MAG/DATA/AuthorMetadataGlobal.csv"):
+
+    author_affiliations = mag.getDataframe('PaperAuthorAffiliations')
+    authors = mag.getDataframe('WosToMag')
+    paper_root_field = mag.getDataframe('PaperRootFieldMag')
+    papers = mag.getDataframe('Papers')
+    affiliation = mag.getDataframe('Affiliations')
+
+    query = """
+    SELECT paa.AuthorId, 
+    CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END as Gender,
+    MIN(a.Rank) as MinAffiliationRank,
+    COUNT(DISTINCT(COALESCE(p.FamilyId, p.PaperId))) as NumPapers,
+    MIN(p.Date) as MinPubDate,
+    MAX(p.Date) as MaxPubDate, 
+    (COUNT(DISTINCT(paa.PaperId)) / (DATEDIFF( MAX(p.Date), MIN(p.Date) ) / 365)) as PubsPerYear
+    FROM PaperAuthorAffiliations AS paa 
+    INNER JOIN WosToMag AS wtm ON paa.AuthorId = wtm.MAG 
+    INNER JOIN Papers p ON p.PaperId = paa.PaperId
+    LEFT JOIN Affiliations AS a ON paa.AffiliationId = a.AffiliationId 
+    GROUP BY paa.AuthorId, CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END 
+    ORDER BY paa.AuthorId
+    """
+    author_metadata_df = mag.query_sql(query)
+
+    author_metadata_df.write.option("sep", "\t").option("encoding", "UTF-8")\
+    .csv(destination)
+
+    return author_metadata_df
+
 # consider removing
 def get_paper_references_gendered(mag):
     author_affiliations = mag.getDataframe('PaperAuthorAffiliationsGendered')
@@ -108,6 +210,9 @@ def get_paper_references_gendered(mag):
     
     paper_ref_gendered = mag.query_sql(query)
     return paper_ref_gendered
+
+
+
 
 class CitationNetwork():
 
@@ -307,7 +412,7 @@ class CitationNetwork():
         self.network_destination = self.root_folder + "/NETWORKS/{}.txt".format(self.network_name)
 
         if os.path.exists(self.network_destination) and not overwrite:
-            print("Network exists at " + self.network_destination + ". Use overwrite to replace")
+            print("Network exists at " + self.network_destination + ". \n       Use overwrite to replace")
             return
 
         author_network = self.extract_author_author_network(mindate=mindate, maxdate=maxdate, min_rownum=min_rownum, max_rownum=max_rownum)
@@ -371,12 +476,12 @@ class CitationNetwork():
         
         num_nodes = nodelist.shape[0]
         print("The network has {} nodes".format(num_nodes))
-        print("Gender distribution: {}".format(nodelist.Gender.value_counts(normalize=False)))
+        print("Gender distribution in WACN: \n \n {} \n".format(nodelist.Gender.value_counts(normalize=False)))
         
         return network, nodelist
 
 
-    def build_graph(self):
+    def build_graph(self, overwrite=False):
         """
         Constructs a graph-tool Graph from an author-author citation network. 
         This is usually a very memory-intensive task.
@@ -385,6 +490,12 @@ class CitationNetwork():
         if self.network_destination is None:
             print("Network destination is not set. Load network")
             return
+
+
+        filepath = ".".join(self.network_destination.split(".")[:-1]) + "Centrality.csv"
+        if os.path.exists(filepath) and not overwrite:
+            print("Centrality scores exist at {}. \n        Use overwrite to replace".format(filepath))
+            return 
 
         # import graph-tool 
         # from graph_tool.all import *
@@ -408,7 +519,7 @@ class CitationNetwork():
 
             with open(self.network_destination + "/" + filename) as file:
                 # extract source and target node + edge weight
-                print(filename)
+                # print(filename)
 
                 for line in file:
                     contents = line.strip().split("\t")
@@ -443,12 +554,17 @@ class CitationNetwork():
         return g, nodes, eweight
 
 
-    def compute_centralities(self, graph, node_mapping, eweight, filename, pr_damping=0.85):
+    def compute_centralities(self, graph, node_mapping, eweight, pr_damping=0.85, overwrite=False):
         """
         Computes PageRank, in-degree and out-degree centralities on graph-tool graph using edge weights.
         Saves results to csv at given destination.  
         """
         from graph_tool.all import pagerank, label_largest_component
+
+        filepath = ".".join(self.network_destination.split(".")[:-1]) + "Centrality.csv"
+        if os.path.exists(filepath) and not overwrite:
+            print("Centrality scores exist at {}. \n        Use overwrite to replace".format(filepath))
+            return 
 
         # get list of nodes in graph
         nodes = list(graph.vertices())
@@ -462,19 +578,7 @@ class CitationNetwork():
 
         # compute PageRank with 0.5 damping factor
         pr_half = pagerank(graph, weight=eweight, damping=0.5)
-        
-        # print("Initiating Katz")
-        #katz_centrality = gt.centrality.katz(gt.GraphView(graph, vfilt=largest_comp), 
-        #                                     weight=eweight, alpha=katz_alpha, beta=katz_beta)
-        
-        #katz_list = list(katz_centrality)
-        
-        #katz_scores = []
-        #for indicator in largest_comp.a:
-        #    if indicator == 1:
-        #        katz_scores.append(katz_list.pop(0))
-        #    else:
-        #        katz_scores.append(None)     
+      
         
         # Compute in- and out-degree for all nodes with and without edge weights
         print("Initiating degree measures")
@@ -505,7 +609,7 @@ class CitationNetwork():
         return df
 
 
-    def append_gender_and_macrank(self, centrality_filename=None):
+    def append_gender_and_magrank(self, centrality_filename=None, overwrite=False):
         """
         Merges CSV with centrality scores with Gender information and MAG Rank for each author.
         Stores results in single CSV file with header. 
@@ -521,6 +625,11 @@ class CitationNetwork():
         if 'master' in centrality_filename.lower():
             self.mag.streams[centrality_filename][1].append('sliceid:int')
         
+        csv_destination = self.root_folder + "/NETWORKS/{}".format(centrality_filename + 'Gendered.csv')
+        if os.path.exists(csv_destination) and not overwrite:
+            print("Genderized centrality CSV exists at {}\n        Use overwrite to replace".format(csv_destination))
+            return csv_destination
+
         cent = self.mag.getDataframe(centrality_filename)
         wtm = self.mag.getDataframe('WosToMag')
         authors = self.mag.getDataframe('Authors')
@@ -545,6 +654,8 @@ class CitationNetwork():
                              index=False, sep="\t")
 
         print("Gendered centrality measures saved to {}".format(csv_destination))
+
+        return csv_destination
 
 
         
