@@ -4,12 +4,26 @@ import pandas as pd
 import matplotlib
 # import powerlaw
 
+import numpy as np
+import scipy
+from scipy.stats import ks_2samp
+
+import os 
+import itertools
+
+from MAG_network import CitationNetwork
+# from matching import Matcher
+import MAGspark
+import warnings
+
+warnings.filterwarnings( "ignore", module = "matplotlib\..*" )
+
 
 colors = {
-    'Psychology': '#3f2cfd',
-    'Chemistry' : '#282846',
+    'Psychology': '#617be3',
+    'Chemistry' : '#27496d',
     'Mathematics': '#007580',
-    'Economics': '#fed049'
+    'Economics': '#e8505b' 
 }
 
 matplotlib.rcParams['figure.figsize'] = (15.0, 10.0) # default plots are app. same size as notebook
@@ -76,7 +90,7 @@ def plot_group_dist(centrality_df, centrality, interval_size, max_N, protected_g
     ax.axhline(y=global_rate_unprotected, label="Total population men", linestyle='--', alpha=1.0, color="#bd8aff")
     
     if parity_x is not None:
-        ax.axvline(x=parity_pct, color="#ff8c00", linestyle='-', label='Parity ($\pm$ 1 %)')
+        ax.axvline(x=parity_pct, color="black", linestyle='-', label='Parity ($\pm$ 1 %)')
         ax.text(parity_pct - 6, 0.55, "{:,} ({} %)".format(parity_x, int(parity_pct)), rotation=90, alpha=0.8,
                 fontsize=20)
     
@@ -132,7 +146,7 @@ def plot_side_by_side(cent_df, field_name, interval=1000, figsize=(15,12), centr
     axs[0].set_ylabel( centrality_format + "\nGender prop. in top N", fontsize=labelsize + 2)
     
     if centrality == 'PageRank':
-        axs[0].legend(fontsize=labelsize - 10, loc='lower right').set_visible(True)
+        axs[0].legend(fontsize=labelsize - 10, loc='lower right').set_visible(False)
     else:
         axs[0].legend(fontsize=labelsize - 6, loc='lower right').set_visible(False)
     
@@ -285,7 +299,7 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
     axs[0].legend().set_visible(False)
     axs[0].set_ylim(-0.05, 1.05)
 
-    print("Full data median: {}".format(cent_df['rank_position'].median()))
+    print("Median rank position of all authors: {}".format(cent_df['rank_position'].median()))
             
     y, x = plot_group_dist(centrality_random_sample, centrality, 
                            interval_size=interval,
@@ -303,7 +317,7 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
     axs[1].set_ylabel(None)
     axs[1].legend().set_visible(False)
 
-    print("Random data median: {}".format(centrality_random_sample.merge(rank_position_df, how='left', left_on='AuthorId', right_on='AuthorId')['rank_position'].median()))
+    print("Median rank position of authors in random matching: {}".format(centrality_random_sample.merge(rank_position_df, how='left', left_on='AuthorId', right_on='AuthorId')['rank_position'].median()))
         
 
     y, x = plot_group_dist(centrality_matched_sample, centrality, 
@@ -323,11 +337,11 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
     axs[2].set_ylabel(None)
     
     if centrality == 'PageRank':
-        axs[2].legend(loc="lower right", fontsize=labelsize-5).set_visible(True)
+        axs[2].legend(loc="lower right", fontsize=labelsize-5).set_visible(False)
     else:
         axs[2].legend(loc="lower right", fontsize=labelsize-6).set_visible(False)
     # print("Matched data median: {}".format(centrality_matched_sample.join(rank_position_df, how='left', on='AuthorId', rsuffix='x')['rank_position'].median()))
-    print("Matched data median: {}".format(centrality_matched_sample.merge(rank_position_df, how='left', left_on='AuthorId', right_on='AuthorId')['rank_position'].median()))
+    print("Median rank position of authors in career and aff. matching: {}".format(centrality_matched_sample.merge(rank_position_df, how='left', left_on='AuthorId', right_on='AuthorId')['rank_position'].median()))
         
     
     plt.suptitle("Gender distribution in Top N ranking in " + r"$\bf{" +  field_name + "}$ on matched populations"
@@ -358,6 +372,101 @@ def plot_matched_side_by_side(cent_df, field_name, centrality_random_sample, cen
         plt.show()
 
 
+def compute_ks_test(mag, centrality_df, fos_id, base_filepath="/home/laal/MAG/DATA"):
+    
+    centrality_df[['AuthorId', 'Gender']].to_csv(base_filepath + "/CentralityAuthors.txt", header=False,index=False, sep="\t")
+    
+    mag.streams['CentralityAuthors'] = ('CentralityAuthors.txt', ['AuthorId:long', 'Gender:int'])
+    
+    inter_event = mag.getDataframe('InterEventPublications')
+    cent_authors = mag.getDataframe('CentralityAuthors')
+    
+    query = """
+        SELECT iep.AuthorId, ca.Gender, iep.DateDiff 
+        FROM InterEventPublications  iep
+        INNER JOIN CentralityAuthors ca ON iep.AuthorId = ca.AuthorId
+        WHERE FieldOfStudyId = {} AND PrevPaperId != CurrentPaperId
+    """.format(fos_id)
+    
+    
+    datediffs = mag.query_sql(query).toPandas()
+    women_interevent = datediffs.query("Gender == 0")['DateDiff']
+    men_interevent = datediffs.query("Gender == 1")['DateDiff']
+    
+    ks_test = ks_2samp(women_interevent.values, men_interevent.values)
+    
+    return datediffs, ks_test
+
+
+def plot_inter_event_cdf(datediffs, ks_test, field_name, filepath=None):
+    labelsize = 20
+    women_interevent = datediffs.query("Gender == 0")['DateDiff']
+    men_interevent = datediffs.query("Gender == 1")['DateDiff']
+    
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(7,5))
+
+    women_interevent.hist(cumulative=True, density=1, bins=2000, histtype='step', 
+                          linewidth=3, color="#6fc9f2", label="Women")
+
+    men_interevent.hist(cumulative=True, density=1, bins=2000, histtype='step', linewidth=3, 
+                        label="Men", color="#bd8aff")
+
+    plt.xlim(-100, 2500)
+    plt.ylim(0.0, 1.05)
+
+    title = r"$\bf{" +  field_name.replace(" ", "\ ")  + "}$" +  \
+    ":\nCDF: Number of days between consequtive publishing dates"
+    title += "\n KS statistic: {0:.3f}".format(ks_test.statistic) + ", p-value: {0:.3f}".format(ks_test.pvalue)
+    
+    plt.title(title, color='#363534')
+    plt.xlabel('Number of days', color='#363534', fontsize=labelsize)
+    plt.ylabel('Cumulative probability', color='#363534', fontsize=labelsize)
+    
+    ax.tick_params(axis='y', labelsize=labelsize)
+    ax.tick_params(axis='x', labelsize=labelsize)
+    
+    plt.legend(loc="right")
+    
+    if filepath is not None:
+        plt.savefig(filepath)
+        
+    plt.show()
+
+
+def plot_centrality_correlations(field_name, matched_data, filename=None):
+
+    fig, axs = plt.subplots(nrows=2, ncols=3, figsize=(15,8), sharex=False, sharey=False)
+    axs = list(axs.flatten())
+    
+    labelsize = 12
+    idx = 0
+    
+    matched_data['MAG Rank'] = 1 / matched_data['Rank'] 
+    
+    CENTRALITIES = ['PageRank', 'PageRank05', 'InDegreeStrength', 'MAG Rank']
+    
+    for cent1, cent2 in itertools.combinations(CENTRALITIES, r=2):
+    
+        corr = scipy.stats.pearsonr(matched_data[cent1], matched_data[cent2])
+        axs[idx].scatter(x=matched_data[cent1], y=matched_data[cent2], color="#ff8c00", alpha=0.3)
+        axs[idx].set_title("{} vs. {}".format( cent1, cent2 ) + "\n Corr = {0:.3f}, p-value=".format(corr[0]) + "{0:.3f}".format(corr[1]),
+                          color='#363534')
+        axs[idx].set_ylabel(cent2, fontsize=labelsize, color='#363534')
+        axs[idx].set_xlabel(cent1, fontsize=labelsize, color='#363534')
+        
+        axs[idx].tick_params(axis='y', labelsize=labelsize)
+        axs[idx].tick_params(axis='x', labelsize=labelsize, rotation=45)
+        
+        idx += 1
+
+
+    plt.suptitle('Centrality correlations for matched population: ' + r"$\bf{" +  field_name.replace(" ", "\ ")  + "}$", 
+                 fontsize=16, color='#363534')
+    plt.tight_layout()
+    
+    if filename is not None:
+        plt.savefig(filename)
+    plt.show()
 
 
 def plot_all_fields(centrality, interval=1000):

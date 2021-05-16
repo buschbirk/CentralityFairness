@@ -117,59 +117,6 @@ def author_metadata(mag):
   return author_metadata_df
 
 
-def author_metadata_field(mag):
-
-  author_affiliations = mag.getDataframe('PaperAuthorAffiliations')
-  authors = mag.getDataframe('WosToMag')
-  paper_root_field = mag.getDataframe('PaperRootFieldMag')
-  papers = mag.getDataframe('Papers')
-  affiliation = mag.getDataframe('Affiliations')
-
-  query = """
-  SELECT paa.AuthorId, prf.FieldOfStudyId, 
-  CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END as Gender,
-  MIN(a.Rank) as MinAffiliationRank,
-  COUNT(DISTINCT(COALESCE(paa.FamilyId, paa.PaperId))) as NumPapers,
-  MIN(p.Date) as MinPubDate,
-  MAX(p.Date) as MaxPubDate, 
-  (COUNT(DISTINCT(paa.PaperId)) / (DATEDIFF( MAX(p.Date), MIN(p.Date) ) / 365)) as PubsPerYear
-  FROM PaperAuthorAffiliations AS paa 
-  INNER JOIN WosToMag AS wtm ON paa.AuthorId = wtm.MAG 
-  INNER JOIN PaperRootFieldMag prf ON paa.PaperId = prf.PaperId
-  INNER JOIN Papers p ON p.PaperId = paa.PaperId
-  INNER JOIN Affiliations AS a ON paa.AffiliationId = a.AffiliationId
-  GROUP BY paa.AuthorId, prf.FieldOfStudyId, CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END 
-  ORDER BY paa.AuthorId
-  """
-  author_metadata_df = mag.query_sql(query)
-  return author_metadata_df
-
-def author_metadata_cross_disciplines(mag):
-
-  author_affiliations = mag.getDataframe('PaperAuthorAffiliations')
-  authors = mag.getDataframe('WosToMag')
-  paper_root_field = mag.getDataframe('PaperRootFieldMag')
-  papers = mag.getDataframe('Papers')
-  affiliation = mag.getDataframe('Affiliations')
-
-  query = """
-  SELECT paa.AuthorId,
-  CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END as Gender,
-  MIN(a.Rank) as MinAffiliationRank,
-  COUNT(DISTINCT(paa.PaperId)) as NumPapers,
-  MIN(p.Date) as MinPubDate,
-  MAX(p.Date) as MaxPubDate, 
-  (COUNT(DISTINCT(paa.PaperId)) / (DATEDIFF( MAX(p.Date), MIN(p.Date) ) / 365)) as PubsPerYear
-  FROM PaperAuthorAffiliations AS paa 
-  INNER JOIN WosToMag AS wtm ON paa.AuthorId = wtm.MAG 
-  INNER JOIN Papers p ON p.PaperId = paa.PaperId
-  INNER JOIN Affiliations AS a ON paa.AffiliationId = a.AffiliationId
-  GROUP BY paa.AuthorId, CASE WHEN wtm.Gender IN (0, 1) THEN wtm.Gender ELSE -1 END 
-  ORDER BY paa.AuthorId
-  """
-  author_metadata_df = mag.query_sql(query)
-  return author_metadata_df
-
 
 def citation_edges(mag):
 
