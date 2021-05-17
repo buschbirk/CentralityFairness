@@ -21,29 +21,30 @@ conda env create -f environment.yml
 
 ### Recommended directory structure    
 ```
-|-- CentralityFairness
-    |-- Analysis pipeline.ipynb
-    |-- Evaluations
-    |-- EVALUATIONS_OUTPUTS
-    |-- EVALUATIONS_PLOTS
-    |-- MATCHING_OUTPUTS
-    |-- environment.yml
-    |-- MAG_network.py
-    |-- MAG.py
-    |-- MAGspark.py
-    |-- matching.py
-    |-- README.md
-    |-- visualizations.py
-|-- DATA
-    |-- Affiliations.txt
-    |-- Authors.txt
-    |-- FieldsOfStudy.txt
-    |-- PaperAuthorAffiliations.txt
-    |-- PaperFieldsOfStudy.txt
-    |-- PaperReferences.txt
-    |-- Papers.txt
-    |-- WosToMag.txt
-    |-- NETWORKS
+|-- MAG
+    |-- CentralityFairness
+        |-- Analysis pipeline.ipynb
+        |-- Evaluations
+        |-- EVALUATIONS_OUTPUTS
+        |-- EVALUATIONS_PLOTS
+        |-- MATCHING_OUTPUTS
+        |-- environment.yml
+        |-- MAG_network.py
+        |-- MAG.py
+        |-- MAGspark.py
+        |-- matching.py
+        |-- README.md
+        |-- visualizations.py
+    |-- DATA
+        |-- Affiliations.txt
+        |-- Authors.txt
+        |-- FieldsOfStudy.txt
+        |-- PaperAuthorAffiliations.txt
+        |-- PaperFieldsOfStudy.txt
+        |-- PaperReferences.txt
+        |-- Papers.txt
+        |-- WosToMag.txt
+        |-- NETWORKS
 ```
 The files in the DATA repository - with the exception of `WosToMag.txt` - are downloaded from a MAG snapshot made available in an Azure Data Lake Storage environment. 
 
@@ -97,7 +98,7 @@ The full pipeline can be accessed and executed in a few lines of code. See the J
 
 **Example**:
 The following function implements the full analysis pipeline for matching experiments:  
-```
+```python
 def analysis_pipeline(mag, fos_id, fos_name, network_name, root_folder = "/home/laal/MAG/", 
                       mindate='1800-01-01', maxdate='2010-12-31', overwrite=False,
                       random_seed=11, repeat_matching=False):
@@ -161,7 +162,7 @@ def analysis_pipeline(mag, fos_id, fos_name, network_name, root_folder = "/home/
 
 
 Now the pipeline can be executed with a single function call, in this case for the discipline of Sociology:   
-```
+```python
 results_df = analysis_pipeline(mag, # mag is an instance of MicrosoftAcademicGraph
                               fos_id=144024400, 
                               fos_name="Sociology", 
