@@ -102,50 +102,73 @@ The following function implements the full analysis pipeline for matching experi
 def analysis_pipeline(mag, fos_id, fos_name, network_name, root_folder = "/home/laal/MAG/", 
                       mindate='1800-01-01', maxdate='2010-12-31', overwrite=False,
                       random_seed=11, repeat_matching=False):
+    """
+    Executes the end-to-end analysis pipeline for matching experiments for a single discipline.
+    
+    Params:
+        @mag (MicrosoftAcademicGraph): MicrosoftAcademicGraph instance with active SparkContext
+        @fos_is (int): field of study ID for discipline
+        @fos_name (str): name of discipline
+        @network_name (str): A name for the WACN. Will be stored in ../DATA/NETWORKS/
+        @root_folder (str): folderpath for the root MAG folder
+        @mindate (str): Minimum pub. date of citing or cited paper, format YYYY-MM-DD
+        @maxdate (str): Maximum pub. date of citing or cited paper, format YYYY-MM-DD
+        @overwrite (boolean): if true, overwrite existing networks with @network_name 
+                              and re-compute centrality measures
+        @random_seed (int)  : random seed used in matching experiments
+        @repeat_matching (boolean): if True, repeat matching 50 times, else execute once
+    """
     
     root_data_folder = root_folder + "DATA"
     
+    # Initialize the CitationNetwork instance of current discipline
     network = CitationNetwork(mag, fos_id=fos_id, fos_name=fos_name, root_data_folder=root_data_folder)
     
-    # extract paper references and author-auhtor citations if not done already
-    # otherwise check that they exist
+    # Extract paper references and author-auhtor citations if not done already.
+    # Discipline-specific references and citations will be stored in ../DATA/
     network.check_references_and_citations()
     
-    # store WACN. Use overwrite = True to overwrite existing network file
+    # Compute and store WACN. Use overwrite = True to overwrite existing network file
+    # Will be stored in ../DATA/NETWORKS
     network.save_author_network(network_name, mindate=mindate, maxdate=maxdate, overwrite=overwrite)
     
-    # load WACN
+    # Load WACN into spark dataframe
     network_sparkdf = network.load_author_author_network(network_name)
     
     # Get the node and edge count of current WACN 
     network_sparkdf, nodelist = network.nodelist_and_edge_count()
     
-    # build DiGraph using graph-tool
-
+    # Build DiGraph using graph-tool
     graph_output = network.build_graph(overwrite=overwrite)
     if graph_output is not None:
         graph, node_mapping, eweight = graph_output[0], graph_output[1], graph_output[2]
     
-        # compute centrality measures: 
-            # in-degree and in-strength 
-            # out-degree and out-strength 
-            # PageRank w. damping 0.85 and PageRank w. damping 0.5
+        # Compute centrality measures: 
+        # in-degree and in-strength + out-degree and out-strength 
+        # PageRank w. damping 0.85 and PageRank w. damping 0.5
         network.compute_centralities(graph, node_mapping, eweight, pr_damping=0.85, overwrite=overwrite)
     
-    # append gender attribute and MAG Rank to centrality 
+    # Append binary gender attribute and MAG Rank to centrality CSV
     centrality_csv_path = network.append_gender_and_magrank()
     
-    # load genderized centrality scores into Pandas DF
+    # Load genderized centrality scores into Pandas DF
     data = pd.read_csv(centrality_csv_path, sep="\t")
     
+    print("")
     print("INITIATING MATCHING\n")
     
     # Initialize Matcher
-    matcher = Matcher(centrality_df=data, random_seed=42, field=network.fos_name, 
-                      fos_id=network.fos_id, base_filepath=root_folder, mag=mag)
+    matcher = Matcher(centrality_df=data, 
+                      random_seed=random_seed, 
+                      field=network.fos_name, 
+                      fos_id=network.fos_id, 
+                      base_filepath=root_folder, 
+                      mag=mag)
     
+    # Load the list of authors with more than one publication in current discipline
     matcher.load_authors(folder_destination=root_data_folder + "/AuthorMetadataField.csv")
     
+    # If repeat is requested, repeat matching experiments 50 times, else only once
     if repeat_matching:
         destination = root_folder + "CentralityFairness/{}_matching_results.csv".format(fos_name.lower())
         print("Running repeated matching and storing to {}".format(destination))
@@ -154,8 +177,9 @@ def analysis_pipeline(mag, fos_id, fos_name, network_name, root_folder = "/home/
     else:
         results = matcher.cycle(random_seed, visualize=True, verbose=True)
     
+    # Store results in Pandas DF and return
     results_df = pd.DataFrame.from_records(results)    
-    print("Finished analysis pipeline XOXO")
+    print("Finished analysis pipeline")
         
     return results_df
 ```   
