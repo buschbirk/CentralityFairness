@@ -19,6 +19,34 @@ Install Python requirements using Anaconda:
 conda env create -f environment.yml
 ``` 
 
+### Recommended directory structure    
+```
+|-- CentralityFairness
+    |-- Analysis pipeline.ipynb
+    |-- Evaluations
+    |-- EVALUATIONS_OUTPUTS
+    |-- EVALUATIONS_PLOTS
+    |-- MATCHING_OUTPUTS
+    |-- environment.yml
+    |-- MAG_network.py
+    |-- MAG.py
+    |-- MAGspark.py
+    |-- matching.py
+    |-- README.md
+    |-- visualizations.py
+|-- DATA
+    |-- Affiliations.txt
+    |-- Authors.txt
+    |-- FieldsOfStudy.txt
+    |-- PaperAuthorAffiliations.txt
+    |-- PaperFieldsOfStudy.txt
+    |-- PaperReferences.txt
+    |-- Papers.txt
+    |-- WosToMag.txt
+    |-- NETWORKS
+```
+The files in the DATA repository - with the exception of `WosToMag.txt` - are downloaded from a MAG snapshot made available in an Azure Data Lake Storage environment. 
+
 ### Computational infrastructure
 Several of the files in the MAG dataset are 40+ gb of size. As such it is not feasible to hold the data required in these experiments in memory on a single machine. Spark is incredibly well-suited for exactly this scenario, as it automatically schedules and distributes the required access to files onto any number of available machines. Spark also enables our analysis to be executed on a single machine, although this will be significantly slower than a distributed setup. 
 
@@ -53,8 +81,8 @@ See *Analysis pipeline* for further details.
 Located in `matching.py`, this class implements matching experiments on ranked lists of authors as described in the thesis' section 3. 
 The Matcher class evaluates fairness on ranked list of authors selected from:  
 1. The full list of genderized authors with more than 1 publication during their career
-2. A subset of 1. where authors are selected by randomly matching every person from the smallest group with one person from the largest group. 
-3. A subset of 1. where authors are matched on the first year of publication within a discipline, the last year of publication within a discipline as well as a bin of their best-ranked affiliation according to the affiliation MAG Rank.  
+2. The list of authors selected by randomly matching every person from the smallest group with one person from the largest group. 
+3. The list of authors matched on the first year of publication within a discipline, the last year of publication within a discipline as well as a bin of their best-ranked affiliation according to the affiliation MAG Rank.  
 The class allows for experiments to be repeated (by default 50 times) and stored to file. It also stores ranking visualizations if requested.  
 
 **Evaluator**   
