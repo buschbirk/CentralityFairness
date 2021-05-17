@@ -17,8 +17,7 @@ module load Anaconda3
 . $(conda info --base)/etc/profile.d/conda.sh
 conda activate torchenv
 
-python /home/laal/MAG/CentralityFairness/clusterscript.py
+python /home/laal/MAG/CentralityFairness/MISC/clusterscript.py
 
 conda deactivate
 
-##### #SBATCH --mem-per-cpu=8000
