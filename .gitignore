@@ -8,7 +8,7 @@ MAG_FILES/CitationsByDisciplineAndYear*
 MATCHING_OUTPUTS/*
 JOB_OUTPUTS/*.out
 EVALUATIONS_OUTPUTS/job.*.out
-NOTEBOOKS/*
+NOTEBOOK/*
 
 __pycache__/*
 Evaluations/__pycache__/*
