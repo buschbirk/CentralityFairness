@@ -1,6 +1,6 @@
 import os
 import time
-from .sparkjob import SparkJob
+from sparkjob import SparkJob
 import re
 import subprocess
 import logging
