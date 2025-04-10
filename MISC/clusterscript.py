@@ -11,7 +11,7 @@ os.environ['LOCAL_DIRS']=os.environ['SPARK_LOCAL_DIRS']
 os.environ['SPARK_WORKER_DIR']=os.path.join(os.environ['SPARK_LOCAL_DIRS'], 'work')
 os.environ["JAVA_HOME"] = "/home/laal/jdk-9.0.4"
 
-import sparkhpc
+import sparkjob
 
 sparkjob.start_cluster('20000M', 
                        cores_per_executor=4, 
