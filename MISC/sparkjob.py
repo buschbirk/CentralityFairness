@@ -643,8 +643,8 @@ def start_cluster(memory, cores_per_executor=1, timeout=30, spark_home=None):
     outfile.close()
 
 
-from .lsfsparkjob import LSFSparkJob
-from .slurmsparkjob import SLURMSparkJob
+from lsfsparkjob import LSFSparkJob
+from slurmsparkjob import SLURMSparkJob
 
 templates = {LSFSparkJob: 'sparkjob.lsf.template', SLURMSparkJob: 'sparkjob.slurm.template'}
 _sparkjob_registry = {'lsf': LSFSparkJob, 'slurm': SLURMSparkJob}
